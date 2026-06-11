@@ -1,0 +1,20 @@
+{
+  "name": "RideForge",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:backend": "npm --workspace=apps/backend run dev",
+    "dev:rider": "npm --workspace=apps/rider-app run dev",
+    "dev:driver": "npm --workspace=apps/driver-app run dev",
+    "dev:admin": "npm --workspace=apps/admin-dashboard run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:rider\" \"npm run dev:driver\" \"npm run dev:admin\"",
+    "build:shared": "npm --workspace=packages/shared run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
