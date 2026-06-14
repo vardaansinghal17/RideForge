@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { UnauthorizedError, ForbiddenError } from '../config/errors';
-import { Role } from '@uber-clone/shared';
+import { Role } from "@RideForge/shared";
 
 export interface AuthRequest extends Request {
   user?: { id: string; role: Role };
