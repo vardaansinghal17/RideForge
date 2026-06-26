@@ -29,9 +29,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       socket.join(rooms.riderPersonal(socket.userId));
     }
 
-    // ════════════════════════════════════════════════════════
-    // RIDER: Request a ride
-    // ════════════════════════════════════════════════════════
     socket.on('ride:request', async (data) => {
       try {
         if (socket.userRole !== 'RIDER') {
@@ -69,7 +66,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         socket.join(rooms.ridePersonal(ride.id));
         socket.emit('ride:created', ride);
 
-        // Find nearby drivers, sorted nearest-first
         const nearbyDrivers = await matchingService.findNearbyDrivers(
           data.pickupLat, data.pickupLng
         );
@@ -79,7 +75,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           return socket.emit('ride:no_driver');
         }
 
-        // Build the candidate queue (try drivers one by one, nearest first)
         const candidateQueue = matchingService.buildCandidateQueue(nearbyDrivers);
 
         rideRequestTracker.add(ride.id, {
@@ -89,7 +84,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           candidateQueue,
         });
 
-        // Offer to the first (nearest) driver
         offerRideToNextDriver(io, ride.id);
       } catch (err: any) {
         logger.error('ride:request failed', { error: err.message });
@@ -97,9 +91,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       }
     });
 
-    // ════════════════════════════════════════════════════════
-    // DRIVER: Accept ride
-    // ════════════════════════════════════════════════════════
     socket.on('ride:accept', async ({ rideId }) => {
       try {
         if (socket.userRole !== 'DRIVER') {
@@ -111,14 +102,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (!driver) return socket.emit('error', { message: 'Driver profile not found' });
 
-        // Atomic accept — prevents two drivers winning the same ride
         const won = await matchingService.acceptRide(rideId, driver.id);
 
         if (!won) {
           return socket.emit('ride:already_taken');
         }
 
-        // Stop offering this ride to other drivers
         rideRequestTracker.remove(rideId);
 
         socket.join(rooms.ridePersonal(rideId));
@@ -135,7 +124,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           [rideId]
         );
 
-        // Notify everyone in the ride room (rider + driver)
         io.to(rooms.ridePersonal(rideId)).emit('ride:accepted', {
           ride: fullRide,
           driver: fullRide,
@@ -148,18 +136,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       }
     });
 
-    // ════════════════════════════════════════════════════════
-    // DRIVER: Reject ride (manually decline the offer)
-    // ════════════════════════════════════════════════════════
     socket.on('ride:reject', async ({ rideId }) => {
       if (socket.userRole !== 'DRIVER') return;
       logger.info(`Driver ${socket.userId} rejected ride ${rideId}`);
       tryNextDriver(io, rideId);
     });
 
-    // ════════════════════════════════════════════════════════
-    // DRIVER: Update ride status (ARRIVED → IN_PROGRESS → COMPLETED)
-    // ════════════════════════════════════════════════════════
     socket.on('ride:status', async ({ rideId, status }) => {
       try {
         if (socket.userRole !== 'DRIVER') {
@@ -200,7 +182,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           rideId, status: status as RideStatus,
         });
 
-        // If completed, free both parties from the ride room
         if (status === 'COMPLETED') {
           io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
         }
@@ -212,9 +193,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       }
     });
 
-    // ════════════════════════════════════════════════════════
-    // RIDER: Cancel ride (only while REQUESTED or ACCEPTED)
-    // ════════════════════════════════════════════════════════
     socket.on('ride:cancel', async ({ rideId }) => {
       try {
         const ride = await getOne<{ status: RideStatus; rider_id: string }>(
@@ -249,9 +227,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       }
     });
 
-    // ════════════════════════════════════════════════════════
-    // DRIVER: Live location broadcast (sent every ~3 seconds)
-    // ════════════════════════════════════════════════════════
     socket.on('driver:location', async ({ lat, lng, rideId }) => {
       try {
         if (socket.userRole !== 'DRIVER') return;
@@ -267,19 +242,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
       }
     });
 
-    // ════════════════════════════════════════════════════════
-    // Disconnect cleanup
-    // ════════════════════════════════════════════════════════
     socket.on('disconnect', () => {
       logger.info(`Socket disconnected: ${socket.userId}`);
     });
   });
 }
 
-// ──────────────────────────────────────────────────────────────
-// Offer the ride to the next driver in the candidate queue.
-// If no response within DRIVER_OFFER_TIMEOUT_MS, auto-advance.
-// ──────────────────────────────────────────────────────────────
 function offerRideToNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
   rideId: string
@@ -310,7 +278,6 @@ function offerRideToNextDriver(
     logger.info(`Offered ride ${rideId} to driver ${driverUserId}`);
   });
 
-  // Set timeout — if driver doesn't respond, move to next candidate
   const timeoutHandle = setTimeout(() => {
     logger.info(`Driver ${driverUserId} timed out on ride ${rideId}`);
     tryNextDriver(io, rideId);
@@ -325,7 +292,6 @@ function tryNextDriver(
 ) {
   rideRequestTracker.clearTimeout(rideId);
 
-  // Check the ride wasn't already accepted by someone else through a race
   getOne<{ status: string }>(`SELECT status FROM rides WHERE id = $1`, [rideId])
     .then(ride => {
       if (!ride || ride.status !== 'REQUESTED') return; // already accepted/cancelled
