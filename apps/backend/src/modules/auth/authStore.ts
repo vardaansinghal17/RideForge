@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { AuthTokens, User } from '@uber-clone/shared';
-import { api } from '../lib/axios';
+import type { AuthTokens, User } from '@RideForge/shared';
+import { api } from '../../lib/axios';
 
 interface AuthState {
   accessToken: string | null;

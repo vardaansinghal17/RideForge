@@ -1,7 +1,7 @@
 import { getOne, getMany, query } from '../../db/query';
 import { AppError, NotFoundError, ForbiddenError } from '../../config/errors';
 import { PricingService } from '../pricing/pricing.service';
-import type { Ride, RideStatus } from '@uber-clone/shared';
+import type { Ride, RideStatus } from '@RideForge/shared';
 
 const pricingService = new PricingService();
 

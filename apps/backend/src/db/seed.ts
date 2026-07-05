@@ -9,14 +9,14 @@ async function seed() {
     const adminHash = await bcrypt.hash('admin123', 12);
     const userHash  = await bcrypt.hash('password123', 12);
 
-    // Admin
+    
     const admin = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'ADMIN') ON CONFLICT (phone) DO NOTHING RETURNING id`,
       ['Admin User', 'admin@uber.com', '9999999999', adminHash]
     );
 
-    // Rider
+  
     const rider = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'RIDER') ON CONFLICT (phone) DO NOTHING RETURNING id`,
@@ -29,7 +29,7 @@ async function seed() {
       );
     }
 
-    // Driver
+    
     const driver = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'DRIVER') ON CONFLICT (phone) DO NOTHING RETURNING id`,

@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@uber-c/shared": ["../../packages/shared/src/index.ts"]
+      "@RideForge/shared": ["../../packages/shared/src/index.ts"]
     }
   },
   "include": ["src"],

@@ -6,7 +6,7 @@ import {
   registerValidator,
   loginValidator,
   refreshValidator,
-} from './auth.validators';
+} from './auth.validator';
 
 const router = Router();
 const authService = new AuthService();

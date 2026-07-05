@@ -1,6 +1,6 @@
 import { getOne, getMany, query } from '../../db/query';
 import { AppError, NotFoundError, ConflictError } from '../../config/errors';
-import type { RideStatus } from '@uber-clone/shared';
+import type { RideStatus } from '@RideForge/shared';
 
 interface RegisterVehicleDto {
   make: string;

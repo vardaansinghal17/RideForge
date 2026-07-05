@@ -6,10 +6,8 @@ async function migrate() {
   try {
     await client.query('BEGIN');
 
-    // ── Extensions ───────────────────────────────────────────
     await client.query(`CREATE EXTENSION IF NOT EXISTS "pgcrypto";`);
 
-    // ── Enums ────────────────────────────────────────────────
     await client.query(`
       DO $$ BEGIN
         CREATE TYPE user_role AS ENUM ('RIDER', 'DRIVER', 'ADMIN');
@@ -50,7 +48,6 @@ async function migrate() {
       END $$;
     `);
 
-    // ── Users ────────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
         id            TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -65,7 +62,6 @@ async function migrate() {
       );
     `);
 
-    // ── Refresh Tokens ───────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS refresh_tokens (
         id         TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -76,7 +72,6 @@ async function migrate() {
       );
     `);
 
-    // ── Riders ───────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS riders (
         id         TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -87,7 +82,6 @@ async function migrate() {
       );
     `);
 
-    // ── Drivers ──────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS drivers (
         id           TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -104,7 +98,6 @@ async function migrate() {
       );
     `);
 
-    // ── Vehicles ─────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS vehicles (
         id           TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -119,7 +112,6 @@ async function migrate() {
       );
     `);
 
-    // ── Rides ────────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS rides (
         id              TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -147,7 +139,6 @@ async function migrate() {
       );
     `);
 
-    // ── Payments ─────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS payments (
         id         TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -160,7 +151,6 @@ async function migrate() {
       );
     `);
 
-    // ── Ratings ──────────────────────────────────────────────
     await client.query(`
       CREATE TABLE IF NOT EXISTS ratings (
         id            TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -172,7 +162,6 @@ async function migrate() {
       );
     `);
 
-    // ── Indexes ──────────────────────────────────────────────
     await client.query(`CREATE INDEX IF NOT EXISTS idx_rides_rider_id    ON rides(rider_id);`);
     await client.query(`CREATE INDEX IF NOT EXISTS idx_rides_driver_id   ON rides(driver_id);`);
     await client.query(`CREATE INDEX IF NOT EXISTS idx_rides_status      ON rides(status);`);
@@ -180,7 +169,6 @@ async function migrate() {
     await client.query(`CREATE INDEX IF NOT EXISTS idx_refresh_tokens    ON refresh_tokens(token);`);
     await client.query(`CREATE INDEX IF NOT EXISTS idx_rides_requested   ON rides(requested_at DESC);`);
 
-    // ── updated_at trigger ───────────────────────────────────
     await client.query(`
       CREATE OR REPLACE FUNCTION update_updated_at()
       RETURNS TRIGGER AS $$

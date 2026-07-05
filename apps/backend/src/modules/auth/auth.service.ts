@@ -7,7 +7,7 @@ import {
   UnauthorizedError,
   AppError,
 } from '../../config/errors';
-import type { Role, AuthTokens } from '@uber-clone/shared';
+import type { Role, AuthTokens } from '@RideForge/shared';
 
 interface RegisterDto {
   name: string;
@@ -131,8 +131,8 @@ export class AuthService {
     const payload = { sub: user.id, role: user.role };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: process.env.JWT_EXPIRES_IN || '15m',
-    });
+  expiresIn: "15m",
+});
 
     const refreshToken = crypto.randomBytes(64).toString('hex');
 
