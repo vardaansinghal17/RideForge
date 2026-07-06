@@ -6,7 +6,7 @@ import rateLimit from 'express-rate-limit';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import type { ServerToClientEvents, ClientToServerEvents } from '@RideForge/shared';
-
+import { ratingsRouter } from './modules/ratings/ratings.routes';
 import { errorHandler, notFoundHandler } from './middleware/error.middleware';
 import { logger } from './config/logger';
 
@@ -53,6 +53,7 @@ app.use('/api/rides',    ridesRouter);
 app.use('/api/drivers',  driversRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/admin',    adminRouter);
+app.use('/api/ratings', ratingsRouter);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
