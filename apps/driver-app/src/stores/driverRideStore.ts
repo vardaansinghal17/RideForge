@@ -3,14 +3,16 @@ import { io, Socket } from 'socket.io-client';
 import type {
   Ride, RideStatus,
   ClientToServerEvents, ServerToClientEvents,
-} from '@uber-clone/shared';
+} from '@RideForge/shared';
 
 type AppSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
 interface IncomingRide extends Ride {
-  rider_name: string;
-  rider_phone: string;
-  rider_rating: number;
+    rider: {
+        name: string;
+        phone: string;
+        rating: number;
+    };
 }
 
 interface DriverRideStore {

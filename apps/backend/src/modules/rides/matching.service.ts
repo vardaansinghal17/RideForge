@@ -22,6 +22,12 @@ interface MatchResult {
   distanceKm: number;
   etaMinutes: number;
 }
+interface RideCompletionRow {
+  id: string;
+  driver_id: string;
+  rider_id: string;
+  estimated_fare: number;
+}
 
 export class MatchingService {
   private readonly SEARCH_RADIUS_KM = 5;
@@ -124,7 +130,7 @@ export class MatchingService {
 
     const extraUpdates = timeColumns[newStatus];
 
-    const result = await query(
+    const result = await query<RideCompletionRow>(
       `UPDATE rides
        SET status = $1, ${extraUpdates}
        WHERE id = $2 AND driver_id = $3
