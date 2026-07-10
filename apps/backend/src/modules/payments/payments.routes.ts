@@ -57,6 +57,7 @@ router.patch(
   }
 );
 
+//admin only
 router.get(
   '/',
   requireRole('ADMIN'),
