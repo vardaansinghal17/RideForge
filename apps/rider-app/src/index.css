@@ -2,14 +2,194 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
+:root {
+  /* Backgrounds */
+  --rx-bg:            #F8F9FA; /* Premium soft silver/off-white */
+  --rx-bg-2:          #FFFFFF; /* Pure white */
+  --rx-bg-3:          #E2E8F0; /* Soft border/divider gray */
+
+  /* Glass surfaces */
+  --rx-glass:         rgba(255, 255, 255, 0.70); /* Semi-transparent white */
+  --rx-glass-strong:  rgba(255, 255, 255, 0.85); /* Stronger glass */
+  --rx-glass-border:  rgba(255, 255, 255, 0.45); /* Soft white border */
+  --rx-glass-hover:   rgba(255, 255, 255, 0.85);
+  --rx-glass-inner:   inset 0 1px 0 rgba(255, 255, 255, 0.90);
+  
+  /* Sheet styling variables */
+  --rx-sheet-bg:      rgba(255, 255, 255, 0.82);
+  --rx-sheet-border:  rgba(0, 0, 0, 0.05);
+  --rx-sheet-shadow:  0 -8px 42px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+  /* Accent — Slate/Black (Book button etc) & Coral Orange (Map lines/pulser) */
+  --rx-blue:          #111827; /* Charcoal/Rich black button color */
+  --rx-blue-dim:      rgba(17, 24, 39, 0.08);
+  --rx-blue-glow:     rgba(17, 24, 39, 0.12);
+  --rx-blue-border:   rgba(17, 24, 39, 0.15);
+
+  /* Semantic colors */
+  --rx-green:         #10B981;
+  --rx-green-dim:     rgba(16, 185, 129, 0.12);
+  --rx-orange:        #EA580C;
+  --rx-orange-dim:    rgba(234, 88, 12, 0.12);
+  --rx-red:           #EF4444;
+  --rx-red-dim:       rgba(239, 68, 68, 0.10);
+
+  /* Text - Slate variants for premium light theme contrast */
+  --rx-text:          #0F172A; /* Slate 900 */
+  --rx-text-2:        #475569; /* Slate 600 */
+  --rx-text-3:        #94A3B8; /* Slate 400 */
+  --rx-text-4:        #CBD5E1; /* Slate 300 */
+
+  /* Borders */
+  --rx-border:        rgba(15, 23, 42, 0.06);
+  --rx-border-2:      rgba(15, 23, 42, 0.12);
+}
+
+body {
+  background: var(--rx-bg);
+  color: var(--rx-text);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+/* Glass card — apply this class to every floating card */
+.glass-card {
+  background: var(--rx-glass);
+  border: 1px solid var(--rx-glass-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    var(--rx-glass-inner),
+    0 8px 32px rgba(15, 23, 42, 0.05);
+  border-radius: 20px;
+}
+
+/* Glass card — stronger variant for important surfaces */
+.glass-card-strong {
+  background: var(--rx-glass-strong);
+  border: 1px solid var(--rx-glass-border);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow:
+    var(--rx-glass-inner),
+    0 12px 40px rgba(15, 23, 42, 0.07);
+  border-radius: 20px;
+}
+
+/* Premium Button (Charcoal/Black style instead of plain blue) */
+.btn-blue {
+  background: var(--rx-blue);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  height: 54px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px var(--rx-blue-glow);
+}
+.btn-blue:hover {
+  background: #E54E18;
+  box-shadow: 0 6px 28px rgba(255, 90, 31, 0.35);
+  transform: translateY(-1px);
+}
+.btn-blue:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px rgba(255, 90, 31, 0.25);
+}
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent;
+  color: var(--rx-text);
+  border: 1px solid var(--rx-border-2);
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 15px;
+  height: 54px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  backdrop-filter: blur(12px);
+}
+.btn-ghost:hover {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: var(--rx-text-4);
+}
+
+/* Glass input */
+.glass-input {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  border-radius: 12px;
+  color: var(--rx-text);
+  font-size: 15px;
+  height: 52px;
+  padding: 0 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+.glass-input.has-left-icon {
+  padding-left: 44px !important;
+}
+.glass-input.has-right-icon {
+  padding-right: 85px !important;
+}
+.glass-input::placeholder {
+  color: var(--rx-text-3);
+}
+.glass-input:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Bottom sheet handle */
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--rx-text-4);
+  border-radius: 9999px;
+  margin: 12px auto 8px;
+}
+
+/* Pulsing driver marker (Orange/Coral Glow) */
+@keyframes driverPulse {
+  0%   { transform: scale(1);   opacity: 0.9; box-shadow: 0 0 0 0px rgba(255,90,31,0.5); }
+  60%  { transform: scale(2.8); opacity: 0;   box-shadow: 0 0 0 14px rgba(255,90,31,0); }
+  100% { transform: scale(1);   opacity: 0;   box-shadow: 0 0 0 0px rgba(255,90,31,0); }
+}
+
+/* Fare bar animation */
+@keyframes barGrow {
+  from { width: 0; }
+  to   { width: var(--bar-width); }
+}
+
+/* Page fade-up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-up {
+  animation: fadeUp 0.35s ease forwards;
+}
+
+/* Scrollbar styling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Leaflet Container Z-Index Override */
+.leaflet-container {
+  z-index: 0 !important;
 }

@@ -15,3 +15,55 @@
 [2026-07-09 13:26:09] [32minfo[39m: Ride efaa481e-e9b5-43c5-8b0e-070ecf7d6e03 accepted by driver e652b06d-e3b2-46be-a723-48f6a338af04
 [2026-07-09 13:27:08] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
 [2026-07-09 13:27:08] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-10 17:17:36] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-10 17:17:36] [32minfo[39m: 🌍 Environment: development
+[2026-07-11 12:43:50] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-11 12:43:50] [32minfo[39m: 🌍 Environment: development
+[2026-07-11 13:08:08] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:08:51] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:11:02] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:11:04] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:11:07] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:14:23] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:24:08] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:25:50] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:26:04] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:26:26] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:26:29] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:26:40] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:27:05] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:29:19] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:30:29] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:34:04] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 13:36:51] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 13:36:51] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:36:55] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 13:36:59] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:38:27] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:54:26] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:58:38] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:58:39] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 13:58:40] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 13:59:25] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 13:59:26] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 14:00:46] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 14:00:48] [32minfo[39m: Socket connected: c753a530-1732-4bda-ad34-c818ab52904b (RIDER)
+[2026-07-11 14:04:10] [32minfo[39m: Socket disconnected: c753a530-1732-4bda-ad34-c818ab52904b
+[2026-07-11 14:12:38] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-11 14:14:46] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-11 14:14:49] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-11 14:21:28] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-11 14:21:31] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-11 14:22:25] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-11 14:22:44] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-11 14:37:30] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-11 14:41:32] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 14:42:50] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 14:46:38] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 14:46:38] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 14:46:38] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 14:47:11] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 14:47:16] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-11 15:26:27] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 15:26:28] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-11 15:26:29] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
