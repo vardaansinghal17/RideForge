@@ -10,6 +10,11 @@ import HomePage from './pages/HomePage';
 import RideFlowPage from './pages/RideFlowPage';
 import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
+import FareEstimatePage from './pages/FareEstimatePage';
+import SearchingDriverPage from './pages/SearchingDriverPage';
+import ActiveRidePage from './pages/ActiveRidePage';
+import RideCompletePage from './pages/RideCompletePage';
+import RatingPage from './pages/RatingPage';
 
 // Create React Query Client
 const queryClient = new QueryClient({
@@ -36,6 +41,11 @@ export default function App() {
             <Route path="/ride" element={<RideFlowPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/fare-estimate" element={<FareEstimatePage />} />
+            <Route path="/searching" element={<SearchingDriverPage />} />
+            <Route path="/active-ride" element={<ActiveRidePage />} />
+            <Route path="/ride-complete" element={<RideCompletePage />} />
+            <Route path="/rate/:rideId" element={<RatingPage />} />
           </Route>
 
           {/* Fallback Redirect */}

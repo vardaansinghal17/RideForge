@@ -159,8 +159,8 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         if (!driver) return authSocket.emit('error', { message: 'Driver profile not found' });
 
         const validTransitions: Record<string, RideStatus[]> = {
-          ACCEPTED:    ['ARRIVED'],
-          ARRIVED:     ['IN_PROGRESS'],
+          ACCEPTED: ['ARRIVED'],
+          ARRIVED: ['IN_PROGRESS'],
           IN_PROGRESS: ['COMPLETED'],
         };
 

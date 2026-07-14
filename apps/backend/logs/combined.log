@@ -67,3 +67,243 @@
 [2026-07-11 15:26:27] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
 [2026-07-11 15:26:28] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
 [2026-07-11 15:26:29] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-12 22:55:47] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-12 22:55:47] [32minfo[39m: 🌍 Environment: development
+[2026-07-12 22:58:07] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-12 22:58:07] [32minfo[39m: 🌍 Environment: development
+[2026-07-12 22:58:55] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-12 22:58:55] [32minfo[39m: 🌍 Environment: development
+[2026-07-12 22:58:57] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-12 23:02:09] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:07:19] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-12 23:07:22] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:08:26] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-12 23:08:45] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:11:09] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-12 23:11:12] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:15:00] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-12 23:28:48] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-12 23:28:48] [32minfo[39m: 🌍 Environment: development
+[2026-07-12 23:45:34] [32minfo[39m: Socket connected: 30f6e432-24ec-4402-91c8-347467fd90b6 (RIDER)
+[2026-07-12 23:45:48] [32minfo[39m: Socket disconnected: 30f6e432-24ec-4402-91c8-347467fd90b6
+[2026-07-12 23:54:49] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:54:49] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:59:19] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:59:19] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-12 23:59:20] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-12 23:59:20] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:02:22] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:02:22] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:02:48] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:02:48] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:02:55] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:02:55] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:02:57] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:02:57] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:02:57] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:02:57] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:03:05] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:03:05] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:03:25] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:03:25] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:03:40] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:03:40] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:05:56] [32minfo[39m: Ride efaa481e-e9b5-43c5-8b0e-070ecf7d6e03 cancelled
+[2026-07-13 00:06:02] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:06:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:06:30] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:06:30] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:08:18] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:08:18] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:08:21] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:08:21] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:08:45] [32minfo[39m: Offered ride 3e933e4f-fbca-4a2b-9dbf-70b8a44f48f9 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-13 00:09:00] [32minfo[39m: Driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3 timed out on ride 3e933e4f-fbca-4a2b-9dbf-70b8a44f48f9
+[2026-07-13 00:09:00] [32minfo[39m: No driver found for ride 3e933e4f-fbca-4a2b-9dbf-70b8a44f48f9 after exhausting queue
+[2026-07-13 00:12:43] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:20:09] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:20:09] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:20:09] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:25:41] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:25:42] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:25:43] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:25:43] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:25:45] [32minfo[39m: Offered ride d35c911c-e4a2-4b20-a851-125574188732 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-13 00:26:00] [32minfo[39m: Driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3 timed out on ride d35c911c-e4a2-4b20-a851-125574188732
+[2026-07-13 00:26:00] [32minfo[39m: No driver found for ride d35c911c-e4a2-4b20-a851-125574188732 after exhausting queue
+[2026-07-13 00:30:14] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:41:00] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:41:01] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:41:01] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:42:02] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:42:02] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:42:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:42:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:44:39] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:44:39] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:44:39] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:44:39] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:45:03] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:45:03] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-13 00:45:03] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:45:03] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:47:33] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 00:47:33] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-13 23:14:49] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-13 23:14:49] [32minfo[39m: 🌍 Environment: development
+[2026-07-13 23:24:20] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:24:20] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:24:21] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:24:21] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:24:24] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:24:24] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:25:49] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:25:49] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:25:49] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:25:49] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:25:53] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:25:53] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:25:53] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:25:53] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:26:33] [32minfo[39m: Offered ride 1be22bf2-f37c-4ed0-b158-89c3457d16c2 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-13 23:26:38] [32minfo[39m: Ride 1be22bf2-f37c-4ed0-b158-89c3457d16c2 cancelled
+[2026-07-13 23:26:46] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-13 23:26:46] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-13 23:36:46] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:36:46] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:36:48] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-13 23:36:48] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-13 23:36:48] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-13 23:36:48] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-13 23:36:52] [32minfo[39m: Offered ride 61fbe170-2d2d-4b26-b260-ca07717e1d24 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-13 23:37:06] [32minfo[39m: Ride 61fbe170-2d2d-4b26-b260-ca07717e1d24 cancelled
+[2026-07-14 00:06:07] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:06:07] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:48] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:48] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:48] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:48] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:50] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:50] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:50] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:50] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:51] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:51] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:51] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:51] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:51] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:51] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:07:51] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:07:51] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:08:06] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:08:06] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:08:06] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:08:06] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:16] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:16] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:16] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:16] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:17] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:17] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:17] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:17] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:17] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:09:18] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:09:18] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:11:15] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:11:15] [32minfo[39m: Socket disconnected: c0ced4f7-4709-4d76-85da-cb74af081d86
+[2026-07-14 00:11:15] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:11:15] [32minfo[39m: Socket connected: c0ced4f7-4709-4d76-85da-cb74af081d86 (DRIVER)
+[2026-07-14 00:12:29] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 00:12:29] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 00:38:02] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 00:38:02] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 00:47:28] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 00:47:28] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 00:49:57] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getRides (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:251:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:89:22","path":"/api/admin/rides"}
+[2026-07-14 00:49:59] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getRides (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:251:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:89:22","path":"/api/admin/rides"}
+[2026-07-14 00:50:10] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getDrivers (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:184:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:53:22","path":"/api/admin/drivers"}
+[2026-07-14 00:50:11] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getDrivers (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:184:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:53:22","path":"/api/admin/drivers"}
+[2026-07-14 00:50:12] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getDrivers (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:184:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:53:22","path":"/api/admin/drivers"}
+[2026-07-14 00:50:13] [31merror[39m: Unhandled error {"err":"could not determine data type of parameter $1","stack":"error: could not determine data type of parameter $1\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async AdminService.getDrivers (D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.service.ts:184:25)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\admin\\admin.routes.ts:53:22","path":"/api/admin/drivers"}
+[2026-07-14 00:56:36] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 00:56:36] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 00:56:41] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 00:56:41] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:00:33] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:00:33] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:05:01] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:05:01] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:07:48] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:07:48] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:08:46] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:08:46] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:08:47] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:08:47] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:11:58] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:11:58] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:12:31] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:12:31] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:12:41] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:12:42] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:13:53] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 01:13:53] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 01:15:21] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 01:15:21] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 01:15:23] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:15:23] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:15:53] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 01:15:53] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 01:15:53] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:15:53] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:16:22] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-14 01:16:22] [32minfo[39m: 🌍 Environment: development
+[2026-07-14 01:16:26] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:16:27] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:17:20] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:17:20] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:17:37] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:17:37] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:18:14] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:18:14] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:19:06] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:19:06] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:19:07] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:19:08] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:19:16] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:19:16] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:19:51] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:19:51] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:20:09] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:39:15] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:39:16] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:39:16] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:39:21] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-14 01:39:21] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-14 01:39:21] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:39:21] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:40:26] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-14 01:40:26] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-14 01:40:26] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:40:26] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:45:07] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:45:07] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-14 01:45:07] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:45:07] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 01:45:09] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:45:09] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-14 01:51:01] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 01:51:01] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 02:26:49] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-14 02:26:49] [32minfo[39m: Socket connected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a (RIDER)
+[2026-07-14 02:26:49] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 02:26:49] [32minfo[39m: Socket connected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab (RIDER)
+[2026-07-14 06:27:38] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-14 06:27:38] [32minfo[39m: Socket disconnected: d96d381b-0d8b-4f2c-87eb-e170ce22f12a
+[2026-07-14 06:27:38] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab
+[2026-07-14 06:27:38] [32minfo[39m: Socket disconnected: 51bac3f7-13b5-48d4-afd8-b06f9f28d9ab

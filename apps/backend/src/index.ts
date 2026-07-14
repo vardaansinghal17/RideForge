@@ -26,6 +26,8 @@ export const io = new Server<ClientToServerEvents, ServerToClientEvents>(httpSer
       process.env.RIDER_APP_URL  || 'http://localhost:5173',
       process.env.DRIVER_APP_URL || 'http://localhost:5174',
       process.env.ADMIN_URL      || 'http://localhost:5175',
+      'http://localhost:5175',
+      'http://localhost:5176',
     ],
     credentials: true,
   },
@@ -37,6 +39,8 @@ app.use(cors({
     process.env.RIDER_APP_URL  || 'http://localhost:5173',
     process.env.DRIVER_APP_URL || 'http://localhost:5174',
     process.env.ADMIN_URL      || 'http://localhost:5175',
+    'http://localhost:5175',
+    'http://localhost:5176',
   ],
   credentials: true,
 }));

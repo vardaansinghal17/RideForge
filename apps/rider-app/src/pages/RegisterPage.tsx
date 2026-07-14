@@ -212,7 +212,8 @@ export default function RegisterPage() {
                 />
               </svg>
               <span className="text-xs text-[var(--rx-red)] font-medium leading-relaxed">
-                {validationError || error}
+                {validationError ||
+                  (typeof error === 'string' ? error : JSON.stringify(error))}
               </span>
             </div>
           )}

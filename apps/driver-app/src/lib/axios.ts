@@ -1,4 +1,5 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance } from 'axios';
 
 let isRefreshing = false;
 let failedQueue: Array<{
@@ -18,11 +19,11 @@ export const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use((config) => {
   try {
-    const raw = localStorage.getItem('rider-auth');
+    const raw = localStorage.getItem('driver-auth');
     const state = raw ? JSON.parse(raw) : null;
     const token = state?.state?.accessToken;
     if (token) config.headers.Authorization = `Bearer ${token}`;
-  } catch {}
+  } catch { /* ignore */ }
   return config;
 });
 
@@ -47,7 +48,7 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const raw = localStorage.getItem('rider-auth');
+      const raw = localStorage.getItem('driver-auth');
       const state = raw ? JSON.parse(raw) : null;
       const refreshToken = state?.state?.refreshToken;
 
@@ -65,7 +66,7 @@ api.interceptors.response.use(
         const parsed = JSON.parse(raw);
         parsed.state.accessToken = newToken;
         parsed.state.refreshToken = newRefresh;
-        localStorage.setItem('rider-auth', JSON.stringify(parsed));
+        localStorage.setItem('driver-auth', JSON.stringify(parsed));
       }
 
       processQueue(null, newToken);
@@ -73,7 +74,7 @@ api.interceptors.response.use(
       return api(original);
     } catch (err) {
       processQueue(err, null);
-      localStorage.removeItem('rider-auth');
+      localStorage.removeItem('driver-auth');
       window.location.href = '/login';
       return Promise.reject(err);
     } finally {

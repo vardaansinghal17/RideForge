@@ -150,8 +150,7 @@ export default function RideFlowPage() {
     );
   };
 
-  const handleFetchRoute = async () => {
-    setFareLoading(true);
+  const handleFetchRoute = () => {
     setGeocodingError(null);
 
     const resolvedPickupLat = parseFloat(pickupLat);
@@ -166,7 +165,6 @@ export default function RideFlowPage() {
       isNaN(resolvedDropLng)
     ) {
       setGeocodingError('Please select a valid pickup and destination from the suggestions.');
-      setFareLoading(false);
       return;
     }
 
@@ -176,20 +174,14 @@ export default function RideFlowPage() {
     setDistanceKm(Number(dist.toFixed(2)));
     setDurationMin(duration);
 
-    try {
-      const res = await api.post('/rides/estimate-fare', {
-        distanceKm: dist,
+    navigate('/fare-estimate', {
+      state: {
+        pickup: { lat: resolvedPickupLat, lng: resolvedPickupLng, address: pickupAddr },
+        drop: { lat: resolvedDropLat, lng: resolvedDropLng, address: dropAddr },
+        distanceKm: Number(dist.toFixed(2)),
         durationMin: duration,
-      });
-      if (res.data.success) {
-        setBaseFareEstimate(res.data.data.totalFare);
-      }
-    } catch (err) {
-      console.error('Error fetching estimate:', err);
-      setBaseFareEstimate(Math.round(dist * 15 + 50));
-    } finally {
-      setFareLoading(false);
-    }
+      },
+    });
   };
 
   // Map click handler to select coordinates

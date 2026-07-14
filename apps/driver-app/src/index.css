@@ -2,14 +2,257 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
+:root {
+  /* Backgrounds */
+  --rx-bg:            #F4F4F5; /* Premium soft off-white/light grey */
+  --rx-bg-2:          #FFFFFF; /* Pure white */
+  --rx-bg-3:          #E4E4E7; /* Soft border/divider gray */
+
+  /* Glass surfaces */
+  --rx-glass:         rgba(255, 255, 255, 0.75); /* Semi-transparent white */
+  --rx-glass-strong:  rgba(255, 255, 255, 0.90); /* Stronger glass */
+  --rx-glass-border:  rgba(9, 9, 11, 0.08); /* Soft dark border */
+  --rx-glass-hover:   rgba(255, 255, 255, 0.90);
+  --rx-glass-inner:   inset 0 1px 0 rgba(255, 255, 255, 0.80);
+  
+  /* Sheet styling variables */
+  --rx-sheet-bg:      rgba(255, 255, 255, 0.92);
+  --rx-sheet-border:  rgba(9, 9, 11, 0.08);
+  --rx-sheet-shadow:  0 -8px 42px rgba(9, 9, 11, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.80);
+
+  /* Primary Accent — Orange (#FF5A1F or #EA580C) */
+  --rx-blue:          #FF5A1F; /* Primary brand orange */
+  --rx-blue-dim:      rgba(255, 90, 31, 0.08);
+  --rx-blue-glow:     rgba(255, 90, 31, 0.20);
+  --rx-blue-border:   rgba(255, 90, 31, 0.25);
+
+  /* Semantic colors */
+  --rx-green:         #10B981;
+  --rx-green-dim:     rgba(16, 185, 129, 0.08);
+  --rx-orange:        #EA580C;
+  --rx-orange-dim:    rgba(234, 88, 12, 0.08);
+  --rx-red:           #EF4444;
+  --rx-red-dim:       rgba(239, 68, 68, 0.06);
+
+  /* Text - Slate variants for premium light theme contrast */
+  --rx-text:          #09090b; /* Zinc 950 */
+  --rx-text-2:        #4b5563; /* Slate 600 */
+  --rx-text-3:        #71717a; /* Slate 400 */
+  --rx-text-4:        #a1a1aa; /* Slate 300 */
+
+  /* Borders */
+  --rx-border:        rgba(9, 9, 11, 0.06);
+  --rx-border-2:      rgba(9, 9, 11, 0.12);
+
+  /* Driver status color helper */
+  --dr-online:        #10B981;
+  --dr-offline:       #71717a;
+}
+
+body {
+  background: var(--rx-bg);
+  color: var(--rx-text);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+/* Glass card */
+.glass-card {
+  background: var(--rx-glass);
+  border: 1px solid var(--rx-glass-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    var(--rx-glass-inner),
+    0 8px 32px rgba(9, 9, 11, 0.05);
+  border-radius: 20px;
+}
+
+/* Glass card strong */
+.glass-card-strong {
+  background: var(--rx-glass-strong);
+  border: 1px solid var(--rx-glass-border);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow:
+    var(--rx-glass-inner),
+    0 12px 40px rgba(9, 9, 11, 0.07);
+  border-radius: 20px;
+}
+
+/* Premium Button (Orange style for primary actions) */
+.btn-blue {
+  background: var(--rx-blue);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  height: 54px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px var(--rx-blue-glow);
+}
+.btn-blue:hover {
+  background: #E54E18;
+  box-shadow: 0 6px 28px rgba(255, 90, 31, 0.35);
+  transform: translateY(-1px);
+}
+.btn-blue:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px rgba(255, 90, 31, 0.20);
+}
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent;
+  color: var(--rx-text);
+  border: 1px solid var(--rx-border-2);
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 15px;
+  height: 54px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  backdrop-filter: blur(12px);
+}
+.btn-ghost:hover {
+  background: rgba(9, 9, 11, 0.04);
+  border-color: var(--rx-text-3);
+}
+
+/* Glass input */
+.glass-input {
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(9, 9, 11, 0.08);
+  border-radius: 12px;
+  color: var(--rx-text);
+  font-size: 15px;
+  height: 52px;
+  padding: 0 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01);
+}
+.glass-input.has-left-icon {
+  padding-left: 44px !important;
+}
+.glass-input.has-right-icon {
+  padding-right: 85px !important;
+}
+.glass-input::placeholder {
+  color: var(--rx-text-3);
+}
+.glass-input:focus {
+  border-color: var(--rx-blue);
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.10);
+}
+
+/* Bottom sheet handle */
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--rx-text-3);
+  border-radius: 9999px;
+  margin: 12px auto 8px;
+}
+
+/* Pulsing radar for incoming offer */
+@keyframes pulseRadar {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(0.95); opacity: 0.5; }
+}
+.pulse-radar {
+  animation: pulseRadar 2s infinite ease-in-out;
+}
+
+/* Page fade-up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-up {
+  animation: fadeUp 0.35s ease forwards;
+}
+
+/* Scrollbar styling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.leaflet-container {
+  z-index: 0 !important;
+}
+
+.premium-bg {
+  background: radial-gradient(circle at center, #ffffff 0%, #f4f4f5 100%) !important;
+}
+
+/* Light theme overrides for Tailwind slate utility classes */
+.text-slate-50,
+.text-slate-100 {
+  color: var(--rx-text) !important;
+}
+.text-slate-200 {
+  color: var(--rx-text-2) !important;
+}
+.text-slate-300 {
+  color: var(--rx-text-2) !important;
+}
+.text-slate-400 {
+  color: var(--rx-text-3) !important;
+}
+.text-slate-500 {
+  color: var(--rx-text-3) !important;
+}
+.text-slate-600 {
+  color: var(--rx-text-3) !important;
+}
+
+.bg-slate-950\/40,
+.bg-slate-900\/50,
+.bg-slate-950\/20,
+.bg-slate-900\/40,
+.bg-slate-950\/50,
+.bg-slate-900\/20,
+.bg-slate-900\/10 {
+  background-color: rgba(9, 9, 11, 0.04) !important;
+}
+.bg-slate-800 {
+  background-color: var(--rx-bg-3) !important;
+}
+.bg-slate-900 {
+  background-color: var(--rx-bg-3) !important;
+}
+.bg-slate-950 {
+  background-color: var(--rx-bg-2) !important;
+}
+
+.border-slate-900,
+.border-slate-850,
+.border-slate-800,
+.border-slate-700,
+.border-slate-900\/60 {
+  border-color: var(--rx-border) !important;
+}
+
+.hover\:bg-slate-700:hover,
+.hover\:bg-slate-800:hover,
+.hover\:bg-slate-900:hover {
+  background-color: var(--rx-bg-3) !important;
+}
+
+option {
+  background-color: var(--rx-bg-2) !important;
+  color: var(--rx-text) !important;
 }

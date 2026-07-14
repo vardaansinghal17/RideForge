@@ -114,7 +114,7 @@ router.patch(
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const result = await adminService.toggleUserBlock(req.user!.id, req.body.blocked);
+      const result = await adminService.toggleUserBlock(req.params.userId, req.body.blocked);
       res.json({ success: true, data: result });
     } catch (err) { next(err); }
   }
