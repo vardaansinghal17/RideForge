@@ -13,7 +13,7 @@ export default function DriversPage() {
   const [filter, setFilter] = useState<ApprovalFilter>('');
   const [actioningId, setActioningId] = useState<string | null>(null);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ['drivers', page, filter],
     queryFn: async () => {
       const params: Record<string, any> = { page, limit: 15 };
@@ -159,7 +159,15 @@ export default function DriversPage() {
     <div className="space-y-6 fade-up">
       <div className="flex items-start justify-between">
         <div>
-          <h2 className="text-2xl font-black text-[var(--rx-text)]">Drivers</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-black text-[var(--rx-text)]">Drivers</h2>
+            <span className="flex items-center gap-1.5 ml-1">
+              <span className={`w-2 h-2 rounded-full ${isFetching ? 'bg-orange-400 animate-ping' : 'bg-emerald-400 animate-pulse'}`} />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--rx-text-4)]">
+                {isFetching ? 'Updating…' : 'Live'}
+              </span>
+            </span>
+          </div>
           <p className="text-sm text-[var(--rx-text-3)] mt-0.5">
             Manage and approve drivers and vehicle profiles
           </p>

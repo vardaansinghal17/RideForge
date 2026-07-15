@@ -101,6 +101,22 @@ export interface ServerToClientEvents {
   'ride:already_taken': () => void;
   'driver:moved': (payload: { lat: number; lng: number }) => void;
   'error': (payload: { message: string }) => void;
+
+  // ── Admin push events ──────────────────────────────────────────────────────
+  /** Emitted to admin:live room whenever a ride's status changes */
+  'admin:ride_update': (payload: {
+    rideId: string;
+    status: RideStatus;
+    driverId: string | null;
+  }) => void;
+  /** Emitted when a driver goes online/offline or is approved/revoked */
+  'admin:driver_update': (payload: {
+    driverUserId: string;
+    isAvailable: boolean;
+    isApproved: boolean;
+  }) => void;
+  /** Lightweight ping — tells admin dashboard to re-fetch stats */
+  'admin:stats_update': () => void;
 }
 
 export interface ClientToServerEvents {

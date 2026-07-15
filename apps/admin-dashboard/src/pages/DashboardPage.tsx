@@ -20,13 +20,12 @@ const rankColors = ['#FF5A1F', '#F59E0B', '#10B981'];
 const rankLabels = ['🥇', '🥈', '🥉'];
 
 export default function DashboardPage() {
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading, isFetching } = useQuery({
     queryKey: ['stats'],
     queryFn: async () => {
       const res = await api.get('/admin/stats');
       return res.data.data;
     },
-    refetchInterval: 30_000,
   });
 
   const overview = stats?.overview || {};
@@ -40,7 +39,15 @@ export default function DashboardPage() {
     <div className="space-y-7 fade-up">
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-black text-[var(--rx-text)]">Overview</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-2xl font-black text-[var(--rx-text)]">Overview</h2>
+          <span className="flex items-center gap-1.5 ml-1">
+            <span className={`w-2 h-2 rounded-full ${isFetching ? 'bg-orange-400 animate-ping' : 'bg-emerald-400 animate-pulse'}`} />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--rx-text-4)]">
+              {isFetching ? 'Updating…' : 'Live'}
+            </span>
+          </span>
+        </div>
         <p className="text-sm text-[var(--rx-text-3)] mt-0.5">Platform-wide metrics at a glance</p>
       </div>
 

@@ -67,6 +67,18 @@ router.patch(
       const result = await adminService.updateDriverApproval(
         req.params.driverId, req.body.isApproved
       );
+      // Notify admin dashboard of driver approval change
+      try {
+        const { io } = await import('../../index');
+        io.to('admin:live').emit('admin:driver_update', {
+          driverUserId: result.user_id,
+          isAvailable: result.is_available,
+          isApproved: result.is_approved,
+        });
+        io.to('admin:live').emit('admin:stats_update');
+      } catch (err) {
+        // Safe catch if io is not initialized
+      }
       res.json({ success: true, data: result });
     } catch (err) { next(err); }
   }

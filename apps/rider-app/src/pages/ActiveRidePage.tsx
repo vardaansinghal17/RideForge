@@ -92,304 +92,205 @@ export default function ActiveRidePage() {
   const showCancelButton = status === 'ACCEPTED' || status === 'ARRIVED';
 
   return (
-    <div
-      className="w-full h-screen bg-white overflow-hidden relative"
-      style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor: '#FFFFFF', overflow: 'hidden' }}
-    >
+    <div className="w-full h-screen bg-slate-50 overflow-hidden relative">
       {/* MAP LAYER */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 0,
-        }}
-      >
+      <div className="fixed inset-0 z-0">
         <MapView pickup={pickup} drop={drop} driverLocation={driverLoc} />
       </div>
 
-      {/* BOTTOM SHEET */}
-      <div
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 20,
-          background: '#FFFFFF',
-          borderRadius: '24px 24px 0 0',
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.10)',
-        }}
-      >
-        {/* Handle bar */}
-        <div
-          style={{
-            width: '36px',
-            height: '4px',
-            background: '#E0E0E0',
-            borderRadius: '9999px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: '12px',
-            marginBottom: '16px',
-          }}
-        />
-
-        {/* PROGRESS STEPPER */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            paddingLeft: '20px',
-            paddingRight: '20px',
-            marginBottom: '18px',
-          }}
-        >
-          {['Confirmed', 'On the way', 'Arrived', 'In ride'].map((stepLabel, i) => {
-            const isCompleted = i < activeIndex;
-            const isCurrent = i === activeIndex;
-            const isPending = i > activeIndex;
-
-            return (
-              <React.Fragment key={stepLabel}>
-                {/* LEFT CONNECTOR */}
-                {i > 0 && (
-                  <div
-                    style={{
-                      flex: 1,
-                      height: '2px',
-                      backgroundColor: i <= activeIndex ? '#E8441A' : '#EEEEEE',
-                    }}
-                  />
-                )}
-
-                {/* STEP NODE */}
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
+      {/* FLOATING TOP PANEL - STATUS & STEPPER */}
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl z-20">
+        <div className="glass-card-strong p-4 md:p-5 flex flex-col gap-4 shadow-xl border border-white/20">
+          
+          {/* STATUS HEADER */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-xs tracking-wider uppercase text-slate-700">Ride Status</span>
+            </div>
+            
+            <AnimatePresence mode="wait">
+              {status && (
+                <motion.div
+                  key={status}
+                  initial={{ opacity: 0, scale: 0.95, y: -4 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 4 }}
+                  transition={{ duration: 0.2 }}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm ${
+                    status === 'ACCEPTED'
+                      ? 'bg-amber-50 text-amber-700 border border-amber-200/50'
+                      : status === 'ARRIVED'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/50'
+                      : status === 'IN_PROGRESS'
+                      ? 'bg-blue-50 text-blue-700 border border-blue-200/50'
+                      : 'bg-slate-50 text-slate-600 border border-slate-200/50'
+                  }`}
                 >
-                  {/* Dot */}
-                  {isCurrent ? (
-                    <motion.div
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        borderRadius: '50%',
-                        flexShrink: 0,
-                        backgroundColor: '#E8441A',
-                        boxShadow: '0 0 0 4px rgba(232,68,26,0.18)',
-                      }}
-                      animate={{ scale: [1, 1.12, 1] }}
-                      transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                    />
-                  ) : (
+                  {status === 'ACCEPTED' && (
+                    <>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-450 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                      </span>
+                      <span>🚗 Driver is on the way</span>
+                    </>
+                  )}
+                  {status === 'ARRIVED' && (
+                    <>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      <span>✅ Driver has arrived</span>
+                    </>
+                  )}
+                  {status === 'IN_PROGRESS' && (
+                    <>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                      </span>
+                      <span>🛣️ You are on your way</span>
+                    </>
+                  )}
+                  {status === 'REQUESTED' && (
+                    <>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
+                      </span>
+                      <span>🔍 Looking for driver</span>
+                    </>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* PROGRESS STEPPER */}
+          <div className="flex items-center w-full px-2 mt-1">
+            {['Confirmed', 'On the way', 'Arrived', 'In ride'].map((stepLabel, i) => {
+              const isCompleted = i < activeIndex;
+              const isCurrent = i === activeIndex;
+              const isPending = i > activeIndex;
+
+              return (
+                <React.Fragment key={stepLabel}>
+                  {/* LEFT CONNECTOR */}
+                  {i > 0 && (
                     <div
-                      style={{
-                        width: '14px',
-                        height: '14px',
-                        borderRadius: '50%',
-                        flexShrink: 0,
-                        backgroundColor: isCompleted ? '#E8441A' : '#EEEEEE',
-                        border: isPending ? '1.5px solid #DDDDDD' : 'none',
-                      }}
+                      className={`flex-1 h-[3px] rounded-full transition-all duration-500 ${
+                        i <= activeIndex ? 'bg-orange-600' : 'bg-slate-200'
+                      }`}
                     />
                   )}
 
-                  {/* Label */}
-                  <span
-                    style={{
-                      fontSize: '10px',
-                      marginTop: '5px',
-                      textAlign: 'center',
-                      maxWidth: '52px',
-                      lineHeight: 1.2,
-                      color: i <= activeIndex ? '#E8441A' : '#AAAAAA',
-                      fontWeight: i <= activeIndex ? 600 : 400,
-                    }}
-                  >
-                    {stepLabel}
+                  {/* STEP NODE */}
+                  <div className="flex flex-col items-center relative z-10 mx-1">
+                    {/* Circle Dot */}
+                    {isCurrent ? (
+                      <motion.div
+                        className="w-5 h-5 rounded-full bg-orange-600 flex items-center justify-center shadow-md shadow-orange-600/30"
+                        animate={{ scale: [1, 1.15, 1] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                      >
+                        <div className="w-2 h-2 rounded-full bg-white" />
+                      </motion.div>
+                    ) : (
+                      <div
+                        className={`w-4 h-4 rounded-full flex items-center justify-center transition-all duration-500 ${
+                          isCompleted
+                            ? 'bg-orange-600 shadow-sm shadow-orange-600/20'
+                            : 'bg-white border-2 border-slate-300'
+                        }`}
+                      >
+                        {isCompleted && (
+                          <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Label */}
+                    <span
+                      className={`text-[10px] md:text-xs font-semibold mt-1.5 transition-all duration-300 ${
+                        i <= activeIndex ? 'text-slate-800' : 'text-slate-400 font-normal'
+                      }`}
+                    >
+                      {stepLabel}
+                    </span>
+                  </div>
+
+                  {/* RIGHT CONNECTOR */}
+                  {i < 3 && (
+                    <div
+                      className={`flex-1 h-[3px] rounded-full transition-all duration-500 ${
+                        i < activeIndex ? 'bg-orange-600' : 'bg-slate-200'
+                      }`}
+                    />
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </div>
+
+        </div>
+      </div>
+
+      {/* FLOATING BOTTOM PANEL - DRIVER INFO & ACTIONS */}
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md z-20">
+        <div className="glass-card-strong p-4 md:p-5 flex flex-col gap-4 shadow-xl border border-white/20">
+          
+          {/* DRIVER INFO ROW */}
+          <div className="flex items-center gap-4">
+            
+            {/* AVATAR */}
+            <div className="w-14 h-14 relative rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-orange-600/20 flex-shrink-0">
+              {(driverInfo?.driver_name?.[0] || 'D').toUpperCase()}
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-sm animate-pulse" />
+            </div>
+
+            {/* DETAILS */}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-bold text-slate-800 tracking-tight truncate">
+                {driverInfo?.driver_name || 'Rahul Kumar'}
+              </h3>
+              
+              <div className="flex items-center gap-2 mt-0.5">
+                <div className="flex items-center gap-0.5 text-amber-500">
+                  <span className="text-xs">★</span>
+                  <span className="text-xs font-semibold text-slate-700">
+                    {driverInfo?.driver_rating || '5.0'}
                   </span>
                 </div>
-
-                {/* RIGHT CONNECTOR */}
-                {i < 3 && (
-                  <div
-                    style={{
-                      flex: 1,
-                      height: '2px',
-                      backgroundColor: i < activeIndex ? '#E8441A' : '#EEEEEE',
-                    }}
-                  />
-                )}
-              </React.Fragment>
-            );
-          })}
-        </div>
-
-        {/* STATUS BADGE */}
-        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-          <AnimatePresence mode="wait">
-            {status && (
-              <motion.div
-                key={status}
-                initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                style={{
-                  display: 'inline-block',
-                  borderRadius: '9999px',
-                  padding: '6px 18px',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  backgroundColor:
-                    status === 'ACCEPTED'
-                      ? '#FFF8F6'
-                      : status === 'ARRIVED'
-                      ? '#F0FDF4'
-                      : status === 'IN_PROGRESS'
-                      ? '#F0F9FF'
-                      : '#F5F5F5',
-                  color:
-                    status === 'ACCEPTED'
-                      ? '#E8441A'
-                      : status === 'ARRIVED'
-                      ? '#16A34A'
-                      : status === 'IN_PROGRESS'
-                      ? '#0369A1'
-                      : '#717171',
-                }}
-              >
-                {status === 'ACCEPTED' && '🚗 Driver is on the way'}
-                {status === 'ARRIVED' && '✅ Driver has arrived'}
-                {status === 'IN_PROGRESS' && '🛣️ You are on your way'}
-                {status === 'REQUESTED' && '🔍 Looking for driver'}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* DRIVER INFO ROW */}
-        <div style={{ paddingLeft: '16px', paddingRight: '16px', marginBottom: '4px' }}>
-          <div
-            style={{
-              border: '1px solid #EEEEEE',
-              borderRadius: '16px',
-              padding: '16px',
-              background: '#FFFFFF',
-              display: 'flex',
-              gap: '14px',
-              alignItems: 'center',
-            }}
-          >
-            {/* LEFT — Avatar */}
-            <div
-              style={{
-                width: '58px',
-                height: '58px',
-                flexShrink: 0,
-                position: 'relative',
-                background: 'linear-gradient(135deg, #E8441A, #FF8C61)',
-                borderRadius: '50%',
-              }}
-            >
-              <div
-                style={{
-                  fontSize: '22px',
-                  fontWeight: 700,
-                  color: '#FFFFFF',
-                  textAlign: 'center',
-                  lineHeight: '58px',
-                }}
-              >
-                {(driverInfo?.driver_name?.[0] || 'D').toUpperCase()}
-              </div>
-              <div
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  backgroundColor: '#22C55E',
-                  border: '2.5px solid white',
-                  position: 'absolute',
-                  bottom: '1px',
-                  right: '1px',
-                  borderRadius: '50%',
-                }}
-              />
-            </div>
-
-            {/* MIDDLE */}
-            <div style={{ flex: 1, minWidth: 0, textAlign: 'left' }}>
-              <div
-                style={{
-                  fontSize: '16px',
-                  fontWeight: 600,
-                  color: '#1A1A1A',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {driverInfo?.driver_name || 'Rahul Kumar'}
+                <span className="text-[11px] text-slate-400">•</span>
+                <span className="text-xs text-slate-500">312 trips</span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '3px' }}>
-                <span style={{ color: '#F59E0B', fontSize: '13px' }}>★</span>
-                <span style={{ fontSize: '12px', fontWeight: 500, color: '#1A1A1A' }}>
-                  {driverInfo?.driver_rating || '5.0'}
-                </span>
-                <span style={{ fontSize: '12px', color: '#717171' }}>· 312 trips</span>
+              <div className="text-xs text-slate-500 mt-1 truncate">
+                {driverInfo?.make || 'Maruti Suzuki'} {driverInfo?.model || 'Dzire'} • {driverInfo?.color || 'White'}
               </div>
 
-              <div
-                style={{
-                  fontSize: '12px',
-                  color: '#717171',
-                  marginTop: '4px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                {driverInfo?.make || 'Maruti Suzuki'} {driverInfo?.model || 'Dzire'} ·{' '}
-                {driverInfo?.color || 'White'}
-              </div>
-
-              <span
-                style={{
-                  marginTop: '5px',
-                  display: 'inline-block',
-                  background: '#F5F5F5',
-                  border: '1px solid #E8E8E8',
-                  borderRadius: '6px',
-                  padding: '2px 8px',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#1A1A1A',
-                }}
-              >
+              {/* LICENSE PLATE */}
+              <div className="flex items-center gap-1.5 bg-slate-100 border border-slate-200/60 rounded-md px-2 py-0.5 text-[10px] font-bold text-slate-700 uppercase tracking-wider w-fit mt-1.5 shadow-sm">
+                <span className="w-1.5 h-3.5 bg-blue-600 rounded-sm" />
                 {driverInfo?.plate_number || 'DL 1CA 1234'}
-              </span>
+              </div>
             </div>
 
-            {/* RIGHT — ETA SVG Ring */}
-            <div style={{ width: '64px', height: '64px', flexShrink: 0, position: 'relative' }}>
-              <svg width="64" height="64" viewBox="0 0 64 64">
-                <circle cx="32" cy="32" r="26" fill="none" stroke="#EEEEEE" strokeWidth="4" />
+            {/* ETA PROGRESS RING */}
+            <div className="w-16 h-16 flex-shrink-0 relative flex items-center justify-center bg-white rounded-2xl shadow-sm border border-slate-100">
+              <svg className="w-14 h-14" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="#F1F5F9" strokeWidth="4.5" />
                 <circle
                   cx="32"
                   cy="32"
                   r="26"
                   fill="none"
-                  strokeWidth="4"
+                  strokeWidth="4.5"
                   strokeLinecap="round"
-                  stroke={etaSeconds === 0 ? '#22C55E' : '#E8441A'}
+                  stroke={etaSeconds === 0 ? '#10B981' : '#EA580C'}
                   strokeDasharray="163.4"
                   strokeDashoffset={
                     etaSeconds === 0 ? 0 : 163.4 * (1 - (initialSeconds - etaSeconds) / initialSeconds)
@@ -404,109 +305,87 @@ export default function ActiveRidePage() {
                   <>
                     <text
                       x="32"
-                      y="30"
+                      y="28"
                       textAnchor="middle"
-                      fontSize="12"
-                      fontWeight="700"
-                      fill="#1A1A1A"
+                      fontSize="13"
+                      fontWeight="800"
+                      fill="#1E293B"
                       dominantBaseline="middle"
                     >
-                      {Math.ceil(etaSeconds / 60)}m
+                      {Math.ceil(etaSeconds / 60)}
                     </text>
                     <text
                       x="32"
-                      y="44"
+                      y="42"
                       textAnchor="middle"
-                      fontSize="9"
-                      fill="#AAAAAA"
+                      fontSize="8"
+                      fontWeight="600"
+                      fill="#94A3B8"
                       dominantBaseline="middle"
                     >
-                      ETA
+                      MIN
                     </text>
                   </>
                 ) : (
                   <path
-                    d="M20 32 L29 41 L44 23"
-                    stroke="#22C55E"
-                    strokeWidth="3"
+                    d="M22 32 L29 39 L42 24"
+                    stroke="#10B981"
+                    strokeWidth="4.5"
                     fill="none"
                     strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 )}
               </svg>
             </div>
+
           </div>
-        </div>
 
-        {/* DIVIDER */}
-        <div style={{ borderTop: '1px solid #EEEEEE', marginLeft: '16px', marginRight: '16px', marginTop: '12px', marginBottom: '12px' }} />
+          {/* DIVIDER */}
+          <div className="h-px bg-slate-200/60 w-full" />
 
-        {/* ACTIONS ROW */}
-        <div
-          style={{
-            paddingLeft: '16px',
-            paddingRight: '16px',
-            display: 'flex',
-            gap: '10px',
-            paddingBottom: '8px',
-          }}
-        >
-          {showCancelButton && (
+          {/* ACTIONS */}
+          <div className="flex gap-3">
+            {showCancelButton && (
+              <button
+                onClick={() => {
+                  cancelRide();
+                  reset();
+                  navigate('/');
+                }}
+                className="flex-1 h-11 bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold rounded-xl text-xs transition-all duration-200 active:scale-[0.98] border border-rose-200/40"
+              >
+                Cancel Ride
+              </button>
+            )}
+
             <button
               onClick={() => {
-                cancelRide();
-                reset();
-                navigate('/');
+                if (driverInfo?.driver_phone) {
+                  window.open('tel:' + driverInfo.driver_phone);
+                }
               }}
-              style={{
-                flex: 1,
-                height: '46px',
-                background: '#FEF2F2',
-                color: '#EF4444',
-                border: 'none',
-                borderRadius: '12px',
-                fontSize: '13px',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
+              className={`h-11 flex items-center justify-center gap-2 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-sm ${
+                showCancelButton
+                  ? 'w-11 bg-slate-900 hover:bg-slate-800 text-white'
+                  : 'flex-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold'
+              }`}
             >
-              Cancel ride
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                fill="none"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67 A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 a2 2 0 01-.45 2.11L8.09 9.91 a16 16 0 006 6l1.27-1.27 a2 2 0 012.11-.45 12.84 12.84 0 002.81.7 A2 2 0 0122 16.92z" />
+              </svg>
+              {!showCancelButton && <span>Call Driver</span>}
             </button>
-          )}
+          </div>
 
-          <button
-            onClick={() => {
-              if (driverInfo?.driver_phone) {
-                window.open('tel:' + driverInfo.driver_phone);
-              }
-            }}
-            style={{
-              width: '44px',
-              height: '44px',
-              flexShrink: 0,
-              background: '#F5F5F5',
-              border: 'none',
-              borderRadius: '12px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              stroke="#1A1A1A"
-              fill="none"
-              strokeWidth="2"
-              strokeLinecap="round"
-            >
-              <path
-                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67 A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 a2 2 0 01-.45 2.11L8.09 9.91 a16 16 0 006 6l1.27-1.27 a2 2 0 012.11-.45 12.84 12.84 0 002.81.7 A2 2 0 0122 16.92z"
-              />
-            </svg>
-          </button>
         </div>
       </div>
     </div>

@@ -285,10 +285,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </header>
 
         {/* Scrollable Workspace */}
-        <main className="flex-1 overflow-y-auto w-full no-scrollbar relative">
-          <div className="max-w-6xl mx-auto px-6 py-8 md:px-10 md:py-8 w-full z-10 relative">
-            {children}
-          </div>
+        <main className="flex-1 overflow-hidden w-full relative flex flex-col">
+          {location.pathname === '/active-ride' ? (
+            // Full-bleed for map page — no padding, no max-width
+            <div className="flex-1 relative">
+              {children}
+            </div>
+          ) : (
+            <div className="flex-1 overflow-y-auto no-scrollbar">
+              <div className="max-w-6xl mx-auto px-6 py-8 md:px-10 md:py-8 w-full z-10 relative">
+                {children}
+              </div>
+            </div>
+          )}
         </main>
       </div>
     </div>

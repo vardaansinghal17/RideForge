@@ -51,6 +51,18 @@ router.patch(
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const result = await driversService.toggleAvailability(req.user!.id, req.body.isAvailable);
+      // Notify admin dashboard of driver availability change
+      try {
+        const { io } = await import('../../index');
+        io.to('admin:live').emit('admin:driver_update', {
+          driverUserId: req.user!.id,
+          isAvailable: req.body.isAvailable,
+          isApproved: true, // must be approved to change availability
+        });
+        io.to('admin:live').emit('admin:stats_update');
+      } catch (err) {
+        // Safe catch if io is not initialized
+      }
       res.json({ success: true, data: result });
     } catch (err) { next(err); }
   }

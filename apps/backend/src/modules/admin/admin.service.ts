@@ -182,7 +182,7 @@ export class AdminService {
     );
 
     const totalResult = await getOne<{ count: string }>(
-      `SELECT COUNT(*) FROM drivers d ${where}`,
+      `SELECT COUNT(*) FROM drivers d ${approved !== undefined ? 'WHERE d.is_approved = $1' : ''}`,
       approved !== undefined ? [approved] : []
     );
 
@@ -204,7 +204,7 @@ export class AdminService {
 
     const result = await query(
       `UPDATE drivers SET is_approved = $1 WHERE id = $2
-       RETURNING id, is_approved`,
+       RETURNING id, user_id, is_approved, is_available`,
       [isApproved, driverId]
     );
 
@@ -249,7 +249,7 @@ export class AdminService {
     );
 
     const totalResult = await getOne<{ count: string }>(
-      `SELECT COUNT(*) FROM rides r ${where}`,
+      `SELECT COUNT(*) FROM rides r ${status ? 'WHERE r.status = $1' : ''}`,
       status ? [status] : []
     );
 

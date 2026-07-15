@@ -20,8 +20,11 @@ const queryClient = new QueryClient({
   },
 });
 
+import { useAdminSocket } from './hooks/useAdminSocket';
+
 function ProtectedLayout() {
   const { accessToken } = useAuthStore();
+  useAdminSocket();
 
   if (!accessToken) {
     return <Navigate to="/login" replace />;

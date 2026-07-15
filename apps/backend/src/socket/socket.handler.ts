@@ -1,7 +1,6 @@
 import { Server } from 'socket.io';
 import type { ServerToClientEvents, ClientToServerEvents, RideStatus } from '@RideForge/shared';
 import { socketAuthMiddleware, AuthenticatedSocket } from './socket-auth.middleware';
-//import { socketAuthMiddleware } from './socket-auth.middleware';
 import { rooms } from './rooms';
 import { rideRequestTracker } from './ride-request-tracker';
 import { RidesService } from '../modules/rides/rides.service';
@@ -19,7 +18,7 @@ const DRIVER_OFFER_TIMEOUT_MS = 15000;
 export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvents>) {
   io.use(socketAuthMiddleware);
 
-  io.on('connection', (socket) => {
+  io.on('connection', async (socket) => {
     const authSocket = socket as AuthenticatedSocket;
     logger.info(`Socket connected: ${authSocket.userId} (${authSocket.userRole})`);
 
@@ -30,6 +29,49 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
     if (authSocket.userRole === 'RIDER') {
       authSocket.join(rooms.riderPersonal(authSocket.userId));
     }
+    // Admins join a shared broadcast room for live dashboard updates
+    if (authSocket.userRole === 'ADMIN') {
+      authSocket.join(rooms.adminLive());
+      logger.info(`Admin ${authSocket.userId} joined admin:live room`);
+    }
+
+    // ─── RECONNECT ROOM REJOIN ───────────────────────────────────────────────
+    // When a rider or driver reconnects (page refresh), they need to rejoin the
+    // active ride room so they keep receiving ride:status_update / driver:moved.
+    try {
+      if (authSocket.userRole === 'RIDER') {
+        const activeRide = await getOne<{ id: string }>(
+          `SELECT r.id FROM rides r
+           JOIN riders ri ON ri.id = r.rider_id
+           WHERE ri.user_id = $1
+             AND r.status IN ('REQUESTED','ACCEPTED','ARRIVED','IN_PROGRESS')
+           ORDER BY r.requested_at DESC LIMIT 1`,
+          [authSocket.userId]
+        );
+        if (activeRide) {
+          authSocket.join(rooms.ridePersonal(activeRide.id));
+          logger.info(`Rider ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+        }
+      }
+
+      if (authSocket.userRole === 'DRIVER') {
+        const activeRide = await getOne<{ id: string }>(
+          `SELECT r.id FROM rides r
+           JOIN drivers d ON d.id = r.driver_id
+           WHERE d.user_id = $1
+             AND r.status IN ('ACCEPTED','ARRIVED','IN_PROGRESS')
+           ORDER BY r.accepted_at DESC LIMIT 1`,
+          [authSocket.userId]
+        );
+        if (activeRide) {
+          authSocket.join(rooms.ridePersonal(activeRide.id));
+          logger.info(`Driver ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+        }
+      }
+    } catch (err: any) {
+      logger.error('Room rejoin on reconnect failed', { error: err.message });
+    }
+    // ────────────────────────────────────────────────────────────────────────
 
     authSocket.on('ride:request', async (data) => {
       try {
@@ -67,12 +109,22 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         authSocket.join(rooms.ridePersonal(ride.id));
         authSocket.emit('ride:created', ride);
 
+        // Push to admin dashboard — new ride appeared
+        io.to(rooms.adminLive()).emit('admin:ride_update', {
+          rideId: ride.id, status: 'REQUESTED', driverId: null,
+        });
+        io.to(rooms.adminLive()).emit('admin:stats_update');
+
         const nearbyDrivers = await matchingService.findNearbyDrivers(
           data.pickupLat, data.pickupLng
         );
 
         if (nearbyDrivers.length === 0) {
           await query(`UPDATE rides SET status = 'CANCELLED', cancel_reason = 'NO_DRIVERS' WHERE id = $1`, [ride.id]);
+          // Notify admin of the auto-cancel
+          io.to(rooms.adminLive()).emit('admin:ride_update', {
+            rideId: ride.id, status: 'CANCELLED', driverId: null,
+          });
           return authSocket.emit('ride:no_driver');
         }
 
@@ -119,11 +171,14 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         const fullRide = await getOne<any>(
           `SELECT r.*, du.name AS driver_name, du.phone AS driver_phone,
                   d.rating AS driver_rating, d.latitude AS driver_lat, d.longitude AS driver_lng,
-                  v.make, v.model, v.plate_number, v.color, v.vehicle_type
+                  v.make, v.model, v.plate_number, v.color, v.vehicle_type,
+                  ru.name AS rider_name, ru.phone AS rider_phone, ri.rating AS rider_rating
            FROM rides r
            JOIN drivers d ON d.id = r.driver_id
            JOIN users du ON du.id = d.user_id
            LEFT JOIN vehicles v ON v.driver_id = d.id
+           JOIN riders ri ON ri.id = r.rider_id
+           JOIN users ru ON ru.id = ri.user_id
            WHERE r.id = $1`,
           [rideId]
         );
@@ -133,6 +188,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           ride: fullRide,
           driver: fullRide,
         } as any);
+
+        // Push accepted status to admin dashboard
+        io.to(rooms.adminLive()).emit('admin:ride_update', {
+          rideId, status: 'ACCEPTED', driverId: fullRide.driver_id,
+        });
+        io.to(rooms.adminLive()).emit('admin:stats_update');
 
         logger.info(`Ride ${rideId} accepted by driver ${driver.id}`);
       } catch (err: any) {
@@ -187,8 +248,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           rideId, status: status as RideStatus,
         });
 
-        // If completed, free both parties from the ride room
+        // Push status change to admin dashboard
+        io.to(rooms.adminLive()).emit('admin:ride_update', {
+          rideId, status: status as RideStatus, driverId: driver.id,
+        });
         if (status === 'COMPLETED') {
+          io.to(rooms.adminLive()).emit('admin:stats_update'); // revenue changed
           io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
         }
 
@@ -226,6 +291,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         io.to(rooms.ridePersonal(rideId)).emit('ride:cancelled', { rideId });
         io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
 
+        // Push cancellation to admin dashboard
+        io.to(rooms.adminLive()).emit('admin:ride_update', {
+          rideId, status: 'CANCELLED', driverId: null,
+        });
+        io.to(rooms.adminLive()).emit('admin:stats_update');
+
         logger.info(`Ride ${rideId} cancelled`);
       } catch (err: any) {
         logger.error('ride:cancel failed', { error: err.message });
@@ -253,6 +324,8 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
   });
 }
 
+// ─── OFFER RIDE TO NEXT DRIVER ───────────────────────────────────────────────
+
 function offerRideToNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
   rideId: string
@@ -263,7 +336,6 @@ function offerRideToNextDriver(
   const driverUserId = rideRequestTracker.getCurrentDriverUserId(rideId);
 
   if (!driverUserId) {
-    // Exhausted the queue — no one accepted
     handleNoDriverFound(io, rideId);
     return;
   }
@@ -271,7 +343,9 @@ function offerRideToNextDriver(
   rideRequestTracker.markOffered(rideId, driverUserId);
 
   getOne<any>(
-    `SELECT r.*, ru.name AS rider_name, ru.phone AS rider_phone, ri.rating AS rider_rating
+    `SELECT r.*,
+            ru.name AS rider_name, ru.phone AS rider_phone,
+            ri.rating AS rider_rating
      FROM rides r
      JOIN riders ri ON ri.id = r.rider_id
      JOIN users ru ON ru.id = ri.user_id
@@ -279,7 +353,19 @@ function offerRideToNextDriver(
     [rideId]
   ).then(ride => {
     if (!ride) return;
-    io.to(rooms.driverPersonal(driverUserId)).emit('ride:incoming', ride);
+
+    // Nest rider fields into a `rider` object to match the shared type
+    // and the driver store's IncomingRide shape.
+    const payload = {
+      ...ride,
+      rider: {
+        name:   ride.rider_name,
+        phone:  ride.rider_phone,
+        rating: Number(ride.rider_rating),
+      },
+    };
+
+    io.to(rooms.driverPersonal(driverUserId)).emit('ride:incoming', payload as any);
     logger.info(`Offered ride ${rideId} to driver ${driverUserId}`);
   });
 
@@ -292,13 +378,14 @@ function offerRideToNextDriver(
   rideRequestTracker.setTimeoutHandle(rideId, timeoutHandle);
 }
 
+// ─── TRY NEXT DRIVER ─────────────────────────────────────────────────────────
+
 function tryNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
   rideId: string
 ) {
   rideRequestTracker.clearTimeout(rideId);
 
-  // Check the ride wasn't already accepted by someone else through a race
   getOne<{ status: string }>(`SELECT status FROM rides WHERE id = $1`, [rideId])
     .then(ride => {
       if (!ride || ride.status !== 'REQUESTED') return; // already accepted/cancelled
@@ -311,6 +398,8 @@ function tryNextDriver(
       offerRideToNextDriver(io, rideId);
     });
 }
+
+// ─── NO DRIVER FOUND ─────────────────────────────────────────────────────────
 
 async function handleNoDriverFound(
   io: Server<ClientToServerEvents, ServerToClientEvents>,

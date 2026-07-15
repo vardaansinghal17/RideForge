@@ -30,7 +30,7 @@ interface RideCompletionRow {
 }
 
 export class MatchingService {
-  private readonly SEARCH_RADIUS_KM = 5;
+  private readonly SEARCH_RADIUS_KM = 10;
   private readonly DRIVER_ACCEPT_TIMEOUT_MS = 15000; // 15 seconds
 
   async findNearbyDrivers(

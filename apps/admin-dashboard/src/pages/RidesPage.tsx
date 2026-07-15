@@ -9,7 +9,7 @@ export default function RidesPage() {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<string>('');
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isFetching } = useQuery({
     queryKey: ['rides', page, status],
     queryFn: async () => {
       const params: Record<string, any> = { page, limit: 15 };
@@ -127,11 +127,24 @@ export default function RidesPage() {
 
   return (
     <div className="space-y-6 fade-up">
-      <div>
-        <h2 className="text-2xl font-black text-[var(--rx-text)]">Rides</h2>
-        <p className="text-sm text-[var(--rx-text-3)] mt-0.5">
-          Platform ride history, route patterns, and real-time status monitoring
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-black text-[var(--rx-text)]">Rides</h2>
+            {/* Live indicator */}
+            <span className="flex items-center gap-1.5 ml-1">
+              <span
+                className={`w-2 h-2 rounded-full ${isFetching ? 'bg-orange-400 animate-ping' : 'bg-emerald-400 animate-pulse'}`}
+              />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--rx-text-4)]">
+                {isFetching ? 'Updating…' : 'Live'}
+              </span>
+            </span>
+          </div>
+          <p className="text-sm text-[var(--rx-text-3)] mt-0.5">
+            Platform ride history, route patterns, and real-time status monitoring
+          </p>
+        </div>
       </div>
 
       {/* Tabs */}

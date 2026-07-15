@@ -14,6 +14,9 @@ export default function DashboardPage() {
   const { user } = useAuthStore();
   const { incomingRide, activeRide, acceptRide, rejectRide, offerSecondsLeft, sendLocation } = useDriverRideStore();
   const [locInterval, setLocInterval] = useState<ReturnType<typeof setInterval> | null>(null);
+  // Real GPS position of the driver
+  const [driverGps, setDriverGps] = useState<{ lat: number; lng: number } | null>(null);
+  const [gpsError, setGpsError] = useState<string | null>(null);
 
   // Fetch driver profile
   const { data: driverProfile, isLoading: isProfileLoading } = useQuery({
@@ -74,27 +77,57 @@ export default function DashboardPage() {
 
   // Background location simulator while online
   const isAvailable = driverProfile?.is_available || false;
+
+  // ─── Acquire real GPS on mount ──────────────────────────────────────────────
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setGpsError('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        setDriverGps({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setGpsError(null);
+      },
+      (err) => {
+        console.warn('Driver geolocation error:', err.message);
+        setGpsError('Location access denied. Please allow location in browser settings.');
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 5000 }
+    );
+
+    return () => navigator.geolocation.clearWatch(watchId);
+  }, []);
+
+  // ─── Broadcast location when online ─────────────────────────────────────────
   useEffect(() => {
     if (isAvailable) {
-      sendLocation(12.9716, 77.5946);
+      // Send current GPS immediately (if available)
+      if (driverGps) {
+        sendLocation(driverGps.lat, driverGps.lng);
+      }
 
+      // Then keep broadcasting on an interval using the latest GPS position
       const interval = setInterval(() => {
-        const offsetLat = (Math.random() - 0.5) * 0.002;
-        const offsetLng = (Math.random() - 0.5) * 0.002;
-        sendLocation(12.9716 + offsetLat, 77.5946 + offsetLng);
-      }, 10000);
+        // Always read latest GPS from state via a callback to avoid stale closure
+        setDriverGps((current) => {
+          if (current) {
+            sendLocation(current.lat, current.lng);
+          }
+          return current;
+        });
+      }, 8000);
 
       setLocInterval(interval);
-      return () => {
-        clearInterval(interval);
-      };
+      return () => clearInterval(interval);
     } else {
       if (locInterval) {
         clearInterval(locInterval);
         setLocInterval(null);
       }
     }
-  }, [isAvailable, sendLocation]);
+  }, [isAvailable, sendLocation, driverGps]);
 
   const handleToggleOnline = () => {
     if (!driverProfile) return;
@@ -135,11 +168,30 @@ export default function DashboardPage() {
         </div>
         
         {isApproved && (
-          <div className="relative z-10 flex items-center space-x-3 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/10">
-            <span className={`w-3.5 h-3.5 rounded-full ${isAvailable ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
-            <div className="text-left">
-              <div className="text-[10px] uppercase font-bold tracking-widest text-indigo-200">Current Status</div>
-              <div className="text-sm font-black tracking-wide">{isAvailable ? 'ONLINE & READY' : 'OFFLINE'}</div>
+          <div className="relative z-10 flex flex-col items-start sm:items-end gap-2">
+            <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/10">
+              <span className={`w-3.5 h-3.5 rounded-full ${isAvailable ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
+              <div className="text-left">
+                <div className="text-[10px] uppercase font-bold tracking-widest text-indigo-200">Current Status</div>
+                <div className="text-sm font-black tracking-wide">{isAvailable ? 'ONLINE & READY' : 'OFFLINE'}</div>
+              </div>
+            </div>
+            {/* GPS indicator pill */}
+            <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border backdrop-blur-md ${
+              driverGps
+                ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
+                : gpsError
+                ? 'bg-red-500/20 border-red-400/30 text-red-300'
+                : 'bg-white/10 border-white/10 text-indigo-300'
+            }`}>
+              <span>{driverGps ? '📍' : gpsError ? '⚠️' : '⌛'}</span>
+              <span>
+                {driverGps
+                  ? `${driverGps.lat.toFixed(4)}, ${driverGps.lng.toFixed(4)}`
+                  : gpsError
+                  ? 'Location denied'
+                  : 'Acquiring GPS...'}
+              </span>
             </div>
           </div>
         )}
@@ -151,6 +203,27 @@ export default function DashboardPage() {
         {/* Left Columns (Col Span 2) - Duty Status & Action Panel */}
         <div className="lg:col-span-2 space-y-8">
           
+          {/* GPS Permission Alert */}
+          {gpsError && (
+            <GlassCard className="p-5 border-l-4 border-red-500 bg-red-50/50">
+              <div className="flex items-start space-x-4">
+                <div className="p-2.5 bg-red-500/10 rounded-xl text-red-500 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-red-700">Location Access Required</h4>
+                  <p className="text-xs text-red-600 mt-1 leading-relaxed">
+                    {gpsError} Riders won't be matched to you without your location.
+                    Allow location in your browser's site settings and refresh the page.
+                  </p>
+                </div>
+              </div>
+            </GlassCard>
+          )}
+
           {/* Approval Alert if Pending */}
           {!isApproved && (
             <GlassCard className="p-6 border-l-4 border-amber-500">
@@ -325,7 +398,7 @@ export default function DashboardPage() {
               <div className="inline-block px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-[#FF5A1F] text-xs font-bold rounded-full select-none">
                 ⚡ INCOMING RIDE REQUEST
               </div>
-              <h3 className="text-2xl font-black text-slate-800 mt-3">₹{incomingRide.fare}</h3>
+              <h3 className="text-2xl font-black text-slate-800 mt-3">₹{incomingRide.estimated_fare}</h3>
               <p className="text-xs text-slate-500 mt-0.5 font-medium">Estimated Fare</p>
             </div>
 
@@ -351,9 +424,9 @@ export default function DashboardPage() {
             <div className="grid grid-cols-2 gap-4 bg-slate-50 border border-slate-100 rounded-xl p-3.5 text-left">
               <div>
                 <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Rider Details</span>
-                <span className="text-sm font-bold text-slate-800 block mt-0.5">{incomingRide.rider?.name || 'Rider'}</span>
+                <span className="text-sm font-bold text-slate-800 block mt-0.5">{incomingRide.rider?.name || incomingRide.rider_name || 'Rider'}</span>
                 <span className="text-xs text-amber-500 flex items-center font-bold mt-0.5">
-                  ★ {incomingRide.rider?.rating || '5.0'}
+                  ★ {incomingRide.rider?.rating ?? incomingRide.rider_rating ?? '5.0'}
                 </span>
               </div>
               <div className="text-right border-l border-slate-200 pl-4">

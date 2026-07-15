@@ -53,7 +53,19 @@ export const useRideStore = create<RideStore>((set, get) => ({
     });
 
     socket.on('ride:accepted', ({ ride, driver }) => {
-      set({ ride, driverInfo: driver, isRequesting: false });
+      // `driver` is the full JOIN row — it carries driver_name, driver_rating,
+      // plate_number, make, model, color, driver_phone, driver_lat, driver_lng.
+      // `ride` is the same row but we use it to update ride state.
+      set({
+        ride: ride,
+        driverInfo: driver,
+        isRequesting: false,
+        // Seed driver location from the accepted payload if available
+        driverLocation:
+          (driver as any).driver_lat && (driver as any).driver_lng
+            ? { lat: Number((driver as any).driver_lat), lng: Number((driver as any).driver_lng) }
+            : null,
+      });
     });
 
     socket.on('ride:already_taken', () => {

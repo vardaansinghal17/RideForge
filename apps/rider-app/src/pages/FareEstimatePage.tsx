@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { api } from '../lib/axios';
 import { useRideStore } from '../stores/rideStore';
+import { useAuthStore } from '../stores/authStore';
 import { MapView } from '../components/Map/MapView';
 import { GlassCard } from '../components/ui/GlassCard';
 
@@ -36,7 +37,8 @@ const MOCK_STATE: LocationState = {
 export default function FareEstimatePage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { requestRide } = useRideStore();
+  const { requestRide, connect, socket } = useRideStore();
+  const { accessToken } = useAuthStore();
   const [selectedRideIndex, setSelectedRideIndex] = useState(0);
   const [showBreakdown, setShowBreakdown] = useState(false);
 
@@ -93,6 +95,12 @@ export default function FareEstimatePage() {
   };
 
   const handleBookRide = () => {
+    // Ensure the socket is connected before emitting ride:request.
+    // If the user landed directly on /fare-estimate (e.g. via deep-link),
+    // the socket may not yet be established.
+    if (!socket?.connected && accessToken) {
+      connect(accessToken);
+    }
     requestRide({
       pickupLat: pickup.lat,
       pickupLng: pickup.lng,
