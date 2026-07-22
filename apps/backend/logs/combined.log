@@ -517,3 +517,11 @@
 [2026-07-15 21:28:41] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
 [2026-07-15 21:28:41] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
 [2026-07-15 21:37:01] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-07-22 23:41:42] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-22 23:41:42] [32minfo[39m: 🌍 Environment: development
+[2026-07-22 23:45:18] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-22 23:45:18] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-22 23:45:43] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-22 23:45:43] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-22 23:45:49] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-22 23:45:51] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)

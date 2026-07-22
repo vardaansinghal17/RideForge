@@ -28,6 +28,17 @@ async function seed() {
         [rider.rows[0].id]
       );
     }
+    const rider2 = await client.query(
+      `INSERT INTO users (name, email, phone, password_hash, role)
+       VALUES ($1,$2,$3,$4,'RIDER') ON CONFLICT (phone) DO NOTHING RETURNING id`,
+      ['Raj Sharma', 'raj@test.com', '9876543219', userHash]
+    );
+    if (rider.rows[0]) {
+      await client.query(
+        `INSERT INTO riders (user_id) VALUES ($1) ON CONFLICT DO NOTHING`,
+        [rider.rows[0].id]
+      );
+    }
 
     
     const driver = await client.query(
