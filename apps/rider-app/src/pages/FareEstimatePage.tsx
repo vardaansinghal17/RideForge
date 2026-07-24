@@ -86,12 +86,26 @@ export default function FareEstimatePage() {
   const surgeMultiplier = apiData?.surgeMultiplier || 1.0;
   const calculatedFare = Math.round(baseFare * selectedRide.fareMultiplier);
 
-  const breakdown = apiData?.breakdown || {
+  const rawBreakdown = apiData?.breakdown || {
     baseFare: Math.round(baseFare * 0.4),
     distanceFare: Math.round(baseFare * 0.4),
     timeFare: Math.round(baseFare * 0.2),
     surgeFare: 0,
     total: baseFare,
+  };
+
+  const mult = selectedRide.fareMultiplier;
+  const baseFareScaled = Math.round(rawBreakdown.baseFare * mult);
+  const distanceFareScaled = Math.round(rawBreakdown.distanceFare * mult);
+  const surgeFareScaled = Math.round(rawBreakdown.surgeFare * mult);
+  const timeFareScaled = Math.max(0, calculatedFare - (baseFareScaled + distanceFareScaled + surgeFareScaled));
+
+  const breakdown = {
+    baseFare: baseFareScaled,
+    distanceFare: distanceFareScaled,
+    timeFare: timeFareScaled,
+    surgeFare: surgeFareScaled,
+    total: calculatedFare,
   };
 
   const handleBookRide = () => {
