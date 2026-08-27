@@ -26,11 +26,11 @@ interface MapViewProps {
   onMapClick?: (lat: number, lng: number) => void;
 }
 
-// Light OSM tile layer (CartoDB Positron — free, no key required)
+// Sleek, minimal light grey canvas map theme (Free, clean, no API key required)
 const LIGHT_TILE_URL =
-  'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+  'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  '&copy; Esri, HERE, Garmin, FAO, NOAA, USGS';
 
 // Free OSRM routing engine (no API key)
 const OSRM_ROUTE_URL = (pLng: number, pLat: number, dLng: number, dLat: number) =>

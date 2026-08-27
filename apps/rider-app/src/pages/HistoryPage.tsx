@@ -414,7 +414,7 @@ export default function HistoryPage() {
                               </span>
                               <div className="flex items-center gap-1 text-xs font-bold text-[var(--rx-text-2)]">
                                 <span className="text-sm">{getPaymentIcon(ride.payment_method)}</span>
-                                <span className="capitalize">{ride.payment_method?.toLowerCase() || 'Cash'}</span>
+                                <span className="capitalize">{ride.payment_method?.toLowerCase() || 'UPI'}</span>
                                 <span className="text-[10px] uppercase bg-black/5 text-[var(--rx-text-2)] px-1.5 py-0.5 rounded ml-1 tracking-wider">
                                   {ride.payment_status || 'PAID'}
                                 </span>

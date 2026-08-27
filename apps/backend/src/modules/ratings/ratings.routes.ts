@@ -17,7 +17,7 @@ router.post(
     body('rating')
       .isFloat({ min: 1, max: 5 })
       .withMessage('Rating must be between 1 and 5'),
-    body('comment').optional().isString().isLength({ max: 500 }),
+    body('comment').optional({ nullable: true }).isString().isLength({ max: 500 }),
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {

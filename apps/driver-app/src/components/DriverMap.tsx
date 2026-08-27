@@ -30,9 +30,9 @@ interface DriverMapProps {
 const osrmUrl = (aLng: number, aLat: number, bLng: number, bLat: number) =>
   `https://router.project-osrm.org/route/v1/driving/${aLng},${aLat};${bLng},${bLat}?overview=full&geometries=geojson`;
 
-// Tile layer
-const TILE_URL = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+// Tile layer (Sleek minimal light grey map canvas, no API key required)
+const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+const TILE_ATTR = '&copy; Esri, HERE, Garmin, FAO, NOAA, USGS';
 
 // ── Marker HTML factories ─────────────────────────────────────────────────────
 

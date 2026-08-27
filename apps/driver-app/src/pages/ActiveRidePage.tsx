@@ -17,7 +17,6 @@ export default function ActiveRidePage() {
 
   // Payment Selection Modal state
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [selectedMethod, setSelectedMethod] = useState<'CASH' | 'UPI'>('CASH');
   const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
 
   // Real driver GPS — updated live by the browser
@@ -97,9 +96,9 @@ export default function ActiveRidePage() {
       // 1. Complete the ride
       await updateStatus(localActiveRide.id, 'COMPLETED');
 
-      // 2. Set payment method
+      // 2. Set payment method to UPI
       await api.patch(`/payments/ride/${localActiveRide.id}/method`, {
-        method: selectedMethod,
+        method: 'UPI',
       });
 
       // 3. Navigate to rating page
@@ -302,8 +301,8 @@ export default function ActiveRidePage() {
             
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="text-lg font-extrabold text-slate-900">Select Rider Payment Method</h3>
-                <p className="text-xs text-slate-500">Ask the rider how they wish to pay</p>
+                <h3 className="text-lg font-extrabold text-slate-900">Rider UPI Payment</h3>
+                <p className="text-xs text-slate-500">Show this QR code to the rider for UPI payment</p>
               </div>
               <button
                 onClick={() => setShowPaymentModal(false)}
@@ -319,45 +318,14 @@ export default function ActiveRidePage() {
               <span className="text-2xl font-black text-[#FF5A1F]">₹{Number(estimated_fare).toFixed(2)}</span>
             </div>
 
-            {/* Payment Method Selector */}
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setSelectedMethod('CASH')}
-                className={`p-4 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${
-                  selectedMethod === 'CASH'
-                    ? 'border-[#FF5A1F] bg-orange-50/50 text-[#FF5A1F] font-bold shadow-md'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                }`}
-              >
-                <span className="text-3xl">💵</span>
-                <span className="text-sm">Cash</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedMethod('UPI')}
-                className={`p-4 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${
-                  selectedMethod === 'UPI'
-                    ? 'border-[#FF5A1F] bg-orange-50/50 text-[#FF5A1F] font-bold shadow-md'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                }`}
-              >
-                <span className="text-3xl">📲</span>
-                <span className="text-sm">Online / UPI QR</span>
-              </button>
+            {/* UPI QR Display */}
+            <div className="pt-1">
+              <PaymentQRCode
+                amount={Number(estimated_fare)}
+                driverName={driver_name || 'RideForge Driver'}
+                rideId={localActiveRide.id}
+              />
             </div>
-
-            {/* Dynamic QR Display if UPI selected */}
-            {selectedMethod === 'UPI' && (
-              <div className="pt-2">
-                <PaymentQRCode
-                  amount={Number(estimated_fare)}
-                  driverName={driver_name || 'RideForge Driver'}
-                  rideId={localActiveRide.id}
-                />
-              </div>
-            )}
 
             {/* Confirm Payment Button */}
             <div className="pt-2">
@@ -371,9 +339,7 @@ export default function ActiveRidePage() {
               >
                 {isSubmittingPayment
                   ? 'Processing...'
-                  : selectedMethod === 'CASH'
-                  ? `Confirm Cash Received (₹${Number(estimated_fare).toFixed(2)})`
-                  : `Confirm Payment Received & Complete`}
+                  : `Confirm UPI Payment Received & Complete`}
               </Button>
             </div>
           </div>

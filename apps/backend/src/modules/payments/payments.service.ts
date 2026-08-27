@@ -142,7 +142,7 @@ export class PaymentsService {
         const fareAmount = rideData.final_fare || rideData.estimated_fare || 0;
         await query(
           `INSERT INTO payments (ride_id, amount, status, method)
-           VALUES ($1, $2, 'COMPLETED', 'CASH')
+           VALUES ($1, $2, 'COMPLETED', 'UPI')
            ON CONFLICT (ride_id) DO NOTHING`,
           [rideId, fareAmount]
         );
@@ -177,7 +177,7 @@ export class PaymentsService {
         estimatedFare: Number(payment.estimated_fare || payment.amount),
         finalFare: Number(payment.final_fare || payment.amount),
         surgeMultiplier: Number(payment.surge_multiplier || 1),
-        paymentMethod: payment.method || 'CASH',
+        paymentMethod: payment.method || 'UPI',
         paymentStatus: payment.status || 'COMPLETED',
       },
     };

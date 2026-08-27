@@ -183,7 +183,7 @@ export class MatchingService {
 
     await query(
       `INSERT INTO payments (ride_id, amount, status, method)
-       VALUES ($1, $2, 'COMPLETED', 'CASH')
+       VALUES ($1, $2, 'COMPLETED', 'UPI')
        ON CONFLICT (ride_id) DO NOTHING`,
       [ride.id, ride.estimated_fare]
     );
