@@ -118,7 +118,8 @@ export default function RideCompletePage() {
       return res.data.data as Invoice;
     },
     enabled: !!rideId,
-    retry: 2,
+    refetchInterval: 3000,
+    retry: 3,
   });
 
   // ── Handlers ───────────────────────────────────────────────────────────────

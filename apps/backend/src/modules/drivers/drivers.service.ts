@@ -102,7 +102,11 @@ export class DriversService {
     }
 
     const result = await query(
-      `UPDATE drivers SET is_available = $1 WHERE id = $2 RETURNING id, is_available`,
+      `UPDATE drivers 
+       SET is_available = $1,
+           latitude = CASE WHEN $1 = true AND latitude IS NULL THEN 28.6139 ELSE latitude END,
+           longitude = CASE WHEN $1 = true AND longitude IS NULL THEN 77.2090 ELSE longitude END
+       WHERE id = $2 RETURNING id, is_available, latitude, longitude`,
       [isAvailable, driver.id]
     );
 

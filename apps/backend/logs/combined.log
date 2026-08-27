@@ -537,3 +537,105 @@
 [2026-07-25 00:28:15] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
 [2026-07-25 01:13:29] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
 [2026-07-25 01:13:29] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:25:27] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-07-31 02:25:27] [32minfo[39m: 🌍 Environment: development
+[2026-07-31 02:28:21] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:28:21] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:28:21] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 02:28:21] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 02:30:16] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-07-31 02:30:16] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-07-31 02:31:01] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-31 02:31:01] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-31 02:34:10] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-31 02:34:10] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-31 02:34:10] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-31 02:34:10] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-07-31 02:37:20] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-07-31 02:37:25] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-07-31 02:37:25] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-07-31 02:49:58] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-07-31 02:49:58] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-07-31 02:49:58] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-07-31 02:50:10] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-31 02:51:19] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 02:51:19] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 02:52:28] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 02:52:28] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 02:52:28] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-31 02:52:30] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 02:52:30] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 02:53:48] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:53:48] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:53:56] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 02:53:56] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:54:11] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 02:54:11] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-07-31 02:54:29] [32minfo[39m: Offered ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-07-31 02:54:44] [32minfo[39m: Driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3 timed out on ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd
+[2026-07-31 02:54:44] [32minfo[39m: Offered ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd to driver 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 02:54:51] [32minfo[39m: Ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd accepted by driver 3a089444-269e-423c-a6d4-85895ec93bed
+[2026-07-31 02:55:42] [32minfo[39m: Ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd status → ARRIVED
+[2026-07-31 02:55:50] [32minfo[39m: Ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd status → IN_PROGRESS
+[2026-07-31 02:56:22] [32minfo[39m: Ride 50708564-4d00-4b3a-b0d4-7f23f0af13dd status → COMPLETED
+[2026-07-31 02:56:22] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/50708564-4d00-4b3a-b0d4-7f23f0af13dd/invoice"}
+[2026-07-31 02:56:27] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/50708564-4d00-4b3a-b0d4-7f23f0af13dd/invoice"}
+[2026-07-31 02:56:29] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/50708564-4d00-4b3a-b0d4-7f23f0af13dd/invoice"}
+[2026-07-31 03:01:17] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-07-31 03:04:45] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 03:04:45] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 03:04:45] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 03:05:31] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-07-31 03:05:33] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 03:05:33] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 03:05:39] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 03:05:39] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 03:05:39] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 03:05:39] [32minfo[39m: Socket connected: 497d9276-de18-43d8-84e3-99964a981320 (DRIVER)
+[2026-07-31 03:05:49] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-07-31 03:05:49] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-07-31 03:05:49] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-07-31 03:06:09] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-07-31 03:06:09] [32minfo[39m: Socket disconnected: 497d9276-de18-43d8-84e3-99964a981320
+[2026-08-27 23:29:50] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-08-27 23:29:50] [32minfo[39m: 🌍 Environment: development
+[2026-08-27 23:31:59] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:32:00] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:32:13] [32minfo[39m: Socket disconnected: 9e6420bc-83df-47a7-a126-0bb55649a55b
+[2026-08-27 23:32:13] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:34:08] [32minfo[39m: Socket disconnected: 9e6420bc-83df-47a7-a126-0bb55649a55b
+[2026-08-27 23:34:08] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:35:41] [32minfo[39m: Offered ride 691e19a7-6e9e-4fcf-85eb-5584337b3ad2 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-27 23:35:56] [32minfo[39m: Driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3 timed out on ride 691e19a7-6e9e-4fcf-85eb-5584337b3ad2
+[2026-08-27 23:35:56] [32minfo[39m: No driver found for ride 691e19a7-6e9e-4fcf-85eb-5584337b3ad2 after exhausting queue
+[2026-08-27 23:37:11] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:37:11] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:37:36] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-27 23:37:36] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-27 23:37:36] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:37:36] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:37:49] [32minfo[39m: Socket disconnected: 9e6420bc-83df-47a7-a126-0bb55649a55b
+[2026-08-27 23:37:49] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:37:53] [32minfo[39m: Socket disconnected: 9e6420bc-83df-47a7-a126-0bb55649a55b
+[2026-08-27 23:37:53] [32minfo[39m: Socket connected: 9e6420bc-83df-47a7-a126-0bb55649a55b (RIDER)
+[2026-08-27 23:37:54] [32minfo[39m: Offered ride caecb6f6-f607-4379-a155-6129ef04ae02 to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-27 23:38:05] [32minfo[39m: Ride caecb6f6-f607-4379-a155-6129ef04ae02 accepted by driver e652b06d-e3b2-46be-a723-48f6a338af04
+[2026-08-27 23:38:23] [32minfo[39m: Ride caecb6f6-f607-4379-a155-6129ef04ae02 status → ARRIVED
+[2026-08-27 23:38:39] [32minfo[39m: Ride caecb6f6-f607-4379-a155-6129ef04ae02 status → IN_PROGRESS
+[2026-08-27 23:38:58] [32minfo[39m: Ride caecb6f6-f607-4379-a155-6129ef04ae02 status → COMPLETED
+[2026-08-27 23:38:58] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:39:42] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:39:44] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:40:00] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:40:01] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:40:03] [31merror[39m: Unhandled error {"err":"column du.user_id does not exist","stack":"error: column du.user_id does not exist\n    at D:\\RideForge\\node_modules\\.pnpm\\pg-pool@3.14.0_pg@8.22.0\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async query (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:9:18)\n    at async getOne (D:\\RideForge\\apps\\backend\\src\\db\\query.ts:23:18)\n    at async PaymentsService.getPaymentByRide (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:29:23)\n    at async PaymentsService.generateInvoice (D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.service.ts:117:21)\n    at async D:\\RideForge\\apps\\backend\\src\\modules\\payments\\payments.routes.ts:38:23","path":"/api/payments/ride/caecb6f6-f607-4379-a155-6129ef04ae02/invoice"}
+[2026-08-27 23:47:22] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-08-27 23:47:22] [32minfo[39m: 🌍 Environment: development
+[2026-08-27 23:47:22] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:47:22] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-27 23:53:20] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-08-27 23:53:20] [32minfo[39m: 🌍 Environment: development
+[2026-08-27 23:53:24] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-08-27 23:53:24] [32minfo[39m: 🌍 Environment: development
+[2026-08-27 23:53:49] [32minfo[39m: 🚀 Server running on http://localhost:4000
+[2026-08-27 23:53:49] [32minfo[39m: 🌍 Environment: development

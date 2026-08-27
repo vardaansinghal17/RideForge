@@ -103,18 +103,17 @@ export default function DashboardPage() {
   // ─── Broadcast location when online ─────────────────────────────────────────
   useEffect(() => {
     if (isAvailable) {
-      // Send current GPS immediately (if available)
-      if (driverGps) {
-        sendLocation(driverGps.lat, driverGps.lng);
-      }
+      // Send current GPS immediately (or fallback coordinates)
+      const currentLat = driverGps?.lat ?? 28.6139;
+      const currentLng = driverGps?.lng ?? 77.2090;
+      sendLocation(currentLat, currentLng);
 
       // Then keep broadcasting on an interval using the latest GPS position
       const interval = setInterval(() => {
-        // Always read latest GPS from state via a callback to avoid stale closure
         setDriverGps((current) => {
-          if (current) {
-            sendLocation(current.lat, current.lng);
-          }
+          const lat = current?.lat ?? 28.6139;
+          const lng = current?.lng ?? 77.2090;
+          sendLocation(lat, lng);
           return current;
         });
       }, 8000);

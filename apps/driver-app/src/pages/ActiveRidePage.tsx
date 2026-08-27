@@ -6,6 +6,7 @@ import { GlassCard } from '../components/ui/GlassCard';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { DriverMap } from '../components/DriverMap';
+import { PaymentQRCode } from '../components/PaymentQRCode';
 
 interface LatLng { lat: number; lng: number; }
 
@@ -13,6 +14,11 @@ export default function ActiveRidePage() {
   const navigate = useNavigate();
   const { activeRide, updateStatus, sendLocation } = useDriverRideStore();
   const [localActiveRide, setLocalActiveRide] = useState<any>(null);
+
+  // Payment Selection Modal state
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedMethod, setSelectedMethod] = useState<'CASH' | 'UPI'>('CASH');
+  const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
 
   // Real driver GPS — updated live by the browser
   const [driverPos, setDriverPos] = useState<LatLng | null>(null);
@@ -77,13 +83,36 @@ export default function ActiveRidePage() {
   }, [localActiveRide?.status]);
 
   // ── Actions ────────────────────────────────────────────────────────────────
-  const handleArrived       = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'ARRIVED');    }, [localActiveRide, updateStatus]);
-  const handleStartRide     = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'IN_PROGRESS'); }, [localActiveRide, updateStatus]);
-  const handleCompleteRide  = useCallback(async () => {
+  const handleArrived   = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'ARRIVED');    }, [localActiveRide, updateStatus]);
+  const handleStartRide = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'IN_PROGRESS'); }, [localActiveRide, updateStatus]);
+  
+  const handleOpenPaymentModal = () => {
+    setShowPaymentModal(true);
+  };
+
+  const handleConfirmCompletionAndPayment = async () => {
     if (!localActiveRide) return;
-    await updateStatus(localActiveRide.id, 'COMPLETED');
-    navigate(`/rate-rider/${localActiveRide.id}`);
-  }, [localActiveRide, updateStatus, navigate]);
+    setIsSubmittingPayment(true);
+    try {
+      // 1. Complete the ride
+      await updateStatus(localActiveRide.id, 'COMPLETED');
+
+      // 2. Set payment method
+      await api.patch(`/payments/ride/${localActiveRide.id}/method`, {
+        method: selectedMethod,
+      });
+
+      // 3. Navigate to rating page
+      navigate(`/rate-rider/${localActiveRide.id}`);
+    } catch (err) {
+      console.error('Failed to update payment:', err);
+      // Fallback transition
+      await updateStatus(localActiveRide.id, 'COMPLETED');
+      navigate(`/rate-rider/${localActiveRide.id}`);
+    } finally {
+      setIsSubmittingPayment(false);
+    }
+  };
 
   const handleCancelRide = useCallback(async () => {
     if (!localActiveRide) return;
@@ -111,6 +140,7 @@ export default function ActiveRidePage() {
     pickup_lat, pickup_lng, pickup_address,
     drop_lat,   drop_lng,   drop_address,
     estimated_fare,
+    driver_name,
   } = localActiveRide;
 
   const pickupLatLng: LatLng | null =
@@ -250,7 +280,7 @@ export default function ActiveRidePage() {
               </Button>
             )}
             {status === 'IN_PROGRESS' && (
-              <Button variant="primary" size="lg" fullWidth onClick={handleCompleteRide}
+              <Button variant="primary" size="lg" fullWidth onClick={handleOpenPaymentModal}
                 className="h-12 rounded-xl shadow-lg shadow-orange-400/30">
                 ✅  Complete Ride
               </Button>
@@ -264,6 +294,92 @@ export default function ActiveRidePage() {
           </div>
         </div>
       </div>
+
+      {/* ── Payment Collection & Settlement Modal ─────────────────────────── */}
+      {showPaymentModal && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl space-y-5 border border-slate-100 max-h-[90vh] overflow-y-auto">
+            
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-lg font-extrabold text-slate-900">Select Rider Payment Method</h3>
+                <p className="text-xs text-slate-500">Ask the rider how they wish to pay</p>
+              </div>
+              <button
+                onClick={() => setShowPaymentModal(false)}
+                className="p-1 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Fare Summary */}
+            <div className="bg-slate-50 rounded-2xl p-4 flex items-center justify-between border border-slate-100">
+              <span className="text-sm font-semibold text-slate-600">Total Ride Fare</span>
+              <span className="text-2xl font-black text-[#FF5A1F]">₹{Number(estimated_fare).toFixed(2)}</span>
+            </div>
+
+            {/* Payment Method Selector */}
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setSelectedMethod('CASH')}
+                className={`p-4 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${
+                  selectedMethod === 'CASH'
+                    ? 'border-[#FF5A1F] bg-orange-50/50 text-[#FF5A1F] font-bold shadow-md'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                }`}
+              >
+                <span className="text-3xl">💵</span>
+                <span className="text-sm">Cash</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedMethod('UPI')}
+                className={`p-4 rounded-2xl border-2 flex flex-col items-center gap-2 transition-all ${
+                  selectedMethod === 'UPI'
+                    ? 'border-[#FF5A1F] bg-orange-50/50 text-[#FF5A1F] font-bold shadow-md'
+                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                }`}
+              >
+                <span className="text-3xl">📲</span>
+                <span className="text-sm">Online / UPI QR</span>
+              </button>
+            </div>
+
+            {/* Dynamic QR Display if UPI selected */}
+            {selectedMethod === 'UPI' && (
+              <div className="pt-2">
+                <PaymentQRCode
+                  amount={Number(estimated_fare)}
+                  driverName={driver_name || 'RideForge Driver'}
+                  rideId={localActiveRide.id}
+                />
+              </div>
+            )}
+
+            {/* Confirm Payment Button */}
+            <div className="pt-2">
+              <Button
+                variant="primary"
+                size="lg"
+                fullWidth
+                disabled={isSubmittingPayment}
+                onClick={handleConfirmCompletionAndPayment}
+                className="h-12 rounded-xl text-base shadow-lg shadow-orange-400/30"
+              >
+                {isSubmittingPayment
+                  ? 'Processing...'
+                  : selectedMethod === 'CASH'
+                  ? `Confirm Cash Received (₹${Number(estimated_fare).toFixed(2)})`
+                  : `Confirm Payment Received & Complete`}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

@@ -48,16 +48,31 @@ export const useDriverRideStore = create<DriverRideStore>((set, get) => ({
   errorMessage: null,
 
   connect: (token) => {
-    if (get().socket?.connected) return;
+    const existing = get().socket;
+    if (existing) {
+      if (existing.connected || existing.active) {
+        return;
+      }
+      existing.disconnect();
+    }
 
     const socket: AppSocket = io(
       (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace('/api', ''),
-      { auth: { token } }
+      {
+        auth: { token },
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionAttempts: 20,
+        reconnectionDelay: 1000,
+      }
     );
 
-    socket.on('connect', () => console.log('[Driver] Connected to ride server'));
+    socket.on('connect', () => {
+      console.log('[Driver] Connected to ride server, socket ID:', socket.id);
+    });
 
     socket.on('ride:incoming', (ride) => {
+      console.log('[Driver] Received ride:incoming event:', ride);
       set({ incomingRide: ride as IncomingRide, offerSecondsLeft: 15 });
 
       if (offerCountdownInterval) clearInterval(offerCountdownInterval);

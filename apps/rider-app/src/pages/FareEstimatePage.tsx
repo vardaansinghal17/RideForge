@@ -338,17 +338,6 @@ export default function FareEstimatePage() {
 
       {/* Sticky Bottom Actions Area */}
       <div className="fixed bottom-0 left-0 right-0 p-4 z-20 bg-white/95 backdrop-blur-md border-t border-gray-150/50 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)] max-w-md mx-auto flex flex-col gap-3">
-        {/* Payment Method */}
-        <div className="bg-gray-50/90 rounded-xl p-[10px_14px] flex items-center justify-between border border-gray-150/50">
-          <div className="flex items-center gap-2">
-            <span className="text-base">💵</span>
-            <span className="text-xs font-bold text-[var(--rx-text)]">Cash</span>
-          </div>
-          <span className="text-xs font-bold text-[#FF5A1F] cursor-pointer hover:text-orange-600 transition-colors">
-            Change ›
-          </span>
-        </div>
-
         {/* Book Button */}
         <motion.button
           onClick={handleBookRide}

@@ -365,8 +365,12 @@ function offerRideToNextDriver(
       },
     };
 
-    io.to(rooms.driverPersonal(driverUserId)).emit('ride:incoming', payload as any);
-    logger.info(`Offered ride ${rideId} to driver ${driverUserId}`);
+    const roomName = rooms.driverPersonal(driverUserId);
+    const socketsInRoom = io.sockets.adapter.rooms.get(roomName);
+    const count = socketsInRoom ? socketsInRoom.size : 0;
+
+    io.to(roomName).emit('ride:incoming', payload as any);
+    logger.info(`Offered ride ${rideId} to driver ${driverUserId} in room ${roomName} (Sockets active: ${count})`);
   });
 
   // Set timeout — if driver doesn't respond, move to next candidate
