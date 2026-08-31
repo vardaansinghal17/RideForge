@@ -14,14 +14,14 @@ export default function HomePage() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#F8F9FA]">
-      {/* Full-screen Map Backdrop */}
+      {}
       <MapView />
 
-      {/* Floating Header */}
+      {}
       <header className="absolute top-5 left-4 right-4 z-20 max-w-md mx-auto pointer-events-none">
         <GlassCard className="pointer-events-auto flex items-center justify-between !py-3.5 !px-5" strong>
           <div className="flex items-center space-x-3">
-            {/* User Avatar Initial */}
+            {}
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#FF5A1F] to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_15px_rgba(255,90,31,0.25)]">
               {user?.name ? user.name[0].toUpperCase() : 'U'}
             </div>
@@ -52,7 +52,7 @@ export default function HomePage() {
         </GlassCard>
       </header>
 
-      {/* Floating Bottom Card */}
+      {}
       <div className="absolute bottom-8 left-4 right-4 z-20 max-w-md mx-auto">
         <GlassCard
           className="fade-up cursor-pointer hover:border-[#FF5A1F]/30 transition-colors group"
@@ -82,7 +82,7 @@ export default function HomePage() {
             Tap here to enter pickup and destination coordinates.
           </p>
 
-          {/* Dummy inputs for visual look */}
+          {}
           <div className="space-y-2.5 pointer-events-none">
             <div className="flex items-center space-x-3.5 bg-black/5 border border-black/5 rounded-xl px-4 py-3 text-[var(--rx-text-3)] text-xs font-medium">
               <div className="w-2 h-2 rounded-full border border-[#FF5A1F]/80 bg-[#FF5A1F]/20" />

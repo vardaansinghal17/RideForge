@@ -79,7 +79,7 @@ export default function RateRiderPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden bg-slate-900 text-white">
-      {/* Background Visual Glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-[#FF5A1F]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -106,7 +106,7 @@ export default function RateRiderPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Star selector */}
+            {}
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center justify-center space-x-2">
                 {[1, 2, 3, 4, 5].map((star) => {
@@ -143,7 +143,7 @@ export default function RateRiderPage() {
               </span>
             </div>
 
-            {/* Rider tags */}
+            {}
             <div className="text-left space-y-2">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
                 Passenger Highlights
@@ -169,7 +169,7 @@ export default function RateRiderPage() {
               </div>
             </div>
 
-            {/* Comment box */}
+            {}
             <div className="text-left">
               <label htmlFor="comment" className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                 Note for rider (optional)

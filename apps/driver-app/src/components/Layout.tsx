@@ -12,7 +12,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const { logout, user } = useAuthStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Fetch driver profile
   const { data: driverProfile } = useQuery({
     queryKey: ['driverProfile'],
     queryFn: async () => {
@@ -49,7 +48,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       await logout();
       navigate('/login');
     } catch (err) {
-      console.error('Logout failed', err);
+ console.error('Logout failed', err);
     }
   };
 
@@ -114,7 +113,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     }
   ];
 
-  // Helper to resolve title
   const getPageTitle = () => {
     const matched = menuItems.find((item) => item.path === location.pathname);
     if (matched) return matched.label;
@@ -125,7 +123,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full bg-white border-r border-[var(--rx-border)] shadow-sm">
-      {/* Brand Header */}
+      {}
       <div className="h-20 flex items-center px-8 border-b border-[var(--rx-border)]">
         <Link to="/" className="flex items-center space-x-3">
           <div className="w-9 h-9 rounded-xl bg-[#FF5A1F] flex items-center justify-center text-white font-black text-xl shadow-lg">
@@ -137,7 +135,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </Link>
       </div>
 
-      {/* Driver Card */}
+      {}
       <div className="p-6 border-b border-[var(--rx-border)] bg-slate-50/50">
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 rounded-full bg-slate-900 border-2 border-[#FF5A1F] flex items-center justify-center font-black text-[#FF5A1F] text-xl shadow-sm select-none">
@@ -164,7 +162,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
       </div>
 
-      {/* Navigation Links */}
+      {}
       <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
         {menuItems.map((item) => {
           const active = location.pathname === item.path;
@@ -190,7 +188,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         })}
       </nav>
 
-      {/* Logout Footer */}
+      {}
       <div className="p-4 border-t border-[var(--rx-border)] bg-slate-50/50">
         <button
           onClick={handleLogout}
@@ -207,16 +205,16 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[var(--rx-bg)] text-slate-800 font-sans">
-      {/* Background Visual Glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-[#FF5A1F]/3 rounded-full blur-[120px] pointer-events-none z-0" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-500/3 rounded-full blur-[140px] pointer-events-none z-0" />
 
-      {/* Desktop Sidebar */}
+      {}
       <div className="hidden lg:block w-72 flex-shrink-0 z-10">
         <SidebarContent />
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      {}
       {isSidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden flex">
           <div
@@ -229,12 +227,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </div>
       )}
 
-      {/* Right Content Workspace */}
+      {}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden z-10 relative">
-        {/* Top Header */}
+        {}
         <header className="h-20 bg-white border-b border-[var(--rx-border)] px-6 md:px-10 flex items-center justify-between flex-shrink-0 shadow-sm z-20">
           <div className="flex items-center space-x-4">
-            {/* Hamburger for mobile */}
+            {}
             <button
               onClick={() => setIsSidebarOpen(true)}
               className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-50 border border-slate-200"
@@ -248,7 +246,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </h1>
           </div>
 
-          {/* Quick Stats & Availability Toggle */}
+          {}
           <div className="flex items-center space-x-4">
             {isApproved ? (
               <div className="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-1.5">
@@ -277,17 +275,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               </div>
             )}
 
-            {/* Quick Profile Initials (Desktop) */}
+            {}
             <div className="hidden md:flex w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[#FF5A1F] font-bold items-center justify-center select-none shadow-sm">
               {(driverProfile?.name || user?.name || 'D')[0].toUpperCase()}
             </div>
           </div>
         </header>
 
-        {/* Scrollable Workspace */}
+        {}
         <main className="flex-1 overflow-hidden w-full relative flex flex-col">
           {location.pathname === '/active-ride' ? (
-            // Full-bleed for map page — no padding, no max-width
+
             <div className="flex-1 relative">
               {children}
             </div>

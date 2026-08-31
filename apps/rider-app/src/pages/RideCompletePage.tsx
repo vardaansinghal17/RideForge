@@ -12,7 +12,6 @@ export default function RideCompletePage() {
   const navigate = useNavigate();
   const { ride, reset } = useRideStore();
 
-  // Persist rideId to sessionStorage so it survives store resets / page reloads
   const [rideId] = useState<string>(() => {
     const id = ride?.id || sessionStorage.getItem('lastRideId') || '';
     if (ride?.id) sessionStorage.setItem('lastRideId', ride.id);
@@ -25,7 +24,6 @@ export default function RideCompletePage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Guard: no rideId → go home
   useEffect(() => {
     if (!rideId) navigate('/');
   }, [rideId, navigate]);
@@ -57,7 +55,7 @@ export default function RideCompletePage() {
     },
     onError: (err: any) => {
       if (err.response?.status === 409) {
-        // If already rated, complete gracefully
+
         setIsSubmitted(true);
         setTimeout(() => {
           reset();
@@ -123,13 +121,13 @@ export default function RideCompletePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
     >
-      {/* Visual background glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#FF5A1F]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* ── Top: Success Hero ─────────────────────────────────────────────── */}
+      {}
       <div className="flex flex-col items-center pt-4 pb-6 px-6 z-10">
-        {/* Animated green ring + checkmark */}
+        {}
         <motion.div
           className="w-20 h-20 rounded-full bg-[var(--rx-green-dim)] border border-[var(--rx-green)]/25 flex items-center justify-center mb-5 shadow-[0_0_32px_rgba(16,185,129,0.18)]"
           initial={{ scale: 0, opacity: 0 }}
@@ -173,11 +171,11 @@ export default function RideCompletePage() {
         </motion.p>
       </div>
 
-      {/* ── Rating Content Card ───────────────────────────────────────────── */}
+      {}
       <div className="w-full max-w-md z-10">
         <AnimatePresence mode="wait">
           {isSubmitted ? (
-            // Success Screen
+
             <motion.div
               key="success"
               className="glass-card-strong p-8 text-center flex flex-col items-center justify-center"
@@ -202,7 +200,7 @@ export default function RideCompletePage() {
               <p className="text-sm text-[var(--rx-text-3)] font-medium">Thank you for helping us rate your driver!</p>
             </motion.div>
           ) : (
-            // Driver Rating Form Screen
+
             <motion.div
               key="form"
               className="glass-card-strong p-6 md:p-8 flex flex-col gap-6"
@@ -211,7 +209,7 @@ export default function RideCompletePage() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Header */}
+              {}
               <div className="text-center">
                 <h2 className="text-xl font-extrabold text-[var(--rx-text)] tracking-tight">
                   Rate your driver
@@ -222,7 +220,7 @@ export default function RideCompletePage() {
               </div>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                {/* Star Input */}
+                {}
                 <div className="flex flex-col items-center gap-2.5">
                   <div className="flex items-center gap-2">
                     {[1, 2, 3, 4, 5].map((star) => {
@@ -263,7 +261,7 @@ export default function RideCompletePage() {
                   </span>
                 </div>
 
-                {/* Tags Section */}
+                {}
                 <div className="flex flex-col gap-2">
                   <span className="text-[11px] font-bold text-[var(--rx-text-3)] uppercase tracking-wider select-none">
                     Select highlights
@@ -289,7 +287,7 @@ export default function RideCompletePage() {
                   </div>
                 </div>
 
-                {/* Comment Textarea */}
+                {}
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="comment"
@@ -307,7 +305,7 @@ export default function RideCompletePage() {
                   />
                 </div>
 
-                {/* Error Banner */}
+                {}
                 {ratingMutation.isError && (ratingMutation.error as any)?.response?.status !== 409 && (
                   <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-left">
                     <p className="text-xs text-red-600 font-semibold leading-relaxed">
@@ -318,7 +316,7 @@ export default function RideCompletePage() {
                   </div>
                 )}
 
-                {/* Actions */}
+                {}
                 <div className="flex flex-col gap-3 mt-2">
                   <button
                     type="submit"

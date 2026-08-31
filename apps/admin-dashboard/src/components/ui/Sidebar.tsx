@@ -79,7 +79,7 @@ export const Sidebar: React.FC = () => {
       className="flex flex-col h-full flex-shrink-0 border-r border-[var(--rx-border)] bg-white"
       style={{ width: 'var(--sidebar-w)' }}
     >
-      {/* Brand */}
+      {}
       <div className="px-5 pt-6 pb-5 border-b border-[var(--rx-border)]">
         <h1 className="text-xl font-black tracking-wider bg-gradient-to-r from-[#FF5A1F] to-[#EA580C] bg-clip-text text-transparent select-none">
           RIDEFORGE
@@ -87,7 +87,7 @@ export const Sidebar: React.FC = () => {
         <p className="text-[11px] font-semibold text-[var(--rx-text-3)] mt-0.5 uppercase tracking-widest">Admin Console</p>
       </div>
 
-      {/* Nav */}
+      {}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {navItems.map((item) => (
           <NavLink
@@ -108,7 +108,7 @@ export const Sidebar: React.FC = () => {
         ))}
       </nav>
 
-      {/* User footer */}
+      {}
       <div className="px-4 py-4 border-t border-[var(--rx-border)]">
         <div className="flex items-center gap-3 mb-3">
           <div className="w-8 h-8 rounded-full bg-[var(--rx-blue-dim)] flex items-center justify-center text-[var(--rx-blue)] font-bold text-sm flex-shrink-0">

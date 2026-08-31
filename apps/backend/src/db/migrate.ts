@@ -189,10 +189,10 @@ async function migrate() {
     }
 
     await client.query('COMMIT');
-    console.log(' Migration complete');
+ console.log(' Migration complete');
   } catch (err) {
     await client.query('ROLLBACK');
-    console.error(' Migration failed:', err);
+ console.error(' Migration failed:', err);
     throw err;
   } finally {
     client.release();

@@ -15,13 +15,11 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  // Clear errors on mount
   useEffect(() => {
     clearError();
     setValidationError(null);
   }, [clearError]);
 
-  // Redirect if already logged in
   useEffect(() => {
     if (accessToken) {
       navigate('/');
@@ -33,7 +31,6 @@ export default function RegisterPage() {
     clearError();
     setValidationError(null);
 
-    // Form validations
     if (name.trim().length < 2) {
       setValidationError('Name must be at least 2 characters');
       return;
@@ -64,7 +61,7 @@ export default function RegisterPage() {
       });
       navigate('/');
     } catch (err) {
-      // Handled by store error
+
     }
   };
 
@@ -75,12 +72,12 @@ export default function RegisterPage() {
         background: 'radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%)',
       }}
     >
-      {/* Background visual glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#FF5A1F]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <GlassCard className="w-full max-w-[440px] fade-up p-8 text-center" strong>
-        {/* Brand Logo */}
+        {}
         <div className="mb-6">
           <h1 className="text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-700 select-none">
             RIDEFORGE
@@ -88,7 +85,7 @@ export default function RegisterPage() {
           <p className="text-sm text-[var(--rx-text-3)] font-medium mt-1">Create Rider Account</p>
         </div>
 
-        {/* Form */}
+        {}
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             id="name"
@@ -194,7 +191,7 @@ export default function RegisterPage() {
             }
           />
 
-          {/* Validation or API errors */}
+          {}
           {(validationError || error) && (
             <div className="bg-[var(--rx-red-dim)] border border-[rgba(239,68,68,0.2)] rounded-lg p-3.5 text-left flex items-start space-x-2.5">
               <svg

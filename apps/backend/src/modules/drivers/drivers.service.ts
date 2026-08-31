@@ -102,7 +102,7 @@ export class DriversService {
     }
 
     const result = await query(
-      `UPDATE drivers 
+      `UPDATE drivers
        SET is_available = $1,
            latitude = CASE WHEN $1 = true AND latitude IS NULL THEN 28.6139 ELSE latitude END,
            longitude = CASE WHEN $1 = true AND longitude IS NULL THEN 77.2090 ELSE longitude END
@@ -125,7 +125,7 @@ export class DriversService {
 
   async getActiveRideForDriver(userId: string) {
     return getOne<any>(
-      `SELECT r.*, 
+      `SELECT r.*,
               ru.name AS rider_name, ru.phone AS rider_phone,
               ri.rating AS rider_rating
        FROM rides r
@@ -199,7 +199,6 @@ export class DriversService {
       [driver.id]
     );
 
-    // Daily breakdown for the last 7 days (for chart)
     const dailyBreakdown = await getMany<{ day: string; earnings: string; rides: string }>(
       `SELECT
         TO_CHAR(DATE_TRUNC('day', completed_at), 'YYYY-MM-DD') AS day,

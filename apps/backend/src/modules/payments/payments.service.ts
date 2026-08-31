@@ -99,7 +99,7 @@ export class PaymentsService {
     );
 
     if (!ride) throw new NotFoundError('Ride');
-    const isRider  = ride.rider_user_id === userId;
+    const isRider = ride.rider_user_id === userId;
     const isDriver = ride.driver_user_id === userId;
 
     if (!isRider && !isDriver) throw new AppError('Access denied', 403);
@@ -127,13 +127,11 @@ export class PaymentsService {
     return result.rows[0];
   }
 
-  // ── Generate invoice ──────────────────────────────────────
   async generateInvoice(rideId: string, userId: string) {
     let payment;
     try {
       payment = await this.getPaymentByRide(rideId, userId);
     } catch (err) {
-      // If payment record is missing, auto-create it for completed ride
       const rideData = await getOne<{ estimated_fare: number; final_fare: number }>(
         `SELECT estimated_fare, final_fare FROM rides WHERE id = $1`,
         [rideId]
@@ -152,7 +150,6 @@ export class PaymentsService {
 
     if (!payment) throw new NotFoundError('Payment');
 
-    // Build structured invoice object
     const invoice = {
       invoiceNumber: `INV-${payment.id.slice(0, 8).toUpperCase()}`,
       generatedAt: new Date().toISOString(),
@@ -185,7 +182,6 @@ export class PaymentsService {
     return invoice;
   }
 
-  // ── Admin: all payments with filters ─────────────────────
   async getAllPayments(page = 1, limit = 20, status?: string) {
     const offset = (page - 1) * limit;
     const whereClause = status ? `WHERE p.status = $3` : '';

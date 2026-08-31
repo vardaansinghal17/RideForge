@@ -32,12 +32,12 @@ function ProtectedLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-[var(--rx-bg)] text-[var(--rx-text)]">
-      {/* Fixed Sidebar */}
+      {}
       <Sidebar />
 
-      {/* Main Content Area */}
+      {}
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        {/* Page Content wrapper */}
+        {}
         <div className="max-w-[1400px] w-full mx-auto px-8 py-8">
           <Outlet />
         </div>
@@ -51,10 +51,10 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          {/* Public login route */}
+          {}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Protected routes */}
+          {}
           <Route element={<ProtectedLayout />}>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/users" element={<UsersPage />} />
@@ -64,7 +64,7 @@ export default function App() {
             <Route path="/analytics" element={<AnalyticsPage />} />
           </Route>
 
-          {/* Fallback */}
+          {}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

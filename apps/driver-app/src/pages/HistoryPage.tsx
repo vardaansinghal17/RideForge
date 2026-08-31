@@ -55,7 +55,7 @@ export default function HistoryPage() {
                     </Badge>
                   </div>
 
-                  {/* Timeline Details */}
+                  {}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-l-2 border-slate-100 pl-4 py-1">
                     <div className="flex items-start space-x-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />
@@ -77,7 +77,7 @@ export default function HistoryPage() {
                     </div>
                   </div>
 
-                  {/* Details Row */}
+                  {}
                   <div className="flex items-center justify-between border-t border-slate-100 pt-4 text-sm">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-650 text-xs">
@@ -88,7 +88,7 @@ export default function HistoryPage() {
                         <span className="font-bold text-slate-700 block mt-0.5">{ride.rider_name || 'Rider'}</span>
                       </div>
                     </div>
-                    
+
                     <div className="text-right">
                       <span className="text-[10px] text-slate-400 block uppercase tracking-wider">Earnings</span>
                       <span className="font-extrabold text-slate-900 text-base block mt-0.5">
@@ -101,7 +101,7 @@ export default function HistoryPage() {
             })
           )}
 
-          {/* Pagination Controls */}
+          {}
           {pagination.totalPages > 1 && (
             <div className="flex items-center justify-between pt-4">
               <Button

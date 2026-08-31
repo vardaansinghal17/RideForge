@@ -131,7 +131,7 @@ export default function RidesPage() {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-[var(--rx-text)]">Rides</h2>
-            {/* Live indicator */}
+            {}
             <span className="flex items-center gap-1.5 ml-1">
               <span
                 className={`w-2 h-2 rounded-full ${isFetching ? 'bg-orange-400 animate-ping' : 'bg-emerald-400 animate-pulse'}`}
@@ -147,7 +147,7 @@ export default function RidesPage() {
         </div>
       </div>
 
-      {/* Tabs */}
+      {}
       <div className="flex bg-white border border-[var(--rx-border)] rounded-xl p-1 gap-0.5 self-start w-fit">
         {statuses.map((s) => (
           <button

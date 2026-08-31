@@ -42,10 +42,8 @@ export default function FareEstimatePage() {
   const [selectedRideIndex, setSelectedRideIndex] = useState(0);
   const [showBreakdown, setShowBreakdown] = useState(false);
 
-  // Fallback to MOCK_STATE for testing and direct navigation
   const state = (location.state as LocationState | null) || MOCK_STATE;
 
-  // Redirect to /ride if no state is present (unless using mock fallback for dev testing)
   useEffect(() => {
     if (!state || !state.pickup || !state.drop || !state.distanceKm || !state.durationMin) {
       navigate('/ride');
@@ -62,7 +60,7 @@ export default function FareEstimatePage() {
         });
         return res.data.data;
       } catch (err) {
-        console.error('Failed to fetch estimate, using fallback values', err);
+ console.error('Failed to fetch estimate, using fallback values', err);
         return { fare: 62, surgeMultiplier: 1.0 };
       }
     },
@@ -109,9 +107,7 @@ export default function FareEstimatePage() {
   };
 
   const handleBookRide = () => {
-    // Ensure the socket is connected before emitting ride:request.
-    // If the user landed directly on /fare-estimate (e.g. via deep-link),
-    // the socket may not yet be established.
+
     if (!socket?.connected && accessToken) {
       connect(accessToken);
     }
@@ -135,12 +131,12 @@ export default function FareEstimatePage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Full-screen Map Backdrop */}
+      {}
       <div className="absolute inset-0 w-full h-full z-0">
         <MapView pickup={pickup} drop={drop} />
       </div>
 
-      {/* Floating Back Header Pill */}
+      {}
       <div className="absolute top-4 left-4 z-20">
         <button
           onClick={() => navigate('/ride')}
@@ -160,19 +156,19 @@ export default function FareEstimatePage() {
         </button>
       </div>
 
-      {/* Scrollable Container Over Map */}
+      {}
       <div className="absolute inset-0 z-10 overflow-y-auto no-scrollbar pb-[220px] pointer-events-none">
-        
-        {/* Spacer to keep map content interactive & visible at the top */}
+
+        {}
         <div className="h-[240px] sm:h-[280px] w-full pointer-events-none" />
 
-        {/* Content Cards overlaying the Map */}
+        {}
         <div className="pointer-events-auto px-4 py-4 max-w-md mx-auto w-full flex flex-col gap-4 bg-transparent">
-          
-          {/* Route Summary Card */}
+
+          {}
           <div className="bg-white/95 backdrop-blur-md border border-gray-150/50 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-4 flex items-center justify-between w-full">
             <div className="flex-1 min-w-0 flex flex-col gap-3">
-              {/* Pickup */}
+              {}
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--rx-green)] shrink-0" />
                 <span className="text-xs font-semibold text-[var(--rx-text)] truncate">{pickup.address}</span>
@@ -180,20 +176,20 @@ export default function FareEstimatePage() {
 
               <div className="h-[1px] bg-gray-150/50 ml-5" />
 
-              {/* Drop */}
+              {}
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-sm bg-black shrink-0" />
                 <span className="text-xs font-semibold text-[var(--rx-text)] truncate">{drop.address}</span>
               </div>
             </div>
 
-            {/* Distance Badge */}
+            {}
             <span className="ml-3 shrink-0 bg-gray-150/30 text-[var(--rx-text-2)] text-[10px] font-bold px-2.5 py-1 rounded-md border border-gray-250/20">
               {distanceKm} km
             </span>
           </div>
 
-          {/* Available Rides Section */}
+          {}
           <div className="w-full">
             <h3 className="text-left text-[11px] font-extrabold uppercase tracking-wider text-[var(--rx-text-3)] mb-3 bg-white/40 px-2 py-0.5 rounded-full w-max backdrop-blur-sm">
               Available Rides
@@ -236,12 +232,12 @@ export default function FareEstimatePage() {
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {/* Left: emoji */}
+                      {}
                       <div className="w-11 h-11 rounded-lg bg-gray-50 flex items-center justify-center text-xl shrink-0">
                         {type.emoji}
                       </div>
 
-                      {/* Middle */}
+                      {}
                       <div className="flex-1 min-w-0 text-left">
                         <h4 className="text-sm font-bold text-[var(--rx-text)] leading-tight">
                           {type.name}
@@ -253,7 +249,7 @@ export default function FareEstimatePage() {
                         </div>
                       </div>
 
-                      {/* Right */}
+                      {}
                       <div className="text-right shrink-0 flex flex-col items-end gap-0.5">
                         <span className="text-base font-extrabold text-[var(--rx-text)]">₹{fare}</span>
                         {surgeMultiplier > 1 && (
@@ -269,7 +265,7 @@ export default function FareEstimatePage() {
             )}
           </div>
 
-          {/* Fare Breakdown Section */}
+          {}
           {!isLoading && !isError && apiData && (
             <div className="bg-white/95 backdrop-blur-md border border-gray-150/50 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-4 w-full">
               <div
@@ -336,9 +332,9 @@ export default function FareEstimatePage() {
         </div>
       </div>
 
-      {/* Sticky Bottom Actions Area */}
+      {}
       <div className="fixed bottom-0 left-0 right-0 p-4 z-20 bg-white/95 backdrop-blur-md border-t border-gray-150/50 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)] max-w-md mx-auto flex flex-col gap-3">
-        {/* Book Button */}
+        {}
         <motion.button
           onClick={handleBookRide}
           disabled={isLoading || isError}

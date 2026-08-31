@@ -31,7 +31,7 @@ interface RideCompletionRow {
 
 export class MatchingService {
   private readonly SEARCH_RADIUS_KM = 10;
-  private readonly DRIVER_ACCEPT_TIMEOUT_MS = 15000; // 15 seconds
+  private readonly DRIVER_ACCEPT_TIMEOUT_MS = 15000;
 
   async findNearbyDrivers(
     pickupLat: number,
@@ -71,7 +71,7 @@ export class MatchingService {
     );
 
     if (drivers.length === 0) {
-      logger.warn('No available approved drivers in DB');
+ logger.warn('No available approved drivers in DB');
       return [];
     }
 
@@ -87,10 +87,6 @@ export class MatchingService {
       };
     });
 
-    // Progressive radius fallback strategy to ensure drivers are always found if available:
-    // 1. Try initialRadiusKm (15 km)
-    // 2. Try 50 km
-    // 3. Try 500 km (fallback for dev/testing with arbitrary coordinates)
     const radiuses = [initialRadiusKm, 50, 500];
 
     for (const radius of radiuses) {
@@ -99,13 +95,12 @@ export class MatchingService {
         .sort((a, b) => a.distance_km - b.distance_km);
 
       if (nearby.length > 0) {
-        logger.info(`Found ${nearby.length} drivers within ${radius}km search radius`);
+ logger.info(`Found ${nearby.length} drivers within ${radius}km search radius`);
         return nearby;
       }
     }
 
-    // Fallback: return all available drivers sorted by distance
-    logger.info(`Returning all ${mapped.length} available drivers as fallback`);
+ logger.info(`Returning all ${mapped.length} available drivers as fallback`);
     return mapped.sort((a, b) => a.distance_km - b.distance_km);
   }
 
@@ -116,14 +111,14 @@ export class MatchingService {
     const nearby = await this.findNearbyDrivers(pickupLat, pickupLng);
 
     if (nearby.length === 0) {
-      logger.info('No drivers available near pickup', { pickupLat, pickupLng });
+ logger.info('No drivers available near pickup', { pickupLat, pickupLng });
       return null;
     }
 
     const best = nearby[0];
     const etaMinutes = Math.ceil((best.distance_km / 30) * 60);
 
-    logger.info(`Matched driver ${best.id} at ${best.distance_km.toFixed(2)}km`);
+ logger.info(`Matched driver ${best.id} at ${best.distance_km.toFixed(2)}km`);
 
     return { driver: best, distanceKm: best.distance_km, etaMinutes };
   }

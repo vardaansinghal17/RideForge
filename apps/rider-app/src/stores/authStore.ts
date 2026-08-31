@@ -32,7 +32,7 @@ export const useAuthStore = create<AuthState>()(
           const { accessToken, refreshToken, user } = res.data.data;
           set({ accessToken, refreshToken, user, isLoading: false });
         } catch (err: any) {
-          // Backend returns: { success: false, error: { message, code } }
+
           const msg: string =
             err?.response?.data?.error?.message ||
             err?.response?.data?.message ||
@@ -55,7 +55,7 @@ export const useAuthStore = create<AuthState>()(
           const { accessToken, refreshToken, user } = res.data.data;
           set({ accessToken, refreshToken, user, isLoading: false });
         } catch (err: any) {
-          // Backend returns: { success: false, error: { message, code } }
+
           const msg: string =
             err?.response?.data?.error?.message ||
             err?.response?.data?.message ||
@@ -69,7 +69,7 @@ export const useAuthStore = create<AuthState>()(
         try {
           const { refreshToken } = get();
           if (refreshToken) {
-            await api.post('/auth/logout', { refreshToken }).catch(() => { /* best-effort */ });
+            await api.post('/auth/logout', { refreshToken }).catch(() => {  });
           }
         } finally {
           set({ user: null, accessToken: null, refreshToken: null, error: null });

@@ -36,10 +36,10 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Left Column - General Info (Col Span 1) */}
+
+        {}
         <div className="space-y-6">
-          {/* Profile Basic Info */}
+          {}
           <GlassCard className="p-6 text-center space-y-4">
             <div className="w-20 h-20 rounded-full bg-slate-900 border-2 border-[#FF5A1F] flex items-center justify-center font-black text-[#FF5A1F] text-3xl mx-auto shadow-md select-none">
               {(driverProfile?.name || 'D')[0].toUpperCase()}
@@ -55,7 +55,7 @@ export default function ProfilePage() {
             </div>
           </GlassCard>
 
-          {/* Stats Summary Row */}
+          {}
           <div className="grid grid-cols-2 gap-4">
             <GlassCard className="p-4 text-center">
               <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Overall Rating</span>
@@ -68,7 +68,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Right Column - Vehicle Details (Col Span 2) */}
+        {}
         <div className="lg:col-span-2">
           <GlassCard className="p-6 h-full flex flex-col justify-between space-y-6">
             <div className="space-y-6">

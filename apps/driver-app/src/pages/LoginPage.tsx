@@ -43,13 +43,13 @@ export default function LoginPage() {
       await login(phone, password);
       navigate('/');
     } catch (err) {
-      // handled by store
+
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden bg-slate-50">
-      {/* Background Visual Glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-[#FF5A1F]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 

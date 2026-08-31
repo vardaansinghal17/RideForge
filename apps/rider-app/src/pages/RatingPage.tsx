@@ -104,13 +104,13 @@ export default function RatingPage() {
         background: 'radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%)',
       }}
     >
-      {/* Visual backgrounds glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#FF5A1F]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <AnimatePresence mode="wait">
         {isSubmitted ? (
-          // Success Screen
+
           <motion.div
             key="success"
             className="w-full max-w-[420px] text-center flex flex-col items-center justify-center p-8"
@@ -135,7 +135,7 @@ export default function RatingPage() {
             <p className="text-sm text-[var(--rx-text-3)] font-medium">Thank you for helping us improve!</p>
           </motion.div>
         ) : (
-          // Form Screen
+
           <motion.div
             key="form"
             className="w-full max-w-[420px] fade-up"
@@ -145,7 +145,7 @@ export default function RatingPage() {
             transition={{ duration: 0.3 }}
           >
             <GlassCard className="p-8 text-center flex flex-col gap-6" strong>
-              {/* Header */}
+              {}
               <div>
                 <h1 className="text-2xl font-extrabold tracking-tight text-[var(--rx-text)]">
                   Rate your ride
@@ -156,7 +156,7 @@ export default function RatingPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-left">
-                {/* Star Input */}
+                {}
                 <div className="flex flex-col items-center gap-2.5">
                   <div className="flex items-center gap-1.5">
                     {[1, 2, 3, 4, 5].map((star) => {
@@ -197,7 +197,7 @@ export default function RatingPage() {
                   </span>
                 </div>
 
-                {/* Tags Section */}
+                {}
                 <div className="flex flex-col gap-2">
                   <span className="text-[11px] font-bold text-[var(--rx-text-3)] uppercase tracking-wider select-none">
                     Select tags
@@ -223,7 +223,7 @@ export default function RatingPage() {
                   </div>
                 </div>
 
-                {/* Comment Textarea */}
+                {}
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="comment"
@@ -241,7 +241,7 @@ export default function RatingPage() {
                   />
                 </div>
 
-                {/* Actions */}
+                {}
                 <div className="flex flex-col gap-3.5 mt-2">
                   <Button
                     type="submit"

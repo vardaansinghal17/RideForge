@@ -38,11 +38,11 @@ export const useRideStore = create<RideStore>((set, get) => ({
     if (get().socket?.connected) return;
 
     const socket: AppSocket = io(
-      (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace('/api', ''),
+      (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/api\/v\d+$/, '').replace('/api', ''),
       { auth: { token } }
     );
 
-    socket.on('connect', () => console.log('Connected to ride server'));
+ socket.on('connect', () => console.log('Connected to ride server'));
 
     socket.on('ride:created', (ride) => {
       set({ ride, isRequesting: true, errorMessage: null });
@@ -53,14 +53,12 @@ export const useRideStore = create<RideStore>((set, get) => ({
     });
 
     socket.on('ride:accepted', ({ ride, driver }) => {
-      // `driver` is the full JOIN row — it carries driver_name, driver_rating,
-      // plate_number, make, model, color, driver_phone, driver_lat, driver_lng.
-      // `ride` is the same row but we use it to update ride state.
+
       set({
         ride: ride,
         driverInfo: driver,
         isRequesting: false,
-        // Seed driver location from the accepted payload if available
+
         driverLocation:
           (driver as any).driver_lat && (driver as any).driver_lng
             ? { lat: Number((driver as any).driver_lat), lng: Number((driver as any).driver_lng) }
@@ -69,7 +67,7 @@ export const useRideStore = create<RideStore>((set, get) => ({
     });
 
     socket.on('ride:already_taken', () => {
-      // Relevant on driver side mostly, but kept for completeness
+
     });
 
     socket.on('ride:status_update', ({ status }) => {

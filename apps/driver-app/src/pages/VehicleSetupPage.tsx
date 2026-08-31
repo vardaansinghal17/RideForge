@@ -18,7 +18,6 @@ export default function VehicleSetupPage() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  // Fetch driver profile to see if vehicle is already set up
   const { data: driverProfile, isLoading } = useQuery({
     queryKey: ['driverProfile'],
     queryFn: async () => {
@@ -66,7 +65,6 @@ export default function VehicleSetupPage() {
       return;
     }
 
-    // Clean plate number: remove spaces and hyphens
     const cleanPlate = plateNumber.replace(/[\s-]/g, '').toUpperCase();
     if (!/^[A-Z0-9]{4,12}$/.test(cleanPlate)) {
       setValidationError('Invalid plate number format (e.g. KA01AB1234)');
@@ -111,7 +109,7 @@ export default function VehicleSetupPage() {
 
       <GlassCard className="p-8">
         <form onSubmit={handleSubmit} className="space-y-5 text-left">
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               id="make"

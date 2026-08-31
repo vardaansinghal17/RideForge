@@ -9,7 +9,6 @@ const ratingsService = new RatingsService();
 
 router.use(authenticate);
 
-// POST /api/ratings
 router.post(
   '/',
   validate([
@@ -33,7 +32,6 @@ router.post(
   }
 );
 
-// GET /api/ratings/ride/:rideId
 router.get(
   '/ride/:rideId',
   validate([param('rideId').notEmpty()]),
@@ -45,7 +43,6 @@ router.get(
   }
 );
 
-// GET /api/ratings/my-ratings — driver's received ratings
 router.get(
   '/my-ratings',
   async (req: AuthRequest, res: Response, next: NextFunction) => {

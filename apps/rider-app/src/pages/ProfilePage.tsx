@@ -25,7 +25,6 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const { user: storeUser, logout } = useAuthStore();
 
-  // Fetch full user profile details from backend
   const {
     data: meData,
     isLoading: isMeLoading,
@@ -39,7 +38,6 @@ export default function ProfilePage() {
     },
   });
 
-  // Fetch payment history to aggregate total spent
   const {
     data: paymentsData,
     isLoading: isPaymentsLoading,
@@ -51,7 +49,6 @@ export default function ProfilePage() {
     },
   });
 
-  // Aggregate total spent from all loaded payments
   const totalSpent = useMemo(() => {
     if (!paymentsData?.payments) return 0;
     return paymentsData.payments.reduce((acc: number, p: any) => {
@@ -64,17 +61,15 @@ export default function ProfilePage() {
       await logout();
       navigate('/login');
     } catch (err) {
-      console.error('Logout failed:', err);
+ console.error('Logout failed:', err);
     }
   };
 
-  // Derive initial values from Zustand store if query is pending
   const displayName = meData?.name || storeUser?.name || 'Rider';
   const displayPhone = meData?.phone || storeUser?.phone || 'N/A';
   const displayEmail = meData?.email || storeUser?.email || 'N/A';
   const displayRole = meData?.role || storeUser?.role || 'RIDER';
 
-  // Format creation date
   const memberSince = useMemo(() => {
     const dateStr = meData?.created_at;
     if (!dateStr) return 'Active Partner';
@@ -86,10 +81,9 @@ export default function ProfilePage() {
     }
   }, [meData?.created_at]);
 
-  // Format rating display
   const displayRating = useMemo(() => {
     const r = meData?.profile?.rating;
-    if (r === undefined || r === null) return '5.0'; // Default to 5.0 for new accounts
+    if (r === undefined || r === null) return '5.0';
     const parsed = typeof r === 'string' ? parseFloat(r) : r;
     return parsed.toFixed(1);
   }, [meData?.profile?.rating]);
@@ -103,14 +97,14 @@ export default function ProfilePage() {
         background: 'radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%)',
       }}
     >
-      {/* Background Visual Glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-[#FF5A1F]/5 rounded-full blur-[90px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Main Container */}
+      {}
       <div className="w-full max-w-md space-y-6 fade-up">
-        
-        {/* Back and Title Header */}
+
+        {}
         <div className="flex items-center space-x-3 text-left">
           <Button variant="icon" onClick={() => navigate('/')}>
             <svg
@@ -130,7 +124,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Error Fallback */}
+        {}
         {isMeError && (
           <GlassCard className="text-center p-6 border border-red-100" strong>
             <div className="mx-auto w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-3">
@@ -146,11 +140,11 @@ export default function ProfilePage() {
           </GlassCard>
         )}
 
-        {/* Profile Card */}
+        {}
         {!isMeError && (
           <GlassCard className="text-center" strong>
             {isMeLoading ? (
-              // Loading Skeleton
+
               <div className="animate-pulse space-y-6 py-4">
                 <div className="mx-auto w-24 h-24 rounded-full bg-gray-200" />
                 <div className="space-y-2">
@@ -169,9 +163,9 @@ export default function ProfilePage() {
                 </div>
               </div>
             ) : (
-              // Profile Content
+
               <>
-                {/* Avatar circle */}
+                {}
                 <div className="mx-auto w-24 h-24 rounded-full bg-gradient-to-tr from-[#FF5A1F] to-orange-600 flex items-center justify-center text-white font-extrabold text-3xl shadow-[0_0_25px_rgba(255,90,31,0.25)] mb-4 select-none">
                   {displayName ? displayName[0].toUpperCase() : 'U'}
                 </div>
@@ -186,7 +180,7 @@ export default function ProfilePage() {
                   </span>
                 </div>
 
-                {/* Member Since Row */}
+                {}
                 <div className="flex items-center justify-center space-x-1 text-[var(--rx-text-3)] text-xs mb-6">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
@@ -194,7 +188,7 @@ export default function ProfilePage() {
                   <span>Member since {memberSince}</span>
                 </div>
 
-                {/* Profile Statistics Badges */}
+                {}
                 <div className="grid grid-cols-3 gap-2.5 mb-6 text-center">
                   <div className="bg-[var(--rx-glass)] border border-[var(--rx-glass-border)] rounded-xl py-3 px-2 flex flex-col justify-center items-center shadow-sm">
                     <span className="text-xs text-[var(--rx-text-3)] font-medium mb-1">Total Rides</span>
@@ -219,7 +213,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                {/* Details list */}
+                {}
                 <div className="space-y-4 text-left border-t border-[var(--rx-border)] pt-5 mb-4">
                   <div className="flex justify-between items-center py-1">
                     <span className="text-xs text-[var(--rx-text-3)] font-medium">Phone Number</span>
@@ -245,7 +239,7 @@ export default function ProfilePage() {
           </GlassCard>
         )}
 
-        {/* Quick Actions Menu */}
+        {}
         {!isMeError && !isMeLoading && (
           <GlassCard className="py-2.5 px-4" strong>
             <div className="divide-y divide-[var(--rx-border)]">
@@ -269,7 +263,7 @@ export default function ProfilePage() {
           </GlassCard>
         )}
 
-        {/* Logout button */}
+        {}
         <Button variant="danger" className="w-full h-[50px] !rounded-xl" onClick={handleLogout}>
           Log Out Account
         </Button>

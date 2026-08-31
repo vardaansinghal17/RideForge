@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-7 fade-up">
-      {/* Header */}
+      {}
       <div>
         <div className="flex items-center gap-2">
           <h2 className="text-2xl font-black text-[var(--rx-text)]">Overview</h2>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         <p className="text-sm text-[var(--rx-text-3)] mt-0.5">Platform-wide metrics at a glance</p>
       </div>
 
-      {/* KPI Row */}
+      {}
       <div className="grid grid-cols-3 xl:grid-cols-6 gap-4">
         <StatCard
           title="Total Users"
@@ -97,9 +97,9 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Middle row */}
+      {}
       <div className="grid grid-cols-5 gap-5">
-        {/* Revenue Chart */}
+        {}
         <div className="col-span-3 glass-card p-5">
           <div className="flex items-center justify-between mb-5">
             <div>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Rides by status */}
+        {}
         <div className="col-span-2 glass-card p-5">
           <h3 className="font-bold text-[var(--rx-text)] mb-1">Rides by Status</h3>
           <p className="text-xs text-[var(--rx-text-3)] mb-5">All-time distribution</p>
@@ -156,7 +156,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Top Drivers */}
+      {}
       <div className="glass-card p-5">
         <h3 className="font-bold text-[var(--rx-text)] mb-1">Top Performing Drivers</h3>
         <p className="text-xs text-[var(--rx-text-3)] mb-5">Ranked by total earnings</p>

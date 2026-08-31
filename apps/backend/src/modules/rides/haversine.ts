@@ -1,13 +1,5 @@
 const EARTH_RADIUS_KM = 6371;
 
-/**
- * Formula:
- *   a = sin²(Δlat/2) + cos(lat1) · cos(lat2) · sin²(Δlng/2)
- *   c = 2 · atan2(√a, √(1−a))
- *   d = R · c
- *
- * Where R = earth's radius (6371 km)
- */
 export function haversineDistance(
   lat1: number,
   lng1: number,
@@ -29,9 +21,8 @@ export function haversineDistance(
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distanceKm = EARTH_RADIUS_KM * c;
 
-  return Math.round(distanceKm * 1000) / 1000; // round to 3 decimal places
+  return Math.round(distanceKm * 1000) / 1000;
 }
-
 
 export function getBearing(
   lat1: number,

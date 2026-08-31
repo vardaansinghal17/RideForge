@@ -14,11 +14,10 @@ export default function DashboardPage() {
   const { user } = useAuthStore();
   const { incomingRide, activeRide, acceptRide, rejectRide, offerSecondsLeft, sendLocation } = useDriverRideStore();
   const [locInterval, setLocInterval] = useState<ReturnType<typeof setInterval> | null>(null);
-  // Real GPS position of the driver
+
   const [driverGps, setDriverGps] = useState<{ lat: number; lng: number } | null>(null);
   const [gpsError, setGpsError] = useState<string | null>(null);
 
-  // Fetch driver profile
   const { data: driverProfile, isLoading: isProfileLoading } = useQuery({
     queryKey: ['driverProfile'],
     queryFn: async () => {
@@ -27,7 +26,6 @@ export default function DashboardPage() {
     },
   });
 
-  // Fetch active ride on load to redirect if in progress
   const { data: activeRideCheck } = useQuery({
     queryKey: ['activeRideCheck'],
     queryFn: async () => {
@@ -37,7 +35,6 @@ export default function DashboardPage() {
     retry: false,
   });
 
-  // Fetch today's earnings
   const { data: todayEarnings } = useQuery({
     queryKey: ['todayEarnings'],
     queryFn: async () => {
@@ -46,7 +43,6 @@ export default function DashboardPage() {
     },
   });
 
-  // Toggle availability mutation
   const toggleAvailabilityMutation = useMutation({
     mutationFn: async (isAvailable: boolean) => {
       const res = await api.patch('/drivers/availability', { isAvailable });
@@ -60,7 +56,6 @@ export default function DashboardPage() {
     },
   });
 
-  // Check active ride redirect
   useEffect(() => {
     if (activeRideCheck) {
       useDriverRideStore.setState({ activeRide: activeRideCheck });
@@ -68,17 +63,14 @@ export default function DashboardPage() {
     }
   }, [activeRideCheck, navigate]);
 
-  // Handle real-time store active ride transition
   useEffect(() => {
     if (activeRide) {
       navigate('/active-ride');
     }
   }, [activeRide, navigate]);
 
-  // Background location simulator while online
   const isAvailable = driverProfile?.is_available || false;
 
-  // ─── Acquire real GPS on mount ──────────────────────────────────────────────
   useEffect(() => {
     if (!navigator.geolocation) {
       setGpsError('Geolocation is not supported by your browser.');
@@ -91,7 +83,7 @@ export default function DashboardPage() {
         setGpsError(null);
       },
       (err) => {
-        console.warn('Driver geolocation error:', err.message);
+ console.warn('Driver geolocation error:', err.message);
         setGpsError('Location access denied. Please allow location in browser settings.');
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 5000 }
@@ -100,15 +92,13 @@ export default function DashboardPage() {
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
-  // ─── Broadcast location when online ─────────────────────────────────────────
   useEffect(() => {
     if (isAvailable) {
-      // Send current GPS immediately (or fallback coordinates)
+
       const currentLat = driverGps?.lat ?? 28.6139;
       const currentLng = driverGps?.lng ?? 77.2090;
       sendLocation(currentLat, currentLng);
 
-      // Then keep broadcasting on an interval using the latest GPS position
       const interval = setInterval(() => {
         setDriverGps((current) => {
           const lat = current?.lat ?? 28.6139;
@@ -151,8 +141,8 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8 animate-fade-in text-left">
-      
-      {/* Welcome Hero Banner */}
+
+      {}
       <div className="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-3xl p-8 shadow-md relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between space-y-6 md:space-y-0">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF5A1F]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="relative z-10">
@@ -160,12 +150,12 @@ export default function DashboardPage() {
             Welcome back, {driverProfile?.name || user?.name}!
           </h2>
           <p className="text-indigo-200 text-sm mt-1.5 font-medium">
-            {isApproved 
+            {isApproved
               ? 'You are verified and ready to accept bookings. Drive safely!'
               : 'Your driver verification profile is currently pending approval.'}
           </p>
         </div>
-        
+
         {isApproved && (
           <div className="relative z-10 flex flex-col items-start sm:items-end gap-2">
             <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/10">
@@ -175,7 +165,7 @@ export default function DashboardPage() {
                 <div className="text-sm font-black tracking-wide">{isAvailable ? 'ONLINE & READY' : 'OFFLINE'}</div>
               </div>
             </div>
-            {/* GPS indicator pill */}
+            {}
             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border backdrop-blur-md ${
               driverGps
                 ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
@@ -196,13 +186,13 @@ export default function DashboardPage() {
         )}
       </div>
 
-      {/* Main Grid Content */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Left Columns (Col Span 2) - Duty Status & Action Panel */}
+
+        {}
         <div className="lg:col-span-2 space-y-8">
-          
-          {/* GPS Permission Alert */}
+
+          {}
           {gpsError && (
             <GlassCard className="p-5 border-l-4 border-red-500 bg-red-50/50">
               <div className="flex items-start space-x-4">
@@ -223,7 +213,7 @@ export default function DashboardPage() {
             </GlassCard>
           )}
 
-          {/* Approval Alert if Pending */}
+          {}
           {!isApproved && (
             <GlassCard className="p-6 border-l-4 border-amber-500">
               <div className="flex items-start space-x-4">
@@ -237,7 +227,7 @@ export default function DashboardPage() {
                   <p className="text-sm text-slate-600 mt-1 leading-relaxed">
                     Our admin team is reviewing your profile, driver's license, and registration. You will receive access to start accepting ride requests on your dashboard as soon as you are verified.
                   </p>
-                  
+
                   {/* Step Checker */}
                   <div className="mt-6 grid grid-cols-2 gap-4">
                     <div className="border border-emerald-500/20 bg-emerald-50/50 rounded-xl p-3.5 flex items-center space-x-3">
@@ -305,19 +295,19 @@ export default function DashboardPage() {
 
         {/* Right Columns (Col Span 1) - Side Analytics & Vehicle Info */}
         <div className="space-y-8">
-          
+
           {/* Today's Activity metrics */}
           <GlassCard className="p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider">Today's Summary</h3>
-              <button 
+              <button
                 onClick={() => navigate('/earnings')}
                 className="text-xs font-bold text-[#FF5A1F] hover:underline"
               >
                 View Analytics
               </button>
             </div>
-            
+
             <div className="space-y-5">
               <div className="flex items-center justify-between py-3.5 border-b border-slate-100">
                 <span className="text-sm text-slate-500 font-medium">Earnings</span>
@@ -353,7 +343,7 @@ export default function DashboardPage() {
                   </p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => navigate('/vehicle-setup')}
                 className="text-xs font-bold text-[#FF5A1F] hover:underline"
               >
@@ -370,7 +360,7 @@ export default function DashboardPage() {
       {incomingRide && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-sm animate-fade-in">
           <GlassCard className="w-full max-w-md p-6 text-center space-y-6 relative overflow-hidden shadow-2xl" strong>
-            
+
             {/* Pulsing countdown circle */}
             <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90">

@@ -20,7 +20,6 @@ export function ProtectedRoute({ allowedRole }: Props) {
     }
   }, [accessToken, socket, connect]);
 
-  // Restores active ride state on page load or refresh
   useEffect(() => {
     if (accessToken && !ride) {
       api.get('/rides/active')
@@ -36,7 +35,6 @@ export function ProtectedRoute({ allowedRole }: Props) {
               } : null
             });
 
-            // If the user is on the main/booking screens, direct them to their active ride status
             if (['/', '/ride', '/searching', '/active-ride'].includes(location.pathname)) {
               if (activeRide.status === 'REQUESTED') {
                 navigate('/searching', { replace: true });
@@ -47,7 +45,7 @@ export function ProtectedRoute({ allowedRole }: Props) {
           }
         })
         .catch((err) => {
-          console.error('Failed to fetch active ride:', err);
+ console.error('Failed to fetch active ride:', err);
         });
     }
   }, [accessToken, ride, navigate, location.pathname]);

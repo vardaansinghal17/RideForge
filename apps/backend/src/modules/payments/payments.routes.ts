@@ -13,7 +13,7 @@ router.get(
   '/history',
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const page  = Number(req.query.page)  || 1;
+      const page = Number(req.query.page) || 1;
       const limit = Number(req.query.limit) || 10;
       const history = await paymentsService.getPaymentHistory(req.user!.id, page, limit);
       res.json({ success: true, data: history });
@@ -57,14 +57,13 @@ router.patch(
   }
 );
 
-//admin only
 router.get(
   '/',
   requireRole('ADMIN'),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const page   = Number(req.query.page)   || 1;
-      const limit  = Number(req.query.limit)  || 20;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 20;
       const status = req.query.status as string | undefined;
       const result = await paymentsService.getAllPayments(page, limit, status);
       res.json({ success: true, data: result });
