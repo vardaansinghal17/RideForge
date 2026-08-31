@@ -28,8 +28,8 @@ export default function RatingsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* Rating Summary Card (Col Span 1) */}
+
+        {}
         <div>
           <GlassCard className="p-8 text-center space-y-4">
             <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Average Score</h3>
@@ -54,7 +54,7 @@ export default function RatingsPage() {
           </GlassCard>
         </div>
 
-        {/* Comments List (Col Span 2) */}
+        {}
         <div className="lg:col-span-2 space-y-4">
           <h3 className="text-xs font-black text-slate-450 uppercase tracking-wider pl-1">
             Passenger Reviews
@@ -111,7 +111,7 @@ export default function RatingsPage() {
                 })
               )}
 
-              {/* Pagination Controls */}
+              {}
               {pagination.totalPages > 1 && (
                 <div className="flex items-center justify-between pt-4">
                   <Button

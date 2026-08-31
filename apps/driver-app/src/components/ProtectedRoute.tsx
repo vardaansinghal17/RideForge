@@ -24,7 +24,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRole }) =
     return <Navigate to="/login" replace />;
   }
 
-  // Ensure role matches (case insensitive check for safety)
   if (allowedRole && user?.role?.toUpperCase() !== allowedRole.toUpperCase()) {
     return <Navigate to="/login" replace />;
   }

@@ -7,17 +7,14 @@ import type {
 
 type AppSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-// The backend emits a flat DB JOIN row enriched with a nested `rider` object.
-// We extend Ride with both the flat driver-side fields we use in the UI
-// and the nested rider sub-object.
 interface IncomingRide extends Ride {
-  // Nested rider info (sent by backend since socket.handler fix)
+
   rider: {
     name: string;
     phone: string;
     rating: number;
   };
-  // Flat fields from the JOIN (kept for backwards compat)
+
   rider_name: string;
   rider_phone: string;
   rider_rating: number;
@@ -48,16 +45,31 @@ export const useDriverRideStore = create<DriverRideStore>((set, get) => ({
   errorMessage: null,
 
   connect: (token) => {
-    if (get().socket?.connected) return;
+    const existing = get().socket;
+    if (existing) {
+      if (existing.connected || existing.active) {
+        return;
+      }
+      existing.disconnect();
+    }
 
     const socket: AppSocket = io(
-      (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace('/api', ''),
-      { auth: { token } }
+      (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/api\/v\d+$/, '').replace('/api', ''),
+      {
+        auth: { token },
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionAttempts: 20,
+        reconnectionDelay: 1000,
+      }
     );
 
-    socket.on('connect', () => console.log('[Driver] Connected to ride server'));
+    socket.on('connect', () => {
+ console.log('[Driver] Connected to ride server, socket ID:', socket.id);
+    });
 
     socket.on('ride:incoming', (ride) => {
+ console.log('[Driver] Received ride:incoming event:', ride);
       set({ incomingRide: ride as IncomingRide, offerSecondsLeft: 15 });
 
       if (offerCountdownInterval) clearInterval(offerCountdownInterval);

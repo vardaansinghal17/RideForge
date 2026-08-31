@@ -9,7 +9,6 @@ const ratingsService = new RatingsService();
 
 router.use(authenticate);
 
-// POST /api/ratings
 router.post(
   '/',
   validate([
@@ -17,7 +16,7 @@ router.post(
     body('rating')
       .isFloat({ min: 1, max: 5 })
       .withMessage('Rating must be between 1 and 5'),
-    body('comment').optional().isString().isLength({ max: 500 }),
+    body('comment').optional({ nullable: true }).isString().isLength({ max: 500 }),
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
@@ -33,7 +32,6 @@ router.post(
   }
 );
 
-// GET /api/ratings/ride/:rideId
 router.get(
   '/ride/:rideId',
   validate([param('rideId').notEmpty()]),
@@ -45,7 +43,6 @@ router.get(
   }
 );
 
-// GET /api/ratings/my-ratings — driver's received ratings
 router.get(
   '/my-ratings',
   async (req: AuthRequest, res: Response, next: NextFunction) => {

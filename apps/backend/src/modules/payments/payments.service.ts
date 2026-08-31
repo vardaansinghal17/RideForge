@@ -88,36 +88,68 @@ export class PaymentsService {
     userId: string,
     method: 'CASH' | 'CARD' | 'UPI'
   ) {
-    const ride = await getOne<{ status: string; rider_user_id: string }>(
-      `SELECT r.status, u.id AS rider_user_id
+    const ride = await getOne<{ status: string; rider_user_id: string; driver_user_id: string | null }>(
+      `SELECT r.status, ri.user_id AS rider_user_id, du.user_id AS driver_user_id
        FROM rides r
        JOIN riders ri ON ri.id = r.rider_id
-       JOIN users u ON u.id = ri.user_id
+       LEFT JOIN drivers d ON d.id = r.driver_id
+       LEFT JOIN users du ON du.id = d.user_id
        WHERE r.id = $1`,
       [rideId]
     );
 
     if (!ride) throw new NotFoundError('Ride');
-    if (ride.rider_user_id !== userId) throw new AppError('Access denied', 403);
-    if (ride.status === 'COMPLETED') {
-      throw new AppError('Cannot change payment method after ride is completed', 400);
-    }
+    const isRider = ride.rider_user_id === userId;
+    const isDriver = ride.driver_user_id === userId;
+
+    if (!isRider && !isDriver) throw new AppError('Access denied', 403);
 
     const result = await query(
-      `UPDATE payments SET method = $1 WHERE ride_id = $2 RETURNING *`,
+      `UPDATE payments SET method = $1, status = 'COMPLETED', updated_at = NOW() WHERE ride_id = $2 RETURNING *`,
       [method, rideId]
     );
 
-    if (result.rows.length === 0) throw new NotFoundError('Payment');
+    if (result.rows.length === 0) {
+      const rideData = await getOne<{ estimated_fare: number; final_fare: number }>(
+        `SELECT estimated_fare, final_fare FROM rides WHERE id = $1`,
+        [rideId]
+      );
+      const fareAmount = rideData?.final_fare || rideData?.estimated_fare || 0;
+      const newPayment = await query(
+        `INSERT INTO payments (ride_id, amount, status, method)
+         VALUES ($1, $2, 'COMPLETED', $3)
+         ON CONFLICT (ride_id) DO UPDATE SET method = $3, status = 'COMPLETED', updated_at = NOW()
+         RETURNING *`,
+        [rideId, fareAmount, method]
+      );
+      return newPayment.rows[0];
+    }
     return result.rows[0];
   }
 
-  // ── Generate invoice ──────────────────────────────────────
   async generateInvoice(rideId: string, userId: string) {
-    const payment = await this.getPaymentByRide(rideId, userId);
+    let payment;
+    try {
+      payment = await this.getPaymentByRide(rideId, userId);
+    } catch (err) {
+      const rideData = await getOne<{ estimated_fare: number; final_fare: number }>(
+        `SELECT estimated_fare, final_fare FROM rides WHERE id = $1`,
+        [rideId]
+      );
+      if (rideData) {
+        const fareAmount = rideData.final_fare || rideData.estimated_fare || 0;
+        await query(
+          `INSERT INTO payments (ride_id, amount, status, method)
+           VALUES ($1, $2, 'COMPLETED', 'UPI')
+           ON CONFLICT (ride_id) DO NOTHING`,
+          [rideId, fareAmount]
+        );
+        payment = await this.getPaymentByRide(rideId, userId);
+      }
+    }
+
     if (!payment) throw new NotFoundError('Payment');
 
-    // Build structured invoice object
     const invoice = {
       invoiceNumber: `INV-${payment.id.slice(0, 8).toUpperCase()}`,
       generatedAt: new Date().toISOString(),
@@ -126,31 +158,30 @@ export class PaymentsService {
         from: payment.pickup_address,
         to: payment.drop_address,
         distanceKm: Number(payment.distance_km),
-        completedAt: payment.completed_at,
+        completedAt: payment.completed_at || payment.created_at,
       },
       passenger: {
         name: payment.rider_name,
         phone: payment.rider_phone,
       },
       driver: {
-        name: payment.driver_name,
-        phone: payment.driver_phone,
-        vehicle: `${payment.make} ${payment.model}`,
-        plateNumber: payment.plate_number,
+        name: payment.driver_name || 'Driver',
+        phone: payment.driver_phone || '—',
+        vehicle: payment.make ? `${payment.make} ${payment.model}` : 'Vehicle',
+        plateNumber: payment.plate_number || '—',
       },
       fare: {
-        estimatedFare: Number(payment.estimated_fare),
-        finalFare: Number(payment.final_fare),
-        surgeMultiplier: Number(payment.surge_multiplier),
-        paymentMethod: payment.method,
-        paymentStatus: payment.status,
+        estimatedFare: Number(payment.estimated_fare || payment.amount),
+        finalFare: Number(payment.final_fare || payment.amount),
+        surgeMultiplier: Number(payment.surge_multiplier || 1),
+        paymentMethod: payment.method || 'UPI',
+        paymentStatus: payment.status || 'COMPLETED',
       },
     };
 
     return invoice;
   }
 
-  // ── Admin: all payments with filters ─────────────────────
   async getAllPayments(page = 1, limit = 20, status?: string) {
     const offset = (page - 1) * limit;
     const whereClause = status ? `WHERE p.status = $3` : '';

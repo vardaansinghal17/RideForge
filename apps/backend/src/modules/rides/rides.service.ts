@@ -89,7 +89,7 @@ export class RidesService {
 
   async getActiveRideForRider(userId: string) {
     return getOne<any>(
-      `SELECT r.*, 
+      `SELECT r.*,
               du.name AS driver_name, du.phone AS driver_phone,
               d.rating AS driver_rating, d.latitude AS driver_lat, d.longitude AS driver_lng,
               v.make, v.model, v.plate_number, v.color

@@ -174,7 +174,7 @@ export default function DriversPage() {
         </div>
       </div>
 
-      {/* Tabs */}
+      {}
       <div className="flex items-center gap-3">
         <div className="flex bg-white border border-[var(--rx-border)] rounded-xl p-1 gap-0.5">
           {tabs.map((t) => (

@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'button',
   ...props
 }) => {
-  // Variant styling
+
   let variantClass = '';
   if (variant === 'primary') {
     variantClass = 'btn-blue';
@@ -31,7 +31,6 @@ export const Button: React.FC<ButtonProps> = ({
     variantClass = 'w-[44px] h-[44px] rounded-full flex items-center justify-center bg-[var(--rx-glass)] border border-[var(--rx-glass-border)] hover:bg-[var(--rx-glass-hover)] text-white backdrop-blur-[12px] transition-all';
   }
 
-  // Size styling
   let sizeClass = '';
   if (variant !== 'icon') {
     if (size === 'sm') {

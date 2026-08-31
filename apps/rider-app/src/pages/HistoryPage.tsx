@@ -64,13 +64,11 @@ export default function HistoryPage() {
     },
   });
 
-  // Flatten all pages
   const allRides = useMemo(() => {
     if (!data) return [];
     return data.pages.flatMap((page) => page.rides);
   }, [data]);
 
-  // Compute overall stats from all available rides
   const stats = useMemo(() => {
     const completedRides = allRides.filter((r) => r.status === 'COMPLETED');
     const totalCount = completedRides.length;
@@ -89,7 +87,6 @@ export default function HistoryPage() {
     return { totalCount, totalSpent, avgRating };
   }, [allRides]);
 
-  // Filter rides based on active tab
   const filteredRides = useMemo(() => {
     return allRides.filter((ride) => {
       if (activeTab === 'COMPLETED') return ride.status === 'COMPLETED';
@@ -154,12 +151,12 @@ export default function HistoryPage() {
         background: 'radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%)',
       }}
     >
-      {/* Background Visual Glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-[#FF5A1F]/5 rounded-full blur-[90px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="w-full max-w-md space-y-5 fade-up z-10">
-        {/* Header */}
+        {}
         <div className="flex items-center space-x-3.5 text-left">
           <Button variant="icon" onClick={() => navigate('/')}>
             <svg
@@ -179,7 +176,7 @@ export default function HistoryPage() {
           </div>
         </div>
 
-        {/* Stats Strip */}
+        {}
         {!isLoading && allRides.length > 0 && (
           <GlassCard className="grid grid-cols-3 divide-x divide-black/5 !py-3 !px-4 text-center" strong>
             <div>
@@ -209,7 +206,7 @@ export default function HistoryPage() {
           </GlassCard>
         )}
 
-        {/* Filter Tabs */}
+        {}
         {!isLoading && allRides.length > 0 && (
           <div className="flex bg-black/5 p-1 rounded-xl gap-1">
             {(['ALL', 'COMPLETED', 'CANCELLED'] as const).map((tab) => (
@@ -228,7 +225,7 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* Loading skeleton */}
+        {}
         {isLoading && (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
@@ -240,7 +237,7 @@ export default function HistoryPage() {
           </div>
         )}
 
-        {/* Error State */}
+        {}
         {isError && (
           <GlassCard className="text-center p-8 flex flex-col items-center gap-4" strong>
             <div className="w-12 h-12 rounded-full bg-[var(--rx-red-dim)] flex items-center justify-center text-[var(--rx-red)]">
@@ -271,7 +268,7 @@ export default function HistoryPage() {
           </GlassCard>
         )}
 
-        {/* Empty State */}
+        {}
         {!isLoading && !isError && filteredRides.length === 0 && (
           <GlassCard className="text-center p-8 flex flex-col items-center gap-4" strong>
             <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-[var(--rx-text-3)]">
@@ -311,7 +308,7 @@ export default function HistoryPage() {
           </GlassCard>
         )}
 
-        {/* Rides List */}
+        {}
         {!isLoading && !isError && filteredRides.length > 0 && (
           <motion.div
             variants={containerVariants}
@@ -328,7 +325,7 @@ export default function HistoryPage() {
                 return (
                   <motion.div key={ride.id} variants={cardVariants} layout>
                     <GlassCard className="text-left !p-5 flex flex-col gap-4" strong>
-                      {/* Top Header Row */}
+                      {}
                       <div className="flex justify-between items-start">
                         <div>
                           <span className="text-[10px] uppercase tracking-wider text-[var(--rx-text-3)] font-bold block mb-1">
@@ -352,11 +349,11 @@ export default function HistoryPage() {
                         </div>
                       </div>
 
-                      {/* Route Timeline */}
+                      {}
                       <div className="relative border-l-2 border-dashed border-black/10 pl-5 ml-1.5 space-y-3.5 my-1 text-[13px]">
-                        {/* Pickup Circle */}
+                        {}
                         <div className="absolute -left-[6px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-[#FF5A1F] bg-white" />
-                        {/* Dropoff Square */}
+                        {}
                         <div className="absolute -left-[5px] bottom-[5px] w-2 h-2 bg-black rounded-sm" />
 
                         <div className="leading-tight">
@@ -378,17 +375,17 @@ export default function HistoryPage() {
                         </div>
                       </div>
 
-                      {/* Metrics/Surge Multiplier */}
+                      {}
                       {surge > 1 && (
                         <div className="flex items-center gap-1.5 bg-amber-500/10 text-amber-600 border border-amber-500/20 px-2.5 py-1 rounded-lg w-max text-[11px] font-bold">
                           ⚡ {surge}x Surge Applied
                         </div>
                       )}
 
-                      {/* Driver & Payment Section (only if Assigned/Completed) */}
+                      {}
                       {(isCompleted || (isCancelled && ride.driver_name)) && (
                         <div className="border-t border-black/5 pt-4 mt-1 flex flex-col gap-3.5">
-                          {/* Driver Row */}
+                          {}
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FF5A1F] to-orange-600 flex items-center justify-center text-white font-extrabold text-xs shadow-sm">
@@ -407,14 +404,14 @@ export default function HistoryPage() {
                               </div>
                             </div>
 
-                            {/* Payment Method badge */}
+                            {}
                             <div className="flex flex-col items-end gap-1">
                               <span className="text-[9px] text-[var(--rx-text-3)] font-bold uppercase tracking-wider block">
                                 Payment Details
                               </span>
                               <div className="flex items-center gap-1 text-xs font-bold text-[var(--rx-text-2)]">
                                 <span className="text-sm">{getPaymentIcon(ride.payment_method)}</span>
-                                <span className="capitalize">{ride.payment_method?.toLowerCase() || 'Cash'}</span>
+                                <span className="capitalize">{ride.payment_method?.toLowerCase() || 'UPI'}</span>
                                 <span className="text-[10px] uppercase bg-black/5 text-[var(--rx-text-2)] px-1.5 py-0.5 rounded ml-1 tracking-wider">
                                   {ride.payment_status || 'PAID'}
                                 </span>
@@ -422,7 +419,7 @@ export default function HistoryPage() {
                             </div>
                           </div>
 
-                          {/* Ratings Row */}
+                          {}
                           {isCompleted && (
                             <div className="flex items-center justify-between border-t border-dashed border-black/5 pt-3.5 mt-0.5">
                               <span className="text-xs text-[var(--rx-text-3)] font-bold">
@@ -479,7 +476,7 @@ export default function HistoryPage() {
           </motion.div>
         )}
 
-        {/* Load More Button */}
+        {}
         {hasNextPage && (
           <div className="pt-2">
             <Button

@@ -31,27 +31,27 @@ export default function LoginPage() {
     try {
       await login(phone, password);
       navigate('/');
-    } catch { /* handled by store */ }
+    } catch {  }
   };
 
   const displayError = localError || error;
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ background: 'var(--rx-bg)' }}>
-      {/* Ambient glows */}
+      {}
       <div className="absolute top-1/4 left-1/3 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: 'rgba(255,90,31,0.06)', filter: 'blur(80px)' }} />
       <div className="absolute bottom-1/4 right-1/3 w-[350px] h-[350px] rounded-full pointer-events-none" style={{ background: 'rgba(16,185,129,0.04)', filter: 'blur(100px)' }} />
 
       <div className="w-full max-w-[400px] px-4 fade-up">
         <div className="glass-card-strong p-9 text-center">
-          {/* Brand */}
+          {}
           <h1 className="text-3xl font-black tracking-widest bg-gradient-to-r from-[#FF5A1F] to-[#EA580C] bg-clip-text text-transparent mb-1 select-none">
             RIDEFORGE
           </h1>
           <p className="text-sm font-semibold text-[var(--rx-text-3)] mb-8 uppercase tracking-widest">Admin Console</p>
 
           <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            {/* Phone */}
+            {}
             <div>
               <label className="block text-xs font-semibold text-[var(--rx-text-2)] mb-1.5">Phone Number</label>
               <div className="relative">
@@ -70,7 +70,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Password */}
+            {}
             <div>
               <label className="block text-xs font-semibold text-[var(--rx-text-2)] mb-1.5">Password</label>
               <div className="relative">
@@ -105,7 +105,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Error */}
+            {}
             {displayError && (
               <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-xl px-3.5 py-3">
                 <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -115,7 +115,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* Submit */}
+            {}
             <button
               id="admin-login-submit"
               type="submit"

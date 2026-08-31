@@ -9,10 +9,10 @@ export default function SearchingDriverPage() {
   const status = ride?.status || null;
 
   useEffect(() => {
-    // If there is no ride, no error, and we are not requesting, redirect to home page
+
     if (!ride && !errorMessage && !isRequesting) {
       const timer = setTimeout(() => {
-        // Give the active-ride fetch in ProtectedRoute a brief moment to restore state if needed
+
         if (
           !useRideStore.getState().ride &&
           !useRideStore.getState().errorMessage &&
@@ -24,7 +24,6 @@ export default function SearchingDriverPage() {
       return () => clearTimeout(timer);
     }
 
-    // If ride is accepted, navigate to active ride page
     if (ride && (status === 'ACCEPTED' || status === 'ARRIVED' || status === 'IN_PROGRESS')) {
       navigate('/active-ride', { replace: true });
     }
@@ -48,7 +47,6 @@ export default function SearchingDriverPage() {
     navigate('/');
   };
 
-  // Dots bounce animation variants
   const containerVariants = {
     animate: {
       transition: {
@@ -70,7 +68,7 @@ export default function SearchingDriverPage() {
 
   return (
     <div className="w-full h-screen bg-white flex flex-col items-center justify-center px-[24px] select-none relative overflow-hidden">
-      {/* CSS Keyframe Animation for Radar Pulse */}
+      {}
       <style>{`
         @keyframes radarPulse {
           0% {
@@ -89,7 +87,7 @@ export default function SearchingDriverPage() {
       `}</style>
 
       {errorMessage ? (
-        // No Driver / Error State
+
         <div className="flex flex-col items-center max-w-xs">
           <motion.div
             className="w-20 h-20 rounded-full bg-[#FFF5F5] flex items-center justify-center mb-5"
@@ -123,11 +121,11 @@ export default function SearchingDriverPage() {
           </span>
         </div>
       ) : (
-        // Searching / Radar State
+
         <div className="flex flex-col items-center w-full max-w-sm">
-          {/* Radar Container */}
+          {}
           <div className="relative w-[180px] h-[180px] flex items-center justify-center mb-10">
-            {/* 3 pulsing rings */}
+            {}
             <div
               className="absolute rounded-full border-2 border-solid border-[#E8441A] bg-transparent"
               style={{
@@ -156,7 +154,7 @@ export default function SearchingDriverPage() {
               }}
             />
 
-            {/* Centered Circle */}
+            {}
             <div className="relative z-10 w-[60px] h-[60px] rounded-full bg-[#111111] flex items-center justify-center shadow-md">
               <span className="text-[26px]">🚗</span>
             </div>
@@ -188,7 +186,7 @@ export default function SearchingDriverPage() {
             </motion.span>
           </div>
 
-          {/* Info Card */}
+          {}
           {ride && (
             <div className="w-full border border-[#EEEEEE] rounded-2xl p-[14px_18px] bg-white text-left mt-7 shadow-sm">
               <div className="flex items-center justify-between gap-2.5">
@@ -207,7 +205,7 @@ export default function SearchingDriverPage() {
             </div>
           )}
 
-          {/* Cancel Button */}
+          {}
           <button
             onClick={handleCancel}
             className="h-11 px-7 bg-[#F5F5F5] text-[#717171] border-none rounded-xl font-semibold text-[13px] cursor-pointer mt-7 hover:bg-[#EAEAEA] transition-colors"

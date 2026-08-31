@@ -9,14 +9,12 @@ async function seed() {
     const adminHash = await bcrypt.hash('admin123', 12);
     const userHash  = await bcrypt.hash('password123', 12);
 
-    
     const admin = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'ADMIN') ON CONFLICT (phone) DO NOTHING RETURNING id`,
       ['Admin User', 'admin@uber.com', '9999999999', adminHash]
     );
 
-  
     const rider = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'RIDER') ON CONFLICT (phone) DO NOTHING RETURNING id`,
@@ -28,9 +26,7 @@ async function seed() {
         [rider.rows[0].id]
       );
     }
-    
 
-    
     const driver = await client.query(
       `INSERT INTO users (name, email, phone, password_hash, role)
        VALUES ($1,$2,$3,$4,'DRIVER') ON CONFLICT (phone) DO NOTHING RETURNING id`,
@@ -52,13 +48,13 @@ async function seed() {
     }
 
     await client.query('COMMIT');
-    console.log(' Seed complete');
-    console.log('   Rider  → phone: 9876543210  password: password123');
-    console.log('   Driver → phone: 9123456789  password: password123');
-    console.log('   Admin  → phone: 9999999999  password: admin123');
+ console.log(' Seed complete');
+ console.log(' Rider → phone: 9876543210 password: password123');
+ console.log(' Driver → phone: 9123456789 password: password123');
+ console.log(' Admin → phone: 9999999999 password: admin123');
   } catch (err) {
     await client.query('ROLLBACK');
-    console.error(' Seed failed:', err);
+ console.error(' Seed failed:', err);
   } finally {
     client.release();
     await pool.end();

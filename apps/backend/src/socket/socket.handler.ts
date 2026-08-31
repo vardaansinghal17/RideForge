@@ -20,24 +20,20 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
 
   io.on('connection', async (socket) => {
     const authSocket = socket as AuthenticatedSocket;
-    logger.info(`Socket connected: ${authSocket.userId} (${authSocket.userRole})`);
+ logger.info(`Socket connected: ${authSocket.userId} (${authSocket.userRole})`);
 
-    // Every driver joins their personal room so we can target them directly
     if (authSocket.userRole === 'DRIVER') {
       authSocket.join(rooms.driverPersonal(authSocket.userId));
     }
     if (authSocket.userRole === 'RIDER') {
       authSocket.join(rooms.riderPersonal(authSocket.userId));
     }
-    // Admins join a shared broadcast room for live dashboard updates
+
     if (authSocket.userRole === 'ADMIN') {
       authSocket.join(rooms.adminLive());
-      logger.info(`Admin ${authSocket.userId} joined admin:live room`);
+ logger.info(`Admin ${authSocket.userId} joined admin:live room`);
     }
 
-    // ─── RECONNECT ROOM REJOIN ───────────────────────────────────────────────
-    // When a rider or driver reconnects (page refresh), they need to rejoin the
-    // active ride room so they keep receiving ride:status_update / driver:moved.
     try {
       if (authSocket.userRole === 'RIDER') {
         const activeRide = await getOne<{ id: string }>(
@@ -50,7 +46,7 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (activeRide) {
           authSocket.join(rooms.ridePersonal(activeRide.id));
-          logger.info(`Rider ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+ logger.info(`Rider ${authSocket.userId} rejoined ride room ${activeRide.id}`);
         }
       }
 
@@ -65,13 +61,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (activeRide) {
           authSocket.join(rooms.ridePersonal(activeRide.id));
-          logger.info(`Driver ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+ logger.info(`Driver ${authSocket.userId} rejoined ride room ${activeRide.id}`);
         }
       }
     } catch (err: any) {
-      logger.error('Room rejoin on reconnect failed', { error: err.message });
+ logger.error('Room rejoin on reconnect failed', { error: err.message });
     }
-    // ────────────────────────────────────────────────────────────────────────
 
     authSocket.on('ride:request', async (data) => {
       try {
@@ -93,7 +88,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           return authSocket.emit('error', { message: 'You already have an active ride' });
         }
 
-        // Create the ride record
         const ride = await ridesService.createRide({
           riderId: rider.id,
           pickupLat: data.pickupLat,
@@ -109,7 +103,6 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         authSocket.join(rooms.ridePersonal(ride.id));
         authSocket.emit('ride:created', ride);
 
-        // Push to admin dashboard — new ride appeared
         io.to(rooms.adminLive()).emit('admin:ride_update', {
           rideId: ride.id, status: 'REQUESTED', driverId: null,
         });
@@ -121,7 +114,7 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
 
         if (nearbyDrivers.length === 0) {
           await query(`UPDATE rides SET status = 'CANCELLED', cancel_reason = 'NO_DRIVERS' WHERE id = $1`, [ride.id]);
-          // Notify admin of the auto-cancel
+
           io.to(rooms.adminLive()).emit('admin:ride_update', {
             rideId: ride.id, status: 'CANCELLED', driverId: null,
           });
@@ -137,10 +130,9 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           candidateQueue,
         });
 
-        // Offer to the first (nearest) driver
         offerRideToNextDriver(io, ride.id);
       } catch (err: any) {
-        logger.error('ride:request failed', { error: err.message });
+ logger.error('ride:request failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to create ride request' });
       }
     });
@@ -156,14 +148,12 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (!driver) return authSocket.emit('error', { message: 'Driver profile not found' });
 
-        // Atomic accept — prevents two drivers winning the same ride
         const won = await matchingService.acceptRide(rideId, driver.id);
 
         if (!won) {
           return authSocket.emit('ride:already_taken');
         }
 
-        // Stop offering this ride to other drivers
         rideRequestTracker.remove(rideId);
 
         authSocket.join(rooms.ridePersonal(rideId));
@@ -183,28 +173,26 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           [rideId]
         );
 
-        // Notify everyone in the ride room (rider + driver)
         io.to(rooms.ridePersonal(rideId)).emit('ride:accepted', {
           ride: fullRide,
           driver: fullRide,
         } as any);
 
-        // Push accepted status to admin dashboard
         io.to(rooms.adminLive()).emit('admin:ride_update', {
           rideId, status: 'ACCEPTED', driverId: fullRide.driver_id,
         });
         io.to(rooms.adminLive()).emit('admin:stats_update');
 
-        logger.info(`Ride ${rideId} accepted by driver ${driver.id}`);
+ logger.info(`Ride ${rideId} accepted by driver ${driver.id}`);
       } catch (err: any) {
-        logger.error('ride:accept failed', { error: err.message });
+ logger.error('ride:accept failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to accept ride' });
       }
     });
 
     authSocket.on('ride:reject', async ({ rideId }) => {
       if (authSocket.userRole !== 'DRIVER') return;
-      logger.info(`Driver ${authSocket.userId} rejected ride ${rideId}`);
+ logger.info(`Driver ${authSocket.userId} rejected ride ${rideId}`);
       tryNextDriver(io, rideId);
     });
 
@@ -248,18 +236,17 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           rideId, status: status as RideStatus,
         });
 
-        // Push status change to admin dashboard
         io.to(rooms.adminLive()).emit('admin:ride_update', {
           rideId, status: status as RideStatus, driverId: driver.id,
         });
         if (status === 'COMPLETED') {
-          io.to(rooms.adminLive()).emit('admin:stats_update'); // revenue changed
+          io.to(rooms.adminLive()).emit('admin:stats_update');
           io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
         }
 
-        logger.info(`Ride ${rideId} status → ${status}`);
+ logger.info(`Ride ${rideId} status → ${status}`);
       } catch (err: any) {
-        logger.error('ride:status failed', { error: err.message });
+ logger.error('ride:status failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to update ride status' });
       }
     });
@@ -291,15 +278,14 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         io.to(rooms.ridePersonal(rideId)).emit('ride:cancelled', { rideId });
         io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
 
-        // Push cancellation to admin dashboard
         io.to(rooms.adminLive()).emit('admin:ride_update', {
           rideId, status: 'CANCELLED', driverId: null,
         });
         io.to(rooms.adminLive()).emit('admin:stats_update');
 
-        logger.info(`Ride ${rideId} cancelled`);
+ logger.info(`Ride ${rideId} cancelled`);
       } catch (err: any) {
-        logger.error('ride:cancel failed', { error: err.message });
+ logger.error('ride:cancel failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to cancel ride' });
       }
     });
@@ -314,17 +300,15 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           authSocket.to(rooms.ridePersonal(rideId)).emit('driver:moved', { lat, lng });
         }
       } catch (err: any) {
-        logger.error('driver:location failed', { error: err.message });
+ logger.error('driver:location failed', { error: err.message });
       }
     });
 
     authSocket.on('disconnect', () => {
-      logger.info(`Socket disconnected: ${authSocket.userId}`);
+ logger.info(`Socket disconnected: ${authSocket.userId}`);
     });
   });
 }
-
-// ─── OFFER RIDE TO NEXT DRIVER ───────────────────────────────────────────────
 
 function offerRideToNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
@@ -354,8 +338,6 @@ function offerRideToNextDriver(
   ).then(ride => {
     if (!ride) return;
 
-    // Nest rider fields into a `rider` object to match the shared type
-    // and the driver store's IncomingRide shape.
     const payload = {
       ...ride,
       rider: {
@@ -365,20 +347,21 @@ function offerRideToNextDriver(
       },
     };
 
-    io.to(rooms.driverPersonal(driverUserId)).emit('ride:incoming', payload as any);
-    logger.info(`Offered ride ${rideId} to driver ${driverUserId}`);
+    const roomName = rooms.driverPersonal(driverUserId);
+    const socketsInRoom = io.sockets.adapter.rooms.get(roomName);
+    const count = socketsInRoom ? socketsInRoom.size : 0;
+
+    io.to(roomName).emit('ride:incoming', payload as any);
+ logger.info(`Offered ride ${rideId} to driver ${driverUserId} in room ${roomName} (Sockets active: ${count})`);
   });
 
-  // Set timeout — if driver doesn't respond, move to next candidate
   const timeoutHandle = setTimeout(() => {
-    logger.info(`Driver ${driverUserId} timed out on ride ${rideId}`);
+ logger.info(`Driver ${driverUserId} timed out on ride ${rideId}`);
     tryNextDriver(io, rideId);
   }, DRIVER_OFFER_TIMEOUT_MS);
 
   rideRequestTracker.setTimeoutHandle(rideId, timeoutHandle);
 }
-
-// ─── TRY NEXT DRIVER ─────────────────────────────────────────────────────────
 
 function tryNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
@@ -388,7 +371,7 @@ function tryNextDriver(
 
   getOne<{ status: string }>(`SELECT status FROM rides WHERE id = $1`, [rideId])
     .then(ride => {
-      if (!ride || ride.status !== 'REQUESTED') return; // already accepted/cancelled
+      if (!ride || ride.status !== 'REQUESTED') return;
 
       const next = rideRequestTracker.advance(rideId);
       if (!next) {
@@ -398,8 +381,6 @@ function tryNextDriver(
       offerRideToNextDriver(io, rideId);
     });
 }
-
-// ─── NO DRIVER FOUND ─────────────────────────────────────────────────────────
 
 async function handleNoDriverFound(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
@@ -414,5 +395,5 @@ async function handleNoDriverFound(
   );
 
   io.to(rooms.ridePersonal(rideId)).emit('ride:no_driver');
-  logger.info(`No driver found for ride ${rideId} after exhausting queue`);
+ logger.info(`No driver found for ride ${rideId} after exhausting queue`);
 }

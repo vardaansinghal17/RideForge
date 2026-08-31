@@ -10,7 +10,7 @@ export async function query<T extends QueryResultRow = QueryResultRow>(
   const duration = Date.now() - start;
 
   if (process.env.NODE_ENV === 'development') {
-    console.log(`[SQL] ${duration}ms — ${text.slice(0, 80)}`);
+ console.log(`[SQL] ${duration}ms — ${text.slice(0, 80)}`);
   }
 
   return result;

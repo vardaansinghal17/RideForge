@@ -164,9 +164,9 @@ export default function UsersPage() {
         </div>
       </div>
 
-      {/* Filters */}
+      {}
       <div className="flex items-center gap-3">
-        {/* Tabs */}
+        {}
         <div className="flex bg-white border border-[var(--rx-border)] rounded-xl p-1 gap-0.5">
           {tabs.map((t) => (
             <button
@@ -183,7 +183,7 @@ export default function UsersPage() {
           ))}
         </div>
 
-        {/* Search */}
+        {}
         <form onSubmit={handleSearch} className="flex-1 max-w-72 flex gap-2">
           <input
             type="text"

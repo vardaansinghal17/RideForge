@@ -8,7 +8,6 @@ export interface LocationSuggestion {
   type: 'local' | 'nominatim';
 }
 
-// Well-known Delhi/NCR landmarks — instant, no network needed
 const LOCAL_PLACES: { name: string; shortName: string; lat: number; lng: number }[] = [
   { name: 'Red Fort, Chandni Chowk, New Delhi',          shortName: 'Red Fort',                  lat: 28.6562, lng: 77.2410 },
   { name: 'India Gate, Rajpath, New Delhi',               shortName: 'India Gate',                 lat: 28.6129, lng: 77.2295 },
@@ -62,7 +61,6 @@ export const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -127,19 +125,16 @@ export const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
       return;
     }
 
-    // Instant local results
     const local = searchLocal(q);
     setSuggestions(local);
     setShowDropdown(local.length > 0);
 
-    // Debounced Nominatim
     if (nominatimTimer) clearTimeout(nominatimTimer);
     nominatimTimer = setTimeout(async () => {
       setLoading(true);
       const remote = await searchNominatim(q);
       setLoading(false);
 
-      // Merge: local first, then any non-duplicate Nominatim results
       const localNames = new Set(local.map(s => s.shortName.toLowerCase()));
       const unique = remote.filter(r => !localNames.has(r.shortName.toLowerCase()));
       const merged = [...local, ...unique].slice(0, 6);
@@ -213,7 +208,7 @@ export const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
         )}
       </div>
 
-      {/* Suggestions Dropdown */}
+      {}
       {showDropdown && (
         <div
           className="absolute top-full left-0 right-0 mt-1.5 z-50 overflow-hidden rounded-xl border border-[rgba(15,23,42,0.08)] shadow-[0_12px_40px_rgba(15,23,42,0.12)]"
@@ -234,7 +229,7 @@ export const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
                   : 'hover:bg-[rgba(15,23,42,0.03)]'
               }`}
             >
-              {/* Pin icon */}
+              {}
               <span className="text-base mt-0.5 shrink-0">
                 {s.type === 'local' ? '📍' : '🔍'}
               </span>
@@ -249,7 +244,7 @@ export const LocationAutocomplete: React.FC<LocationAutocompleteProps> = ({
             </button>
           ))}
 
-          {/* Loading indicator */}
+          {}
           {loading && suggestions.length === 0 && (
             <div className="flex items-center gap-3 px-4 py-3">
               <span className="text-base">🔍</span>

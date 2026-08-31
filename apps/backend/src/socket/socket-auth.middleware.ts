@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import jwt from 'jsonwebtoken';
 
-
 export interface AuthenticatedSocket extends Socket {
   userId: string;
   userRole: 'RIDER' | 'DRIVER' | 'ADMIN'; }

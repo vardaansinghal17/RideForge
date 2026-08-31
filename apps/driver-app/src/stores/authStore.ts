@@ -68,7 +68,7 @@ export const useAuthStore = create<AuthState>()(
         try {
           const { refreshToken } = get();
           if (refreshToken) {
-            await api.post('/auth/logout', { refreshToken }).catch(() => { /* best-effort */ });
+            await api.post('/auth/logout', { refreshToken }).catch(() => {  });
           }
         } finally {
           set({ user: null, accessToken: null, refreshToken: null, error: null });

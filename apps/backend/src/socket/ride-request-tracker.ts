@@ -2,10 +2,10 @@ interface PendingRequest {
   rideId: string;
   pickupLat: number;
   pickupLng: number;
-  candidateQueue: string[];   // user IDs of drivers to try, in order
+  candidateQueue: string[];
   currentIndex: number;
   timeoutHandle: NodeJS.Timeout | null;
-  offeredTo: Set<string>;     // driver user IDs already offered this ride
+  offeredTo: Set<string>;
 }
 
 class RideRequestTracker {
@@ -37,7 +37,6 @@ class RideRequestTracker {
     }
   }
 
-  // Move to next candidate driver in queue
   advance(rideId: string): string | null {
     const req = this.requests.get(rideId);
     if (!req) return null;

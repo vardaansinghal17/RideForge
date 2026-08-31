@@ -15,7 +15,6 @@ export interface AuthTokens {
   user: Omit<User, 'created_at'>;
 }
 
-
 export interface Driver {
   id: string;
   user_id: string;
@@ -35,7 +34,6 @@ export interface Vehicle {
   vehicle_type: 'SEDAN' | 'SUV' | 'AUTO';
   color: string;
 }
-
 
 export type RideStatus =
   | 'REQUESTED'
@@ -67,7 +65,6 @@ export interface Ride {
   cancelled_at: string | null;
 }
 
-
 export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED' | 'REFUNDED';
 export type PaymentMethod = 'CASH' | 'CARD' | 'UPI';
 
@@ -80,7 +77,6 @@ export interface Payment {
   created_at: string;
 }
 
-
 export interface Rating {
   id: string;
   ride_id: string;
@@ -89,7 +85,6 @@ export interface Rating {
   comment: string | null;
   created_at: string;
 }
-
 
 export interface ServerToClientEvents {
   'ride:created': (ride: Ride) => void;
@@ -102,20 +97,18 @@ export interface ServerToClientEvents {
   'driver:moved': (payload: { lat: number; lng: number }) => void;
   'error': (payload: { message: string }) => void;
 
-  // ── Admin push events ──────────────────────────────────────────────────────
-  /** Emitted to admin:live room whenever a ride's status changes */
   'admin:ride_update': (payload: {
     rideId: string;
     status: RideStatus;
     driverId: string | null;
   }) => void;
-  /** Emitted when a driver goes online/offline or is approved/revoked */
+
   'admin:driver_update': (payload: {
     driverUserId: string;
     isAvailable: boolean;
     isApproved: boolean;
   }) => void;
-  /** Lightweight ping — tells admin dashboard to re-fetch stats */
+
   'admin:stats_update': () => void;
 }
 

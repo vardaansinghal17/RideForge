@@ -9,10 +9,9 @@ export default function ActiveRidePage() {
   const { ride, driverInfo, driverLocation, cancelRide, reset } = useRideStore();
   const status = ride?.status || null;
 
-  const [etaSeconds, setEtaSeconds] = useState(240); // 4-minute ETA default
+  const [etaSeconds, setEtaSeconds] = useState(240);
   const [initialSeconds] = useState(240);
 
-  // Guard: if ride is null on mount -> navigate('/')
   useEffect(() => {
     if (!ride) {
       const timer = setTimeout(() => {
@@ -23,7 +22,6 @@ export default function ActiveRidePage() {
       return () => clearTimeout(timer);
     }
 
-    // Status checking
     if (status === 'COMPLETED') {
       navigate('/ride-complete', { replace: true });
     } else if (status === 'CANCELLED') {
@@ -32,7 +30,6 @@ export default function ActiveRidePage() {
     }
   }, [ride, status, navigate, reset]);
 
-  // ETA countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       setEtaSeconds((prev) => {
@@ -47,7 +44,6 @@ export default function ActiveRidePage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Set ETA to 0 if driver has arrived
   useEffect(() => {
     if (status === 'ARRIVED') {
       setEtaSeconds(0);
@@ -72,7 +68,6 @@ export default function ActiveRidePage() {
       ? { lat: Number(driverLocation.lat), lng: Number(driverLocation.lng) }
       : undefined;
 
-  // Active step index logic
   const getActiveIndex = () => {
     switch (status) {
       case 'ACCEPTED':
@@ -93,21 +88,21 @@ export default function ActiveRidePage() {
 
   return (
     <div className="w-full h-screen bg-slate-50 overflow-hidden relative">
-      {/* MAP LAYER */}
+      {}
       <div className="fixed inset-0 z-0">
         <MapView pickup={pickup} drop={drop} driverLocation={driverLoc} />
       </div>
 
-      {/* FLOATING TOP PANEL - STATUS & STEPPER */}
+      {}
       <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl z-20">
         <div className="glass-card-strong p-4 md:p-5 flex flex-col gap-4 shadow-xl border border-white/20">
-          
-          {/* STATUS HEADER */}
+
+          {}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="font-bold text-xs tracking-wider uppercase text-slate-700">Ride Status</span>
             </div>
-            
+
             <AnimatePresence mode="wait">
               {status && (
                 <motion.div
@@ -167,7 +162,7 @@ export default function ActiveRidePage() {
             </AnimatePresence>
           </div>
 
-          {/* PROGRESS STEPPER */}
+          {}
           <div className="flex items-center w-full px-2 mt-1">
             {['Confirmed', 'On the way', 'Arrived', 'In ride'].map((stepLabel, i) => {
               const isCompleted = i < activeIndex;
@@ -176,7 +171,7 @@ export default function ActiveRidePage() {
 
               return (
                 <React.Fragment key={stepLabel}>
-                  {/* LEFT CONNECTOR */}
+                  {}
                   {i > 0 && (
                     <div
                       className={`flex-1 h-[3px] rounded-full transition-all duration-500 ${
@@ -185,9 +180,9 @@ export default function ActiveRidePage() {
                     />
                   )}
 
-                  {/* STEP NODE */}
+                  {}
                   <div className="flex flex-col items-center relative z-10 mx-1">
-                    {/* Circle Dot */}
+                    {}
                     {isCurrent ? (
                       <motion.div
                         className="w-5 h-5 rounded-full bg-orange-600 flex items-center justify-center shadow-md shadow-orange-600/30"
@@ -212,7 +207,7 @@ export default function ActiveRidePage() {
                       </div>
                     )}
 
-                    {/* Label */}
+                    {}
                     <span
                       className={`text-[10px] md:text-xs font-semibold mt-1.5 transition-all duration-300 ${
                         i <= activeIndex ? 'text-slate-800' : 'text-slate-400 font-normal'
@@ -222,7 +217,7 @@ export default function ActiveRidePage() {
                     </span>
                   </div>
 
-                  {/* RIGHT CONNECTOR */}
+                  {}
                   {i < 3 && (
                     <div
                       className={`flex-1 h-[3px] rounded-full transition-all duration-500 ${
@@ -238,25 +233,25 @@ export default function ActiveRidePage() {
         </div>
       </div>
 
-      {/* FLOATING BOTTOM PANEL - DRIVER INFO & ACTIONS */}
+      {}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md z-20">
         <div className="glass-card-strong p-4 md:p-5 flex flex-col gap-4 shadow-xl border border-white/20">
-          
-          {/* DRIVER INFO ROW */}
+
+          {}
           <div className="flex items-center gap-4">
-            
-            {/* AVATAR */}
+
+            {}
             <div className="w-14 h-14 relative rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-orange-600/20 flex-shrink-0">
               {(driverInfo?.driver_name?.[0] || 'D').toUpperCase()}
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full shadow-sm animate-pulse" />
             </div>
 
-            {/* DETAILS */}
+            {}
             <div className="flex-1 min-w-0">
               <h3 className="text-base font-bold text-slate-800 tracking-tight truncate">
                 {driverInfo?.driver_name || 'Rahul Kumar'}
               </h3>
-              
+
               <div className="flex items-center gap-2 mt-0.5">
                 <div className="flex items-center gap-0.5 text-amber-500">
                   <span className="text-xs">★</span>
@@ -272,14 +267,14 @@ export default function ActiveRidePage() {
                 {driverInfo?.make || 'Maruti Suzuki'} {driverInfo?.model || 'Dzire'} • {driverInfo?.color || 'White'}
               </div>
 
-              {/* LICENSE PLATE */}
+              {}
               <div className="flex items-center gap-1.5 bg-slate-100 border border-slate-200/60 rounded-md px-2 py-0.5 text-[10px] font-bold text-slate-700 uppercase tracking-wider w-fit mt-1.5 shadow-sm">
                 <span className="w-1.5 h-3.5 bg-blue-600 rounded-sm" />
                 {driverInfo?.plate_number || 'DL 1CA 1234'}
               </div>
             </div>
 
-            {/* ETA PROGRESS RING */}
+            {}
             <div className="w-16 h-16 flex-shrink-0 relative flex items-center justify-center bg-white rounded-2xl shadow-sm border border-slate-100">
               <svg className="w-14 h-14" viewBox="0 0 64 64">
                 <circle cx="32" cy="32" r="26" fill="none" stroke="#F1F5F9" strokeWidth="4.5" />
@@ -341,10 +336,10 @@ export default function ActiveRidePage() {
 
           </div>
 
-          {/* DIVIDER */}
+          {}
           <div className="h-px bg-slate-200/60 w-full" />
 
-          {/* ACTIONS */}
+          {}
           <div className="flex gap-3">
             {showCancelButton && (
               <button

@@ -15,7 +15,7 @@ export function errorHandler(
     });
   }
 
-  logger.error('Unhandled error', { err: err.message, stack: err.stack, path: req.path });
+ logger.error('Unhandled error', { err: err.message, stack: err.stack, path: req.path });
 
   res.status(500).json({
     success: false,

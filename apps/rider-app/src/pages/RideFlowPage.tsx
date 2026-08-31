@@ -28,7 +28,6 @@ export default function RideFlowPage() {
     errorMessage,
   } = useRideStore();
 
-  // Coordinates and Inputs
   const [pickupLat, setPickupLat] = useState('28.6139');
   const [pickupLng, setPickupLng] = useState('77.2090');
   const [pickupAddr, setPickupAddr] = useState('Connaught Place, New Delhi');
@@ -42,19 +41,16 @@ export default function RideFlowPage() {
   const [detectingLocation, setDetectingLocation] = useState(false);
   const [geocodingError, setGeocodingError] = useState<string | null>(null);
 
-  // Fare estimation states
   const [distanceKm, setDistanceKm] = useState<number>(0);
   const [durationMin, setDurationMin] = useState<number>(0);
   const [baseFareEstimate, setBaseFareEstimate] = useState<number>(0);
   const [fareLoading, setFareLoading] = useState(false);
   const [selectedTier, setSelectedTier] = useState<'SEDAN' | 'PRIME' | 'XL'>('SEDAN');
 
-  // Rating completed ride
   const [rating, setRating] = useState(0);
   const [ratingHover, setRatingHover] = useState(0);
   const [isSubmittingRating, setIsSubmittingRating] = useState(false);
 
-  // Initialize socket
   useEffect(() => {
     if (accessToken) {
       connect(accessToken);
@@ -65,9 +61,8 @@ export default function RideFlowPage() {
     };
   }, [accessToken, connect, disconnect, reset]);
 
-  // Calculate distance using Haversine formula
   const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371; // km
+    const R = 6371;
     const dLat = ((lat2 - lat1) * Math.PI) / 180;
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
@@ -80,7 +75,6 @@ export default function RideFlowPage() {
     return R * c;
   };
 
-  // Handlers for when user selects a suggestion from autocomplete
   const handlePickupSelect = (s: LocationSuggestion) => {
     setPickupAddr(s.shortName);
     setPickupLat(s.lat.toFixed(6));
@@ -110,16 +104,15 @@ export default function RideFlowPage() {
         return;
       }
     } catch (err) {
-      console.error('Reverse geocoding failed:', err);
+ console.error('Reverse geocoding failed:', err);
     }
-    // Fallback label when Nominatim is unavailable
+
     const fallbackName = target === 'PICKUP'
       ? `Pickup (${lat.toFixed(4)}, ${lng.toFixed(4)})`
       : `Destination (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
     if (target === 'PICKUP') setPickupAddr(fallbackName);
     else setDropAddr(fallbackName);
   };
-
 
   const handleDetectLocation = () => {
     if (!navigator.geolocation) {
@@ -139,7 +132,7 @@ export default function RideFlowPage() {
         setDetectingLocation(false);
       },
       (error) => {
-        console.error('Geolocation error:', error);
+ console.error('Geolocation error:', error);
         alert('Could not detect location. Using default instead.');
         setPickupLat('28.6139');
         setPickupLng('77.2090');
@@ -169,7 +162,7 @@ export default function RideFlowPage() {
     }
 
     const dist = getDistance(resolvedPickupLat, resolvedPickupLng, resolvedDropLat, resolvedDropLng);
-    const duration = Math.round(dist * 2.5); // 2.5 mins per km
+    const duration = Math.round(dist * 2.5);
 
     setDistanceKm(Number(dist.toFixed(2)));
     setDurationMin(duration);
@@ -184,7 +177,6 @@ export default function RideFlowPage() {
     });
   };
 
-  // Map click handler to select coordinates
   const handleMapClick = (lat: number, lng: number) => {
     const fixedLat = lat.toFixed(6);
     const fixedLng = lng.toFixed(6);
@@ -201,7 +193,6 @@ export default function RideFlowPage() {
     }
   };
 
-  // Requesting ride dispatch
   const handleRequestRide = () => {
     const pLat = parseFloat(pickupLat);
     const pLng = parseFloat(pickupLng);
@@ -226,7 +217,6 @@ export default function RideFlowPage() {
     });
   };
 
-  // Submit Driver Rating
   const handleSubmitRating = async () => {
     if (!ride) return;
     setIsSubmittingRating(true);
@@ -235,7 +225,7 @@ export default function RideFlowPage() {
       reset();
       navigate('/');
     } catch (err) {
-      console.error(err);
+ console.error(err);
       reset();
       navigate('/');
     } finally {
@@ -243,7 +233,6 @@ export default function RideFlowPage() {
     }
   };
 
-  // Determine current active step
   let step: FlowStep = 'LOCATION_INPUT';
   if (ride) {
     if (ride.status === 'COMPLETED') {
@@ -259,7 +248,6 @@ export default function RideFlowPage() {
     step = 'RIDE_OPTIONS';
   }
 
-  // Get localized title for active states
   const getRideStatusLabel = (status: string) => {
     switch (status) {
       case 'ACCEPTED':
@@ -275,11 +263,11 @@ export default function RideFlowPage() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-[#F8F9FA]">
-      {/* Floating Header — profile bar (shown on location input and ride options steps) */}
+      {}
       {(step === 'LOCATION_INPUT' || step === 'RIDE_OPTIONS') && (
         <header className="absolute top-5 left-4 right-4 z-20 max-w-md mx-auto pointer-events-none">
           <GlassCard className="pointer-events-auto flex items-center justify-between !py-3.5 !px-4" strong>
-            {/* Back button */}
+            {}
             <button
               onClick={() => {
                 if (step === 'RIDE_OPTIONS') {
@@ -302,7 +290,7 @@ export default function RideFlowPage() {
               </svg>
             </button>
 
-            {/* User info */}
+            {}
             <div className="flex items-center space-x-2.5">
               <div className="text-right">
                 <span className="text-[10px] uppercase tracking-wider text-[var(--rx-text-3)] font-semibold block">
@@ -312,7 +300,7 @@ export default function RideFlowPage() {
                   {user?.name || 'Rider'}
                 </h2>
               </div>
-              {/* User Avatar */}
+              {}
               <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FF5A1F] to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_12px_rgba(255,90,31,0.25)] shrink-0">
                 {user?.name ? user.name[0].toUpperCase() : 'U'}
               </div>
@@ -321,8 +309,7 @@ export default function RideFlowPage() {
         </header>
       )}
 
-
-      {/* Map backdrop with route details */}
+      {}
       <MapView
         pickup={parseFloat(pickupLat) ? { lat: parseFloat(pickupLat), lng: parseFloat(pickupLng) } : undefined}
         drop={parseFloat(dropLat) ? { lat: parseFloat(dropLat), lng: parseFloat(dropLng) } : undefined}
@@ -330,7 +317,7 @@ export default function RideFlowPage() {
         onMapClick={step === 'LOCATION_INPUT' ? handleMapClick : undefined}
       />
 
-      {/* STEP 1: Location Inputs */}
+      {}
       <BottomSheet isOpen={step === 'LOCATION_INPUT'} height="410px" showHandle={false}>
         <div className="pt-4 space-y-4">
           <div className="flex items-center justify-between mb-2">
@@ -360,7 +347,7 @@ export default function RideFlowPage() {
           </p>
 
           <div className="space-y-4 text-left">
-            {/* Pickup Address with autocomplete */}
+            {}
             <LocationAutocomplete
               id="pickup-address"
               label="Pickup Address"
@@ -381,7 +368,7 @@ export default function RideFlowPage() {
               }
             />
 
-            {/* Destination Address with autocomplete */}
+            {}
             <LocationAutocomplete
               id="destination-address"
               label="Destination Address"
@@ -411,7 +398,7 @@ export default function RideFlowPage() {
         </div>
       </BottomSheet>
 
-      {/* STEP 2: Ride Selection Options */}
+      {}
       <BottomSheet isOpen={step === 'RIDE_OPTIONS'} height="410px" showHandle={false}>
         <div className="pt-4 space-y-4">
           <div className="text-left">
@@ -421,7 +408,7 @@ export default function RideFlowPage() {
             </p>
           </div>
 
-          {/* Ride choices tiers */}
+          {}
           <div className="space-y-2.5">
             {[
               { id: 'SEDAN', label: 'RideForge Sedan', mult: 1.0, desc: 'Comfortable every day sedan' },
@@ -458,10 +445,10 @@ export default function RideFlowPage() {
         </div>
       </BottomSheet>
 
-      {/* STEP 3: Requesting & Matching */}
+      {}
       <BottomSheet isOpen={step === 'MATCHING'} height="260px" showHandle={false}>
         <div className="pt-6 text-center space-y-4">
-          {/* Animated pulse ring */}
+          {}
           <div className="relative w-14 h-14 mx-auto mb-4 flex items-center justify-center">
             <div className="absolute w-full h-full rounded-full border-2 border-[#FF5A1F] opacity-20 animate-ping" />
             <div className="w-10 h-10 rounded-full bg-[#FF5A1F]/20 flex items-center justify-center text-[#FF5A1F]">
@@ -493,7 +480,7 @@ export default function RideFlowPage() {
         </div>
       </BottomSheet>
 
-      {/* STEP 4: Ride Active */}
+      {}
       <BottomSheet isOpen={step === 'ACTIVE_RIDE'} height="300px" showHandle={false}>
         <div className="pt-4 space-y-4">
           <div className="flex justify-between items-center">
@@ -503,7 +490,7 @@ export default function RideFlowPage() {
             <Badge variant="info">{ride?.status}</Badge>
           </div>
 
-          {/* Driver Detail Card */}
+          {}
           <div className="bg-black/5 border border-black/5 rounded-2xl p-4 flex items-center justify-between">
             <div className="flex items-center space-x-3.5">
               <div className="w-11 h-11 rounded-full bg-[#FF5A1F]/20 flex items-center justify-center text-[#FF5A1F] font-bold">
@@ -527,7 +514,7 @@ export default function RideFlowPage() {
             </div>
           </div>
 
-          {/* ETA / Info bar */}
+          {}
           <div className="flex items-center justify-between text-xs py-1 px-1">
             <span className="text-[var(--rx-text-3)] font-medium">Estimated Arrival Time</span>
             <span className="text-[var(--rx-text)] font-extrabold text-sm">
@@ -543,7 +530,7 @@ export default function RideFlowPage() {
         </div>
       </BottomSheet>
 
-      {/* STEP 5: Trip Completed */}
+      {}
       <BottomSheet isOpen={step === 'COMPLETED'} height="360px" showHandle={false}>
         <div className="pt-6 text-center space-y-4">
           <div className="w-14 h-14 rounded-full bg-green-500/10 border border-green-500/25 flex items-center justify-center mx-auto text-green-500 shadow-[0_0_20px_rgba(34,197,94,0.1)] mb-2">
@@ -571,7 +558,7 @@ export default function RideFlowPage() {
             </span>
           </div>
 
-          {/* Star selector */}
+          {}
           <div className="py-1">
             <span className="text-xs text-[var(--rx-text-2)] block mb-2 font-medium">
               Rate your driver partner

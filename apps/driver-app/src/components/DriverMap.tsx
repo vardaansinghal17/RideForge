@@ -12,29 +12,21 @@ L.Icon.Default.mergeOptions({ iconRetinaUrl: markerIcon2x, iconUrl: markerIcon, 
 interface LatLng { lat: number; lng: number; }
 
 interface DriverMapProps {
-  /** Driver's current GPS position — animates smoothly on every update */
+
   driverLocation: LatLng | null;
-  /** Pickup point (shown as green pulsing circle) */
+
   pickup: LatLng | null;
-  /** Drop point (shown as dark square) */
+
   drop: LatLng | null;
-  /**
-   * Which route to show:
-   *  - 'to_pickup'  → draws route from driver → pickup  (ACCEPTED phase)
-   *  - 'to_drop'    → draws route from pickup → drop    (IN_PROGRESS phase)
-   */
+
   routeMode: 'to_pickup' | 'to_drop';
 }
 
-// Free OSRM routing (no key needed)
 const osrmUrl = (aLng: number, aLat: number, bLng: number, bLat: number) =>
   `https://router.project-osrm.org/route/v1/driving/${aLng},${aLat};${bLng},${bLat}?overview=full&geometries=geojson`;
 
-// Tile layer
-const TILE_URL = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
-
-// ── Marker HTML factories ─────────────────────────────────────────────────────
+const TILE_URL = 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png';
+const TILE_ATTR = '&copy; <a href="https://www.stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
 function driverMarkerHtml() {
   return `
@@ -78,7 +70,6 @@ function dropMarkerHtml() {
   "></div>`;
 }
 
-// CSS animations injected once
 function injectStyles() {
   if (document.getElementById('driver-map-styles')) return;
   const s = document.createElement('style');
@@ -98,8 +89,6 @@ function injectStyles() {
   document.head.appendChild(s);
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
-
 export const DriverMap: React.FC<DriverMapProps> = ({
   driverLocation,
   pickup,
@@ -113,7 +102,6 @@ export const DriverMap: React.FC<DriverMapProps> = ({
   const dropMarkerRef   = useRef<L.Marker | null>(null);
   const routeGroupRef   = useRef<L.LayerGroup | null>(null);
 
-  // ── Init map once ──────────────────────────────────────────────────────────
   useEffect(() => {
     injectStyles();
     if (!containerRef.current || mapRef.current) return;
@@ -125,9 +113,8 @@ export const DriverMap: React.FC<DriverMapProps> = ({
       attributionControl: false,
     });
 
-    L.tileLayer(TILE_URL, { attribution: TILE_ATTR, subdomains: 'abcd', maxZoom: 20 }).addTo(map);
+    L.tileLayer(TILE_URL, { attribution: TILE_ATTR, maxZoom: 20 }).addTo(map);
 
-    // Minimal attribution bottom-right
     L.control.attribution({ prefix: false, position: 'bottomright' }).addTo(map);
 
     mapRef.current = map;
@@ -138,7 +125,6 @@ export const DriverMap: React.FC<DriverMapProps> = ({
     };
   }, []);
 
-  // ── Driver marker — smooth pan on every position update ───────────────────
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !driverLocation) return;
@@ -147,15 +133,13 @@ export const DriverMap: React.FC<DriverMapProps> = ({
       const icon = L.divIcon({ html: driverMarkerHtml(), className: '', iconSize: [44, 44], iconAnchor: [22, 22] });
       driverMarkerRef.current = L.marker([driverLocation.lat, driverLocation.lng], { icon, zIndexOffset: 1000 }).addTo(map);
     } else {
-      // Smooth slide to new position
+
       driverMarkerRef.current.setLatLng([driverLocation.lat, driverLocation.lng]);
     }
 
-    // Keep driver in view
     map.panTo([driverLocation.lat, driverLocation.lng], { animate: true, duration: 0.8, easeLinearity: 0.5 });
   }, [driverLocation]);
 
-  // ── Pickup marker ─────────────────────────────────────────────────────────
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -169,7 +153,6 @@ export const DriverMap: React.FC<DriverMapProps> = ({
     }
   }, [pickup]);
 
-  // ── Drop marker ───────────────────────────────────────────────────────────
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -183,7 +166,6 @@ export const DriverMap: React.FC<DriverMapProps> = ({
     }
   }, [drop]);
 
-  // ── Route polyline (OSRM) — redraws when mode or points change ────────────
   useEffect(() => {
     let active = true;
     const map = mapRef.current;
@@ -219,12 +201,12 @@ export const DriverMap: React.FC<DriverMapProps> = ({
           padding: [80, 80], animate: true, duration: 1.2,
         });
       } catch (e) {
-        console.error('[DriverMap] route error', e);
+ console.error('[DriverMap] route error', e);
       }
     })();
 
     return () => { active = false; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [routeMode, pickup?.lat, pickup?.lng, drop?.lat, drop?.lng, driverLocation?.lat, driverLocation?.lng]);
 
   return (

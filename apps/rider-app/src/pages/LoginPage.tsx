@@ -13,13 +13,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
 
-  // Clear store errors on mount
   useEffect(() => {
     clearError();
     setValidationError(null);
   }, [clearError]);
 
-  // Redirect if already logged in
   useEffect(() => {
     if (accessToken) {
       navigate('/');
@@ -31,7 +29,6 @@ export default function LoginPage() {
     clearError();
     setValidationError(null);
 
-    // Simple validation for 10 digit phone number
     if (!/^[6-9]\d{9}$/.test(phone)) {
       setValidationError('Please enter a valid 10-digit Indian phone number starting with 6-9');
       return;
@@ -46,7 +43,7 @@ export default function LoginPage() {
       await login(phone, password);
       navigate('/');
     } catch (err) {
-      // Handled by store error
+
     }
   };
 
@@ -57,12 +54,12 @@ export default function LoginPage() {
         background: 'radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%)',
       }}
     >
-      {/* Background visual glows */}
+      {}
       <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#FF5A1F]/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <GlassCard className="w-full max-w-[420px] fade-up p-8 text-center" strong>
-        {/* Brand Logo */}
+        {}
         <div className="mb-8">
           <h1 className="text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-700 select-none">
             RIDEFORGE
@@ -70,7 +67,7 @@ export default function LoginPage() {
           <p className="text-sm text-[var(--rx-text-3)] font-medium mt-1">Rider Portal</p>
         </div>
 
-        {/* Forms */}
+        {}
         <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             id="phone"
@@ -124,7 +121,7 @@ export default function LoginPage() {
             }
           />
 
-          {/* Validation or API errors */}
+          {}
           {(validationError || error) && (
             <div className="bg-[var(--rx-red-dim)] border border-[rgba(239,68,68,0.2)] rounded-lg p-3.5 text-left flex items-start space-x-2.5">
               <svg

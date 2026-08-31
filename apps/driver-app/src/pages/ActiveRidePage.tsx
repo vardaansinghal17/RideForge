@@ -6,6 +6,7 @@ import { GlassCard } from '../components/ui/GlassCard';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { DriverMap } from '../components/DriverMap';
+import { PaymentQRCode } from '../components/PaymentQRCode';
 
 interface LatLng { lat: number; lng: number; }
 
@@ -14,14 +15,14 @@ export default function ActiveRidePage() {
   const { activeRide, updateStatus, sendLocation } = useDriverRideStore();
   const [localActiveRide, setLocalActiveRide] = useState<any>(null);
 
-  // Real driver GPS — updated live by the browser
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
+
   const [driverPos, setDriverPos] = useState<LatLng | null>(null);
 
-  // Timer for ARRIVED / IN_PROGRESS
   const [timerSeconds, setTimerSeconds] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // ── Restore ride from DB if store is empty (e.g. page refresh) ────────────
   useEffect(() => {
     if (activeRide) {
       setLocalActiveRide(activeRide);
@@ -39,12 +40,10 @@ export default function ActiveRidePage() {
     }
   }, [activeRide, navigate]);
 
-  // Keep localActiveRide in sync when store updates status mid-ride
   useEffect(() => {
     if (activeRide) setLocalActiveRide(activeRide);
   }, [activeRide]);
 
-  // ── Real GPS watch + broadcast ─────────────────────────────────────────────
   useEffect(() => {
     if (!localActiveRide) return;
     if (!navigator.geolocation) return;
@@ -55,14 +54,13 @@ export default function ActiveRidePage() {
         setDriverPos({ lat, lng });
         sendLocation(lat, lng, localActiveRide.id);
       },
-      (err) => console.warn('GPS error:', err.message),
+ (err) => console.warn('GPS error:', err.message),
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 4000 }
     );
 
     return () => navigator.geolocation.clearWatch(watchId);
   }, [localActiveRide, sendLocation]);
 
-  // ── Ride duration timer ────────────────────────────────────────────────────
   useEffect(() => {
     const status = localActiveRide?.status;
     if (status === 'ARRIVED' || status === 'IN_PROGRESS') {
@@ -76,14 +74,34 @@ export default function ActiveRidePage() {
     return () => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; } };
   }, [localActiveRide?.status]);
 
-  // ── Actions ────────────────────────────────────────────────────────────────
-  const handleArrived       = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'ARRIVED');    }, [localActiveRide, updateStatus]);
-  const handleStartRide     = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'IN_PROGRESS'); }, [localActiveRide, updateStatus]);
-  const handleCompleteRide  = useCallback(async () => {
+  const handleArrived   = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'ARRIVED');    }, [localActiveRide, updateStatus]);
+  const handleStartRide = useCallback(async () => { if (localActiveRide) await updateStatus(localActiveRide.id, 'IN_PROGRESS'); }, [localActiveRide, updateStatus]);
+
+  const handleOpenPaymentModal = () => {
+    setShowPaymentModal(true);
+  };
+
+  const handleConfirmCompletionAndPayment = async () => {
     if (!localActiveRide) return;
-    await updateStatus(localActiveRide.id, 'COMPLETED');
-    navigate(`/rate-rider/${localActiveRide.id}`);
-  }, [localActiveRide, updateStatus, navigate]);
+    setIsSubmittingPayment(true);
+    try {
+
+      await updateStatus(localActiveRide.id, 'COMPLETED');
+
+      await api.patch(`/payments/ride/${localActiveRide.id}/method`, {
+        method: 'UPI',
+      });
+
+      navigate(`/rate-rider/${localActiveRide.id}`);
+    } catch (err) {
+ console.error('Failed to update payment:', err);
+
+      await updateStatus(localActiveRide.id, 'COMPLETED');
+      navigate(`/rate-rider/${localActiveRide.id}`);
+    } finally {
+      setIsSubmittingPayment(false);
+    }
+  };
 
   const handleCancelRide = useCallback(async () => {
     if (!localActiveRide) return;
@@ -96,7 +114,6 @@ export default function ActiveRidePage() {
   const formatTimer = (s: number) =>
     `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
 
-  // ── Loading ────────────────────────────────────────────────────────────────
   if (!localActiveRide) {
     return (
       <div className="flex-1 flex items-center justify-center">
@@ -111,6 +128,7 @@ export default function ActiveRidePage() {
     pickup_lat, pickup_lng, pickup_address,
     drop_lat,   drop_lng,   drop_address,
     estimated_fare,
+    driver_name,
   } = localActiveRide;
 
   const pickupLatLng: LatLng | null =
@@ -122,7 +140,6 @@ export default function ActiveRidePage() {
   const routeMode: 'to_pickup' | 'to_drop' =
     status === 'IN_PROGRESS' ? 'to_drop' : 'to_pickup';
 
-  // Label helpers
   const statusLabel = {
     ACCEPTED:    { badge: 'warning'  as const, badge_text: '🚗  HEADING TO PICKUP',    title: 'Pick Up Passenger'       },
     ARRIVED:     { badge: 'success'  as const, badge_text: '📍  ARRIVED AT PICKUP',     title: 'Waiting for Passenger'   },
@@ -134,7 +151,7 @@ export default function ActiveRidePage() {
   return (
     <div className="relative w-full" style={{ height: 'calc(100vh - 64px)' }}>
 
-      {/* ── Full-Screen Map ─────────────────────────────────────────────────── */}
+      {}
       <div className="absolute inset-0 z-0">
         <DriverMap
           driverLocation={driverPos}
@@ -144,7 +161,7 @@ export default function ActiveRidePage() {
         />
       </div>
 
-      {/* ── Top HUD ─────────────────────────────────────────────────────────── */}
+      {}
       <div className="absolute top-0 left-0 right-0 z-10 p-4 pointer-events-none">
         <div className="max-w-md mx-auto">
           <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl shadow-slate-200/80 border border-slate-200/60 px-5 py-4 flex items-center justify-between pointer-events-auto">
@@ -163,7 +180,7 @@ export default function ActiveRidePage() {
               </div>
             )}
 
-            {/* GPS dot */}
+            {}
             {driverPos && (
               <div className="ml-3 flex-shrink-0">
                 <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" title="GPS active" />
@@ -173,7 +190,7 @@ export default function ActiveRidePage() {
         </div>
       </div>
 
-      {/* ── Legend pill (route colour explanation) ──────────────────────────── */}
+      {}
       <div className="absolute top-[100px] left-1/2 -translate-x-1/2 z-10 pointer-events-none">
         <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg ${
           routeMode === 'to_pickup' ? 'bg-emerald-500' : 'bg-[#FF5A1F]'
@@ -183,11 +200,11 @@ export default function ActiveRidePage() {
         </div>
       </div>
 
-      {/* ── Bottom Panel ────────────────────────────────────────────────────── */}
+      {}
       <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-6 pointer-events-none">
         <div className="max-w-md mx-auto space-y-3 pointer-events-auto">
 
-          {/* Rider info card */}
+          {}
           <GlassCard className="bg-white/95 backdrop-blur-md border border-slate-200/60 shadow-2xl shadow-slate-200/80 rounded-2xl p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -218,7 +235,7 @@ export default function ActiveRidePage() {
               </div>
             </div>
 
-            {/* Address pills */}
+            {}
             <div className="mt-3 space-y-2">
               <div className="flex items-start gap-2 text-xs">
                 <span className="mt-0.5 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
@@ -235,7 +252,7 @@ export default function ActiveRidePage() {
             </div>
           </GlassCard>
 
-          {/* Action buttons */}
+          {}
           <div className="space-y-2">
             {status === 'ACCEPTED' && (
               <Button variant="primary" size="lg" fullWidth onClick={handleArrived}
@@ -250,7 +267,7 @@ export default function ActiveRidePage() {
               </Button>
             )}
             {status === 'IN_PROGRESS' && (
-              <Button variant="primary" size="lg" fullWidth onClick={handleCompleteRide}
+              <Button variant="primary" size="lg" fullWidth onClick={handleOpenPaymentModal}
                 className="h-12 rounded-xl shadow-lg shadow-orange-400/30">
                 ✅  Complete Ride
               </Button>
@@ -264,6 +281,59 @@ export default function ActiveRidePage() {
           </div>
         </div>
       </div>
+
+      {}
+      {showPaymentModal && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl space-y-5 border border-slate-100 max-h-[90vh] overflow-y-auto">
+
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-lg font-extrabold text-slate-900">Rider UPI Payment</h3>
+                <p className="text-xs text-slate-500">Show this QR code to the rider for UPI payment</p>
+              </div>
+              <button
+                onClick={() => setShowPaymentModal(false)}
+                className="p-1 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            {}
+            <div className="bg-slate-50 rounded-2xl p-4 flex items-center justify-between border border-slate-100">
+              <span className="text-sm font-semibold text-slate-600">Total Ride Fare</span>
+              <span className="text-2xl font-black text-[#FF5A1F]">₹{Number(estimated_fare).toFixed(2)}</span>
+            </div>
+
+            {}
+            <div className="pt-1">
+              <PaymentQRCode
+                amount={Number(estimated_fare)}
+                driverName={driver_name || 'RideForge Driver'}
+                rideId={localActiveRide.id}
+              />
+            </div>
+
+            {}
+            <div className="pt-2">
+              <Button
+                variant="primary"
+                size="lg"
+                fullWidth
+                disabled={isSubmittingPayment}
+                onClick={handleConfirmCompletionAndPayment}
+                className="h-12 rounded-xl text-base shadow-lg shadow-orange-400/30"
+              >
+                {isSubmittingPayment
+                  ? 'Processing...'
+                  : `Confirm UPI Payment Received & Complete`}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+

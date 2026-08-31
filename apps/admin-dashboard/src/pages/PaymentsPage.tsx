@@ -125,7 +125,7 @@ export default function PaymentsPage() {
         </div>
       </div>
 
-      {/* Tabs */}
+      {}
       <div className="flex bg-white border border-[var(--rx-border)] rounded-xl p-1 gap-0.5 self-start w-fit">
         {statuses.map((s) => (
           <button

@@ -28,7 +28,7 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6 fade-up">
-      {/* Header */}
+      {}
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-2xl font-black text-[var(--rx-text)]">Financial Analytics</h2>
@@ -37,7 +37,7 @@ export default function AnalyticsPage() {
           </p>
         </div>
 
-        {/* Interval Selector */}
+        {}
         <div className="flex bg-white border border-[var(--rx-border)] rounded-xl p-1 gap-0.5">
           {intervals.map((i) => (
             <button
@@ -55,7 +55,7 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* Overview Cards */}
+      {}
       <div className="grid grid-cols-4 gap-4">
         <StatCard
           title="Revenue (Period)"
@@ -87,7 +87,7 @@ export default function AnalyticsPage() {
         />
       </div>
 
-      {/* Main Graph Card */}
+      {}
       <div className="glass-card p-5">
         <h3 className="font-bold text-[var(--rx-text)]">Revenue and Rides Area Chart</h3>
         <p className="text-xs text-[var(--rx-text-3)] mb-5">Showing details per {interval} increment</p>

@@ -13,7 +13,7 @@ function processQueue(error: unknown, token: string | null) {
 }
 
 export const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1',
   timeout: 10000,
 });
 
@@ -23,7 +23,7 @@ api.interceptors.request.use((config) => {
     const state = raw ? JSON.parse(raw) : null;
     const token = state?.state?.accessToken;
     if (token) config.headers.Authorization = `Bearer ${token}`;
-  } catch { /* ignore */ }
+  } catch {  }
   return config;
 });
 

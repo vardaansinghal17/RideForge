@@ -26,9 +26,9 @@ router.get(
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const page   = Number(req.query.page)  || 1;
-      const limit  = Number(req.query.limit) || 20;
-      const role   = req.query.role   as string | undefined;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 20;
+      const role = req.query.role as string | undefined;
       const search = req.query.search as string | undefined;
       const result = await adminService.getUsers(page, limit, role, search);
       res.json({ success: true, data: result });
@@ -45,8 +45,8 @@ router.get(
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const page     = Number(req.query.page)  || 1;
-      const limit    = Number(req.query.limit) || 20;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 20;
       const approved = req.query.approved !== undefined
         ? req.query.approved === 'true'
         : undefined;
@@ -67,7 +67,6 @@ router.patch(
       const result = await adminService.updateDriverApproval(
         req.params.driverId, req.body.isApproved
       );
-      // Notify admin dashboard of driver approval change
       try {
         const { io } = await import('../../index');
         io.to('admin:live').emit('admin:driver_update', {
@@ -77,7 +76,6 @@ router.patch(
         });
         io.to('admin:live').emit('admin:stats_update');
       } catch (err) {
-        // Safe catch if io is not initialized
       }
       res.json({ success: true, data: result });
     } catch (err) { next(err); }
@@ -90,13 +88,13 @@ router.get(
     queryValidator('page').optional().isInt({ min: 1 }).toInt(),
     queryValidator('limit').optional().isInt({ min: 1, max: 100 }).toInt(),
     queryValidator('status').optional().isIn([
-      'REQUESTED','ACCEPTED','ARRIVED','IN_PROGRESS','COMPLETED','CANCELLED',
+      'REQUESTED', 'ACCEPTED', 'ARRIVED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED',
     ]),
   ]),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const page   = Number(req.query.page)  || 1;
-      const limit  = Number(req.query.limit) || 20;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 20;
       const status = req.query.status as string | undefined;
       const result = await adminService.getRides(page, limit, status);
       res.json({ success: true, data: result });
@@ -137,8 +135,8 @@ router.get(
     try {
       const { PaymentsService } = await import('../payments/payments.service');
       const paymentsService = new PaymentsService();
-      const page   = Number(req.query.page)  || 1;
-      const limit  = Number(req.query.limit) || 20;
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 20;
       const status = req.query.status as string | undefined;
       const result = await paymentsService.getAllPayments(page, limit, status);
       res.json({ success: true, data: result });
