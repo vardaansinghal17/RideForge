@@ -183,7 +183,7 @@ export class DriversService {
 
     const intervalMap = {
       today: "DATE_TRUNC('day', NOW())",
-      week:  "DATE_TRUNC('week', NOW())",
+      week: "DATE_TRUNC('week', NOW())",
       month: "DATE_TRUNC('month', NOW())",
     };
 

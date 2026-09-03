@@ -42,7 +42,7 @@ export const useRideStore = create<RideStore>((set, get) => ({
       { auth: { token } }
     );
 
- socket.on('connect', () => console.log('Connected to ride server'));
+    socket.on('connect', () => console.log('Connected to ride server'));
 
     socket.on('ride:created', (ride) => {
       set({ ride, isRequesting: true, errorMessage: null });

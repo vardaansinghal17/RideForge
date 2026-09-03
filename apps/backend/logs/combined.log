@@ -822,3 +822,70 @@
 [2026-08-31 22:32:34] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
 [2026-08-31 22:32:34] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
 [2026-08-31 22:32:34] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-08-31 22:36:39] [32minfo[39m: Server running on http://localhost:4000
+[2026-08-31 22:36:39] [32minfo[39m:  Environment: development
+[2026-08-31 23:00:36] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-31 23:04:45] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-31 23:09:00] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-08-31 23:09:00] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-08-31 23:09:00] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-31 23:13:12] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-08-31 23:13:12] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-08-31 23:19:12] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-08-31 23:57:29] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-08-31 23:58:34] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-09-01 00:22:33] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 00:22:33] [32minfo[39m:  Environment: development
+[2026-09-01 00:27:07] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 00:27:07] [32minfo[39m:  Environment: development
+[2026-09-01 00:28:29] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 00:28:29] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 00:28:37] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 00:28:42] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-09-01 00:28:42] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-09-01 00:28:54] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-01 00:28:54] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 00:29:02] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-01 00:29:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 00:30:43] [32minfo[39m: Found 1 drivers within 10km search radius
+[2026-09-01 00:30:43] [32minfo[39m: Offered ride 226ffcfa-a024-4754-bc3e-bd1aa48fa3fc to driver 4528caa0-6247-41b6-9f3d-6f786b0b57d3 in room driver:4528caa0-6247-41b6-9f3d-6f786b0b57d3 (sockets: 1)
+[2026-09-01 00:30:48] [32minfo[39m: Ride 226ffcfa-a024-4754-bc3e-bd1aa48fa3fc accepted by driver e652b06d-e3b2-46be-a723-48f6a338af04
+[2026-09-01 00:39:40] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-09-01 00:39:40] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-09-01 00:52:27] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-01 00:52:27] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-01 00:52:31] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-09-01 00:52:31] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-09-01 00:56:42] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-09-01 23:08:15] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:08:15] [32minfo[39m:  Environment: development
+[2026-09-01 23:24:51] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-09-01 23:24:51] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-09-01 23:33:20] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:33:20] [32minfo[39m:  Environment: development
+[2026-09-01 23:33:21] [32minfo[39m: Socket connected: 3448890c-6a3c-4903-bb30-2e2de71132ee (ADMIN)
+[2026-09-01 23:33:21] [32minfo[39m: Admin 3448890c-6a3c-4903-bb30-2e2de71132ee joined admin:live room
+[2026-09-01 23:35:51] [32minfo[39m: Socket disconnected: 3448890c-6a3c-4903-bb30-2e2de71132ee
+[2026-09-01 23:39:21] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:39:21] [32minfo[39m:  Environment: development
+[2026-09-01 23:42:05] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 23:42:18] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:42:18] [32minfo[39m:  Environment: development
+[2026-09-01 23:42:18] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 23:42:40] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:42:40] [32minfo[39m:  Environment: development
+[2026-09-01 23:42:40] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 23:44:39] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-09-01 23:44:39] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 23:45:25] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-01 23:45:25] [32minfo[39m:  Environment: development
+[2026-09-01 23:45:25] [32minfo[39m: Socket connected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3 (DRIVER)
+[2026-09-01 23:46:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 23:46:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 23:46:02] [32minfo[39m: Socket connected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7 (RIDER)
+[2026-09-01 23:55:37] [32minfo[39m: Socket disconnected: 4528caa0-6247-41b6-9f3d-6f786b0b57d3
+[2026-09-02 00:43:47] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-02 00:43:47] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-02 00:43:47] [32minfo[39m: Socket disconnected: bbae5ac9-bc03-4a9e-b30d-8a1c7bc0c5c7
+[2026-09-02 02:09:33] [32minfo[39m: Server running on http://localhost:4000
+[2026-09-02 02:09:33] [32minfo[39m:  Environment: development

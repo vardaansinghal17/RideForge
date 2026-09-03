@@ -60,7 +60,7 @@ export default function FareEstimatePage() {
         });
         return res.data.data;
       } catch (err) {
- console.error('Failed to fetch estimate, using fallback values', err);
+        console.error('Failed to fetch estimate, using fallback values', err);
         return { fare: 62, surgeMultiplier: 1.0 };
       }
     },
@@ -131,12 +131,12 @@ export default function FareEstimatePage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      {}
+      { }
       <div className="absolute inset-0 w-full h-full z-0">
         <MapView pickup={pickup} drop={drop} />
       </div>
 
-      {}
+      { }
       <div className="absolute top-4 left-4 z-20">
         <button
           onClick={() => navigate('/ride')}
@@ -156,19 +156,19 @@ export default function FareEstimatePage() {
         </button>
       </div>
 
-      {}
+      { }
       <div className="absolute inset-0 z-10 overflow-y-auto no-scrollbar pb-[220px] pointer-events-none">
 
-        {}
+        { }
         <div className="h-[240px] sm:h-[280px] w-full pointer-events-none" />
 
-        {}
+        { }
         <div className="pointer-events-auto px-4 py-4 max-w-md mx-auto w-full flex flex-col gap-4 bg-transparent">
 
-          {}
+          { }
           <div className="bg-white/95 backdrop-blur-md border border-gray-150/50 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-4 flex items-center justify-between w-full">
             <div className="flex-1 min-w-0 flex flex-col gap-3">
-              {}
+              { }
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-[var(--rx-green)] shrink-0" />
                 <span className="text-xs font-semibold text-[var(--rx-text)] truncate">{pickup.address}</span>
@@ -176,20 +176,20 @@ export default function FareEstimatePage() {
 
               <div className="h-[1px] bg-gray-150/50 ml-5" />
 
-              {}
+              { }
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-sm bg-black shrink-0" />
                 <span className="text-xs font-semibold text-[var(--rx-text)] truncate">{drop.address}</span>
               </div>
             </div>
 
-            {}
+            { }
             <span className="ml-3 shrink-0 bg-gray-150/30 text-[var(--rx-text-2)] text-[10px] font-bold px-2.5 py-1 rounded-md border border-gray-250/20">
               {distanceKm} km
             </span>
           </div>
 
-          {}
+          { }
           <div className="w-full">
             <h3 className="text-left text-[11px] font-extrabold uppercase tracking-wider text-[var(--rx-text-3)] mb-3 bg-white/40 px-2 py-0.5 rounded-full w-max backdrop-blur-sm">
               Available Rides
@@ -232,12 +232,12 @@ export default function FareEstimatePage() {
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {}
+                      { }
                       <div className="w-11 h-11 rounded-lg bg-gray-50 flex items-center justify-center text-xl shrink-0">
                         {type.emoji}
                       </div>
 
-                      {}
+                      { }
                       <div className="flex-1 min-w-0 text-left">
                         <h4 className="text-sm font-bold text-[var(--rx-text)] leading-tight">
                           {type.name}
@@ -249,7 +249,7 @@ export default function FareEstimatePage() {
                         </div>
                       </div>
 
-                      {}
+                      { }
                       <div className="text-right shrink-0 flex flex-col items-end gap-0.5">
                         <span className="text-base font-extrabold text-[var(--rx-text)]">₹{fare}</span>
                         {surgeMultiplier > 1 && (
@@ -265,7 +265,7 @@ export default function FareEstimatePage() {
             )}
           </div>
 
-          {}
+          { }
           {!isLoading && !isError && apiData && (
             <div className="bg-white/95 backdrop-blur-md border border-gray-150/50 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-4 w-full">
               <div
@@ -286,9 +286,8 @@ export default function FareEstimatePage() {
                     viewBox="0 0 24 24"
                     strokeWidth={2.5}
                     stroke="currentColor"
-                    className={`w-3.5 h-3.5 text-[var(--rx-text-2)] transition-transform duration-200 ${
-                      showBreakdown ? 'rotate-180' : ''
-                    }`}
+                    className={`w-3.5 h-3.5 text-[var(--rx-text-2)] transition-transform duration-200 ${showBreakdown ? 'rotate-180' : ''
+                      }`}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                   </svg>
@@ -332,9 +331,9 @@ export default function FareEstimatePage() {
         </div>
       </div>
 
-      {}
+      { }
       <div className="fixed bottom-0 left-0 right-0 p-4 z-20 bg-white/95 backdrop-blur-md border-t border-gray-150/50 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)] max-w-md mx-auto flex flex-col gap-3">
-        {}
+        { }
         <motion.button
           onClick={handleBookRide}
           disabled={isLoading || isError}

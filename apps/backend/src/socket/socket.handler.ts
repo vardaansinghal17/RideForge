@@ -20,7 +20,7 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
 
   io.on('connection', async (socket) => {
     const authSocket = socket as AuthenticatedSocket;
- logger.info(`Socket connected: ${authSocket.userId} (${authSocket.userRole})`);
+    logger.info(`Socket connected: ${authSocket.userId} (${authSocket.userRole})`);
 
     if (authSocket.userRole === 'DRIVER') {
       authSocket.join(rooms.driverPersonal(authSocket.userId));
@@ -31,7 +31,7 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
 
     if (authSocket.userRole === 'ADMIN') {
       authSocket.join(rooms.adminLive());
- logger.info(`Admin ${authSocket.userId} joined admin:live room`);
+      logger.info(`Admin ${authSocket.userId} joined admin:live room`);
     }
 
     try {
@@ -46,7 +46,7 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (activeRide) {
           authSocket.join(rooms.ridePersonal(activeRide.id));
- logger.info(`Rider ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+          logger.info(`Rider ${authSocket.userId} rejoined ride room ${activeRide.id}`);
         }
       }
 
@@ -61,11 +61,11 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         );
         if (activeRide) {
           authSocket.join(rooms.ridePersonal(activeRide.id));
- logger.info(`Driver ${authSocket.userId} rejoined ride room ${activeRide.id}`);
+          logger.info(`Driver ${authSocket.userId} rejoined ride room ${activeRide.id}`);
         }
       }
     } catch (err: any) {
- logger.error('Room rejoin on reconnect failed', { error: err.message });
+      logger.error('Room rejoin on reconnect failed', { error: err.message });
     }
 
     authSocket.on('ride:request', async (data) => {
@@ -130,9 +130,9 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           candidateQueue,
         });
 
-        offerRideToNextDriver(io, ride.id);
+        setTimeout(() => offerRideToNextDriver(io, ride.id), 300);
       } catch (err: any) {
- logger.error('ride:request failed', { error: err.message });
+        logger.error('ride:request failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to create ride request' });
       }
     });
@@ -183,16 +183,16 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         });
         io.to(rooms.adminLive()).emit('admin:stats_update');
 
- logger.info(`Ride ${rideId} accepted by driver ${driver.id}`);
+        logger.info(`Ride ${rideId} accepted by driver ${driver.id}`);
       } catch (err: any) {
- logger.error('ride:accept failed', { error: err.message });
+        logger.error('ride:accept failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to accept ride' });
       }
     });
 
     authSocket.on('ride:reject', async ({ rideId }) => {
       if (authSocket.userRole !== 'DRIVER') return;
- logger.info(`Driver ${authSocket.userId} rejected ride ${rideId}`);
+      logger.info(`Driver ${authSocket.userId} rejected ride ${rideId}`);
       tryNextDriver(io, rideId);
     });
 
@@ -244,9 +244,9 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           io.in(rooms.ridePersonal(rideId)).socketsLeave(rooms.ridePersonal(rideId));
         }
 
- logger.info(`Ride ${rideId} status → ${status}`);
+        logger.info(`Ride ${rideId} status → ${status}`);
       } catch (err: any) {
- logger.error('ride:status failed', { error: err.message });
+        logger.error('ride:status failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to update ride status' });
       }
     });
@@ -283,9 +283,9 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
         });
         io.to(rooms.adminLive()).emit('admin:stats_update');
 
- logger.info(`Ride ${rideId} cancelled`);
+        logger.info(`Ride ${rideId} cancelled`);
       } catch (err: any) {
- logger.error('ride:cancel failed', { error: err.message });
+        logger.error('ride:cancel failed', { error: err.message });
         authSocket.emit('error', { message: 'Failed to cancel ride' });
       }
     });
@@ -300,17 +300,17 @@ export function setupSocket(io: Server<ClientToServerEvents, ServerToClientEvent
           authSocket.to(rooms.ridePersonal(rideId)).emit('driver:moved', { lat, lng });
         }
       } catch (err: any) {
- logger.error('driver:location failed', { error: err.message });
+        logger.error('driver:location failed', { error: err.message });
       }
     });
 
     authSocket.on('disconnect', () => {
- logger.info(`Socket disconnected: ${authSocket.userId}`);
+      logger.info(`Socket disconnected: ${authSocket.userId}`);
     });
   });
 }
 
-function offerRideToNextDriver(
+async function offerRideToNextDriver(
   io: Server<ClientToServerEvents, ServerToClientEvents>,
   rideId: string
 ) {
@@ -326,7 +326,7 @@ function offerRideToNextDriver(
 
   rideRequestTracker.markOffered(rideId, driverUserId);
 
-  getOne<any>(
+  const ride = await getOne<any>(
     `SELECT r.*,
             ru.name AS rider_name, ru.phone AS rider_phone,
             ri.rating AS rider_rating
@@ -335,28 +335,45 @@ function offerRideToNextDriver(
      JOIN users ru ON ru.id = ri.user_id
      WHERE r.id = $1`,
     [rideId]
-  ).then(ride => {
-    if (!ride) return;
+  );
 
-    const payload = {
-      ...ride,
-      rider: {
-        name:   ride.rider_name,
-        phone:  ride.rider_phone,
-        rating: Number(ride.rider_rating),
-      },
-    };
+  if (!ride) {
+    handleNoDriverFound(io, rideId);
+    return;
+  }
 
-    const roomName = rooms.driverPersonal(driverUserId);
+  const payload = {
+    ...ride,
+    rider: {
+      name: ride.rider_name,
+      phone: ride.rider_phone,
+      rating: Number(ride.rider_rating),
+    },
+  };
+
+  const roomName = rooms.driverPersonal(driverUserId);
+
+  const emitWithRetry = (attemptsLeft: number) => {
     const socketsInRoom = io.sockets.adapter.rooms.get(roomName);
     const count = socketsInRoom ? socketsInRoom.size : 0;
 
-    io.to(roomName).emit('ride:incoming', payload as any);
- logger.info(`Offered ride ${rideId} to driver ${driverUserId} in room ${roomName} (Sockets active: ${count})`);
-  });
+    if (count > 0) {
+      io.to(roomName).emit('ride:incoming', payload as any);
+      logger.info(`Offered ride ${rideId} to driver ${driverUserId} in room ${roomName} (sockets: ${count})`);
+    } else if (attemptsLeft > 0) {
+      logger.info(`Driver ${driverUserId} room empty, retrying in 500ms (attempts left: ${attemptsLeft})`);
+      setTimeout(() => emitWithRetry(attemptsLeft - 1), 500);
+    } else {
+      logger.warn(`Driver ${driverUserId} never connected for ride ${rideId}, skipping to next`);
+      tryNextDriver(io, rideId);
+      return;
+    }
+  };
+
+  emitWithRetry(3);
 
   const timeoutHandle = setTimeout(() => {
- logger.info(`Driver ${driverUserId} timed out on ride ${rideId}`);
+    logger.info(`Driver ${driverUserId} timed out on ride ${rideId}`);
     tryNextDriver(io, rideId);
   }, DRIVER_OFFER_TIMEOUT_MS);
 
@@ -395,5 +412,5 @@ async function handleNoDriverFound(
   );
 
   io.to(rooms.ridePersonal(rideId)).emit('ride:no_driver');
- logger.info(`No driver found for ride ${rideId} after exhausting queue`);
+  logger.info(`No driver found for ride ${rideId} after exhausting queue`);
 }
